@@ -109,7 +109,8 @@ Function PostIssueWithFile(FromAddr, Subject, Body, AttachFile)
         .From = FromAddr
         .Subject = Subject
         .TextBody = Body
-        .TextBodyPart.Charset = "utf-7"
+        .TextBodyPart.Charset = "utf-8"
+        .TextBodyPart.ContentTransferEncoding = "base64"
         If Trim(AttachFile) <> "" Then
             .AddAttachment AttachFile
         End If
