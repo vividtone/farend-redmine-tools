@@ -1,0 +1,57 @@
+h1. LDAP Authentication
+
+Redmine natively supports LDAP authentication using one or multiple LDAP directories.
+
+h2. Declaring the LDAP
+
+Go to Administration -> Settings -> Authentication and click *LDAP authentication*, on the bottom right of the screen.
+
+
+Enter the following:
+
+* *Name*: an arbitrary name for the directory
+* *Host*: the LDAP host name
+* *Port*: the LDAP port (default is 389)
+* *LDAPS*: check this if you want or need to use LDAPS to access the directory
+* *Account*: leave this field empty if your LDAP can be read anonymously, otherwise enter a username that has read access to the LDAP
+* *Password*: password for the account
+* *Base DN*: the top level DN of your LDAP directory tree
+* *Login attribute*: enter the name of the LDAP attribute that will be used as the Redmine username
+
+Redmine users should now be able to authenticate using their LDAP username and password if their accounts are set to use the LDAP for authentication.
+
+To test this, create a Redmine user with a login that matches his LDAP account, select the newly created LDAP in the *Authentication mode* drop-down list (this field is visible on the account screen only if a LDAP is declared) and leave his password empty. Try to log in into Redmine using the LDAP username and password.
+
+h2. On the fly user creation
+
+By checking *on-the-fly user creation*, any LDAP user will have his Redmine account automatically created the first time he logs into Redmine.
+For that, you have to specify the LDAP attributes name (firstname, lastname, email) that will be used to create their Redmine accounts.
+
+Here is an typical example using Active Directory:
+
+<pre>
+Name     = My Directory
+Host     = host.domain.org
+Port     = 389
+LDAPS    = no
+Account  = MyDomain\UserName
+Password = <password>
+Base DN  = CN=users,DC=host,DC=domain,DC=org
+
+On-the-fly user creation = yes
+Attributes
+  Login     = sAMAccountName
+  Firstname = givenName
+  Lastname  = sN
+  Email     = mail
+</pre>
+
+Note that LDAP attribute names are *case sensitive*.
+
+h2. Troubleshooting
+
+If you want to use on-the-fly user creation, make sure that Redmine can fetch from your LDAP all the required information to create a valid user.
+For example, on-the-fly user creation won't work if you don't have valid email adresses in your directory (you will get an 'Invalid username/password' error message when trying to log in).
+
+Also, make sure you don't have any custom field marked as *required* for user accounts. These custom fields would prevent user accounts from being created on the fly.
+

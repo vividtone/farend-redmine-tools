@@ -1,0 +1,40 @@
+h1. Configuration d'un projet
+
+h2. Propriétés
+
+* *Public*: si coché, le projet peut être consulté par tous les utilisateurs, y compris ceux qui ne sont pas membres du projet. Si décoché, seuls les membres du projet y ont accès, en fonction de leur rôle.
+* *Sous-projet de*: vous permet de définir le projet parent. La hiérarchie des projets est limitée à 2 niveaux. Un projet parent ne peut être lui-même sous-projet.
+* *Nom*: nom affiché du projet (doit être unique).
+* *Description*: description apparaîssant dans l'aperçu du projet.
+* *Identifiant*: utilisé en interne par l'application (doit être unique). Une fois le projet créé, cet identifiant ne peut être modifié..
+* *Propriétés personnalisées*: selectionnez les propriétés personnalisées que vous voulez utiliser pour les demandes du projet. Seul l'administateur peut définir de nouvelles propriétés personnalisées.
+
+h2. Modules
+
+Cet écran vous permet de choisir les modules que vous voulez utiliser pour le projet. Lorsqu'un module est désactivé, il peut être réactivé avec toutes ses données.
+
+Vous pouvez par exemple désactiver le module 'suivi des demandes' pour un projet donné. Les demandes existantes ne sont pas supprimées, vous y aurez accès si vous réactivez le module.
+
+h2. Membres
+
+Cet écran vous permet de définir les membres du projet et leurs rôles. Un utilisateur ne peut avoir qu'un seul rôle dans un projet donné (mais des rôles différents dans les autres projets). Le rôle d'un membre définit les permissions qu'il a sur un projet.
+
+h2. Versions
+
+Les versions de projets vous permettent de suivre et planifier les évolutions. Vous pouvez attribuer des demandes à des versions différentes, et visualiser sur la roadmap la liste des demandes assignées à chaque version.
+
+h2. Catégories de demandes
+
+Les catégories de demandes vous permettent d'organiser les demandes. Les catégories peuvent par exemple correspondre à différents composants de votre projet.
+
+h2. Wiki
+
+Chaque projet peut avoir son propre wiki. Pour l'activer, donnez un nom à la page de démarrage et cliquez sur 'Sauvegarder'.
+
+h2. Dépôt
+
+Un dépôt de gestion de configuration logicielle (SCM) peut être associé à chaque projet. Une fois le dépôt configuré, vous pouvez le parcourir et consulter les changements. Les changements apparaîssent également sur la page Activité.
+
+h2. Forums
+
+Chaque projet peut avoir un ou plusieurs forums de discussion.

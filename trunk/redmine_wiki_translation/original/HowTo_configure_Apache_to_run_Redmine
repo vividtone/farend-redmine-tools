@@ -1,0 +1,219 @@
+h1. HowTo configure Apache to run Redmine
+
+{{>toc}}
+
+These notes assume you already have Redmine running via the webrick server and are looking to get Redmine running via your existing Apache installation.   Most of the commands assume you are in the root installation directory of redmine, so be sure to change directory there before starting.
+
+h2. For CentOS 5
+
+h3. Assumptions
+
+* OS is CentOS 5
+* Web server is Apache 2
+** mod_cgi is enabled
+** name based virtual servers are being used
+** the web server runs under the user apache, group apache
+
+h3. Myths
+
+* You do not need to run mod_fcgid
+* You do not need to run mod_fastcgi
+ 
+bq. -This section needs work. I can't tell if these are the myths or the corrections to the myths.
+_(note: if someone were so generous to post working, known good, HOWTO steps here for enabling FastCGI, that would be highly valuable to the entire community.- It is reported that www.redmine.org itself runs FastCGI, so it is obviously a valid, worthwhile, stable, performing way to run this great great web app'.)_
+
+bq. I have added sections detailing the installation and configuration of mod_fastcgi and mod_fcid below. --wmbaum, (2009-08-30)
+
+h3. Basic Steps
+
+* Install Redmine per the installation instructions and get it running with webrick.
+
+* Kill the webrick session
+
+* Copy the public/dispatch.cgi.example to public/dispatch.cgi
+
+* Edit public/dispatch.cgi to fix the shell script invocation to read:
+  @#!/usr/local/bin/ruby@
+
+* Make sure public/dispatch.cgi has execute permissions via:
+  @# chmod 755 public/dispatch.cgi@
+
+* Update the config/environment.rb file to force the rails environment to production, simply uncomment this line at the start of the file:
+  @ENV['RAILS_ENV'] ||= 'production'@
+
+* Add your virtual host entry to the apache configuration file (/etc/httpd/conf/httpd.conf).  We installed redmine into the /live/redmine folder on our server. _Note: be sure to point your DocumentRoot to the public sub-folder!_
+
+<pre>
+    <VirtualHost *:80>
+        ServerName redmine.<YOUR-DOMAIN>.com
+        ServerAdmin webmaster@<YOUR-DOMAIN>.com
+        DocumentRoot /live/redmine/public/
+        ErrorLog logs/redmine_error_log
+
+        <Directory "/live/redmine/public/">
+                Options Indexes ExecCGI FollowSymLinks
+                Order allow,deny
+                Allow from all
+                AllowOverride all
+        </Directory>
+    </VirtualHost>
+</pre>
+
+* Make sure your files, log, tmp, and vendor directories are all accessible (read/write) by user apache, group apache. We did that via a change of ownership:
+  @# chown -R apache:apache files log tmp vendor@
+
+
+h3. Error Messages and Resolutions
+
+  * @Rails requires RubyGems >= 0.9.4. Please install RubyGems@
+    Look for rogue versions of ruby binaries.  We had an older version in /usr/bin/ruby as well as /usr/local/bin/ruby.
+
+  * @Premature script headers@
+    This is the generic "got something before the Content-Type: header in a CGI script" error from Apache.  Run dispatch.cgi (see below) and see what comes out BEFORE the Content-Type: directive.
+
+h3. Helpful Commands
+
+ * @# which ruby@
+   tells you which ruby binary is being run when the fully-qualified-filename has not been specified.
+
+ * @# find / -name ruby@
+   searches your entire system for any file named ruby, warning: can take a while on large filesystems.
+ 
+ * @# ruby -v@
+   tell you what version of ruby you are running by default
+
+ * @#public/dispatch.cgi@
+   runs the dispatch CGI script.   It should spit out HTML that start with @Content-Type: text/html; charset=utf-8@, if ANYTHING precedes the Content-Type text you will get a "premature script headers" error in the Apache log files.
+
+
+h2. mod_fastcgi
+
+I suggest getting redmine running with mod_cgi above, not only to verify your basic redmine and apache configuration, but also so you can appreciate the perfomance gains you'll get from mod_fastcgi or mod_fcid.
+
+We'll start with "mod_fastcgi":http://www.fastcgi.com/.  
+
+Install prerequisites:
+
+<pre>
+yum install libtool httpd-devel apr-devel apr
+</pre>
+
+h3. Download and Install mod_fastcgi
+
+<pre>
+cd /usr/local/src/
+wget http://www.fastcgi.com/dist/mod_fastcgi-current.tar.gz
+
+tar -zxvf mod_fastcgi-current.tar.gz
+cd mod_fastcgi-2.4.6/
+cp Makefile.AP2 Makefile 
+make top_dir=/usr/lib/httpd
+make install top_dir=/usr/lib/httpd
+</pre>
+
+Create or edit @/etc/httpd/conf.d/mod_fastcgi.conf@
+<pre>
+LoadModule fastcgi_module modules/mod_fastcgi.so
+<IfModule mod_fastcgi.c>
+FastCgiIpcDir /tmp/fcgi_ipc/
+</IfModule>
+</pre>
+
+The @/tmp/fcgi_ipc/@ directory needs to be writable to the apache user:
+<pre>
+chown -R apache.apache /tmp/fcgi_ipc/
+chmod -R 777 /tmp/fcgi_ipc/
+</pre>
+
+> Note:  I had to do this more than once.. It created directories which it then didn't own.. ??
+
+h3. Download and install @fcgi@ (for fcgi gem)
+
+<pre>
+wget http://www.fastcgi.com/dist/fcgi-2.4.0.tar.gz
+tar -zxvf fcgi-2.4.0.tar.gz
+cd fcgi-2.4.0
+./configure
+make
+make install
+</pre>
+
+h3. Install fcgi gem:
+
+<pre>
+gem install fcgi
+</pre>
+
+h2. Configuring redmine to use fastcgi:
+
+In your redmine/public/ directory, copy @dispatch.fcgi.example@ to @dispatch.fcgi@
+> Note: Mine was shebanged to "#!/usr/bin/env ruby", which is fine.  I found a reference or two that seemed to indicate the 'env' bit is preferable to calling ruby directly.  If this doesn't work, then you'll need to change it to wherever your ruby is as above.
+
+@./public/.htaccess@
+<pre>
+#<IfModule mod_fastcgi.c>
+#       RewriteRule ^(.*)$ dispatch.fcgi [QSA,L]
+#</IfModule>
+#<IfModule mod_fcgid.c>
+#       RewriteRule ^(.*)$ dispatch.fcgi [QSA,L]
+#</IfModule>
+#<IfModule mod_cgi.c>
+#       RewriteRule ^(.*)$ dispatch.cgi [QSA,L]
+#</IfModule>
+RewriteRule ^(.*)$ dispatch.fcgi [QSA,L]
+</pre>
+
+The default .htaccess will use cgi if it's available, so we need to force fcgi.  You could perhaps rearrange the directives to prefer fcgi -- I just commented out the others and forced it with <code>RewriteRule ^(.*)$ dispatch.fcgi [QSA,L]</code>  You can see which one is actually in use with <code>ps gaux</code>
+
+Give it a whirl:
+<pre>
+/etc/init.d/httpd configtest
+/etc/init.d/httpd restart
+</pre>
+
+h2. Additional Apache Configuration
+
+When I first fired up apache with redmine, apache started very slowly and sucked up a significantly larger chunk of RAM than normal.  Further investigation revealed that it had fired off *8* @ruby .../redmine/public/dispatch.fcgi@ processes! No wonder it was slow. 
+
+I was running redmin under the apache default VirtualHost, and the default StartServers, MinSpareServers, etc. applied.  You can adjust the defaults in @/etc/httpd/conf/httpd.conf@ or even better is to run redmine under a @NameVirtualHost@ or a different @VirtualHost@.  This prevents apache from firing off a bunch of extraneous processes, and @NameVirtualHost@ should allow you to configure multiple redmine environments on the same IP without wasting a bunch of resources.
+
+If you're having issues with apache virtual hosts, this can be very helpful:
+<pre>
+/usr/sbin/httpd -t -D DUMP_VHOSTS
+</pre>
+
+h2. mod_fcgid
+
+"mod_fcgid":http://fastcgi.coremail.cn/ seems newer and preferable to mod_fastcgi.
+
+<pre>
+cd /usr/local/src/
+http://downloads.sourceforge.net/project/mod-fcgid/mod-fcgid/mod_fcgid.2.2.tar.gz/mod_fcgid.2.2.tgz
+</pre>
+
+Edit Makefile
+<pre>
+#top_dir      = /usr/local/apache2
+top_dir      = /usr/lib/httpd
+</pre>
+
+Edit/create @/etc/httpd/conf.d/mod_fcgid.conf@
+<pre>
+LoadModule fcgid_module /usr/lib/httpd/modules/mod_fcgid.so
+
+<IfModule mod_fcgid.c>
+    SocketPath /tmp/fcgid_sock/
+    AddHandler fcgid-script .fcgi
+</IfModule>
+</pre>
+
+Now you should be able to switch between mod_fastcgi and mod_fcgid by renaming one of them to other than *.conf in @/etc/httpd/conf.d/@
+<pre>
+cd /etc/httpd/conf.d/
+mv mod_fastcgi.conf mod_fastcgi.conf.not
+/etc/init.d/httpd restart
+</pre>
+
+h2. Installation Sources
+
+In the above steps, I installed from sources only where I didn't find any RPM's in common repo's.  I'm rather surprised that one can't simply @yum install@ mod_fastcgi, mod_fcgid, fcgi, etc., but there we are.  If you find better methods or sources for any of the above, please feel free to update.

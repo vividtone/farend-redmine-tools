@@ -1,0 +1,125 @@
+h1. Main features
+
+*Multiple projects support*
+
+* Manage all your projects with one Redmine instance
+* Each user can have a different role on each project
+* Each project can be declared as public (visible by anyone) or private (visible by project members only)
+* Modules (eg. wiki, repository, issue tracking, ...) can be enabled/disabled at project level
+
+*Multiple subproject support*
+
+* Manage related project parts as subprojects of a main project.
+
+*Flexible role based access control*
+
+* Define your own roles and set their permissions in a click
+
+p=. !/screenshots/role_permissions_tn.png!:/screenshots/role_permissions.png
+
+*Flexible issue tracking system*
+
+* Define you own statuses and issue types
+* Workflow transitions can be set up for each issue type and role through the web-based administration interface (a default configuration can be loaded when installing the application)
+
+p=. !/screenshots/issue_list_tn.png!:/screenshots/issue_list.png !/screenshots/workflow_tn.png!:/screenshots/workflow.png
+
+*Gantt chart and calendar*
+
+* Automatic gantt and calendar based on issues start and due dates
+
+p=. !/screenshots/gantt_tn.png!:/screenshots/gantt.png
+
+*Time tracking functionality*
+
+* Time can be entered at project or ticket level
+* Simple report to view time per user, issue type, category or activity
+
+p=. !/screenshots/spent_time_tn.png!:/screenshots/spent_time.png
+
+*Custom fields*
+
+* You can define your own custom fields for issues, time-entries, projects and users
+* Differents formats are available: text, date, boolean, integers, drop-down lists and checkboxes
+* Custom fields can be displayed on the issue list and used as filters just like regular fields
+
+*News, documents & files management*
+
+* You can easily post messages and share files
+
+*Per project wiki and forums*
+
+* Wiki uses textile syntax and free linking within the wiki using brackets
+* Diff and annotate views are available
+
+p=. !/screenshots/wiki_edit_tn.png!:/screenshots/wiki_edit.png
+
+*Repository browser and diff viewer*
+
+* Existing repositories can be attached to each of your projects
+* Redmine lets you browse their contents, view and search changesets
+* Diff and annotate (aka blame) viewer
+* Supported SCM: "Subversion":http://subversion.tigris.org/, "CVS":http://www.nongnu.org/cvs/, "Mercurial":http://www.selenic.com/mercurial/, "Darcs":http://darcs.net/, "Bazaar":http://bazaar-vcs.org/ and "Git":http://www.git-scm.org/.
+
+p=.  !/screenshots/scm_annotate_tn.png!:/screenshots/scm_annotate.png !/screenshots/scm_browser_tn.png!:/screenshots/scm_browser.png !/screenshots/scm_diff_tn.png!:/screenshots/scm_diff.png
+
+*Feeds & email notifications*
+
+* Project activity, changesets, news, issues, issue changes are available as Atom feeds
+
+*Multiple LDAP authentication support*
+
+* Redmine lets you authenticate users against multiple LDAP
+* Accounts can be created on-the-fly when a user is found in the directory (optional)
+
+*User self-registration support*
+
+* Optionally, you can allow users to register online
+* 3 account activation methods are available: automatic (no confirmation required), manual (by administrators) or through an auto generated URL sent via email
+
+*Multilanguage support*
+
+Thanks to many contributors, Redmine is yet available in the following thirty-four languages:
+
+* Bosnian
+* Brazilian Portuguese
+* Bulgarian
+* Catalan
+* Chinese
+* Czech
+* Danish
+* Dutch
+* English
+* Finnish
+* French
+* Galician
+* German
+* Hebrew
+* Hungarian
+* Italian
+* Japanese
+* Korean
+* Lithuanian
+* Norwegian
+* Polish
+* Portuguese
+* Romanian
+* Russian
+* Serbian
+* Slovak
+* Slovenian
+* Spanish
+* Swedish
+* Taiwanese
+* Thai
+* Turkish
+* Ukrainian
+* Vietnamese
+
+*Multiple databases support*
+
+* Redmine runs with MySQL, PostgreSQL or SQLite
+
+h1. Feature requests
+
+See the list of "requested features":http://www.redmine.org/projects/redmine/issues?set_filter=1&tracker_id=2.

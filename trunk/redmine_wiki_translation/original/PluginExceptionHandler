@@ -1,0 +1,40 @@
+h1. Exception Handler Plugin
+
+The Redmine Exception Handler plugin will allow Redmine to send emails when an exception or error occurs.
+
+h2. Features
+
+* Allows configuration of recipients, sender address, and subject line without restarting the web server
+* Email contains a stack trace and full environment dump that can be used to reproduce the issue
+* Test controller to test the system settings
+
+h2. Screenshots
+
+!redmine_exception_handler_thumb.png!:/attachments/1165/redmine_exception_handler.png
+
+h2. Getting the plugin
+
+A copy of the plugin can be downloaded from "Little Stream Software":https://projects.littlestreamsoftware.com/projects/list_files/redmine-exception or from "GitHub":http://github.com/edavis10/redmine-exception-handler-plugin/tree/master
+
+h2. Install
+
+# Follow the Redmine plugin installation steps at: http://www.redmine.org/wiki/redmine/Plugins
+# Login to Redmine as an Administrator
+# Setup your mail settings in the Plugin settings panel
+# Test your settings using the "Test settings" link
+
+h2. Usage
+
+# Just break something and you'll get mail.
+
+h2. License
+
+This plugin is licensed under the GNU GPL v2.  See COPYRIGHT.txt and GPL.txt for details.
+
+h2. Help
+
+If you need help you can contact "Eric Davis":http://www.littlestreamsoftware.com or create an issue in the "Bug Tracker":https://projects.littlestreamsoftware.com/projects/show/redmine-exception
+
+h2. News
+
+* "0.1.0 Release Announcement":http://theadmin.org/articles/2008/11/21/redmine-exception-handler-plugin

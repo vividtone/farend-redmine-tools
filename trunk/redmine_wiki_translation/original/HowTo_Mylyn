@@ -1,0 +1,48 @@
+h1. HowTo connect a Mylyn repository to Redmine
+
+"Mylyn":http://www.eclipse.org/mylyn is an Eclipse plugin for task management.
+This HowTo explains how to connect to Redmine using the generic web repository connector.
+
+Note that the generic web repository connector is not part of the default Mylyn install.
+So, you have to install it first from the _incubator_ update site (see http://download.eclipse.org/tools/mylyn/update/incubator).
+
+h2. Create a Task Repository
+
+# Right-click on the task repositories list and click *Add task repository*
+# Choose _Web Template (Advanced)_ and click *Next*
+# Configure the repository:
+
+<pre>
+Server:                 http://www.redmine.org -- Replace it with the URL of your Redmine instance
+Task URL:               ${serverUrl}/issues/show/
+New task URL:           ${serverUrl}/projects/foo/issues/new -- Replace foo with the identifier of the project used for new tasks
+Query request URL:      ${serverUrl}/issues
+Query pattern:          <td class="subject">.*?<a href="/issues/show/(\d+)">(.+?)</a></td>
+Login request URL:      ${serverUrl}/login?username=${userId}&password=${password} [POST]
+</pre>
+
+Example:
+
+p=. !mylyn-repository-properties.png!
+
+You can replace the _Query request URL_ parameter with the following if you want to get only the issues that are assigned to you:
+
+  ${serverUrl}/issues?set_filter=1&assigned_to_id=me
+
+The following Query pattern value reads Status and Tracker fields too (Mylyn 3.2.1) :
+<pre>
+<td class="tracker">({Type}.+?)</td><td class="status">({Status}.+?)</td>.+?<td class="subject"><a href="/issues/({Id}\d+)">({Description}.+?)</a></td>
+</pre>
+
+Status is read as "uncomplete" or "complete" in Eclipse.
+
+h2. Create a Query
+
+* On the task list, right-click and choose *New* -> *Query...*
+* And select your newly created repository
+
+p=. !mylyn-task-list.png!
+
+
+
+"Redmine-Mylyn Connector":http://redmin-mylyncon.wiki.sourceforge.net/Installation is another solution providing better integration with Mylyn

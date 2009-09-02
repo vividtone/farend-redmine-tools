@@ -1,0 +1,29 @@
+h1. HoptoadServer Plugin
+
+This plugin transforms your Redmine into a hub for Rails exception handling, similar to "Hoptoad":http://hoptoadapp.com/welcome or "Exceptional":http://getexceptional.com/ . An issue will be created or updated for every exception which is thrown in your live applications. This plugin acts as a server for the HoptoadNotifier which was written by the guys at Hoptoad.
+
+
+h2. Features
+
+* Creates or updates an issue whenever an exception is thrown in your Rails application
+* Includes backtrace, user session, request and environment
+* Includes a link to the source file and line to see where the exception happened
+* Allows backtrace filtering
+* Adds a custom field to issues to count occurences of this exception (for better prioritizing)
+* Adds a custom field to issues to sort/filter/group exceptions by (ruby) error class
+
+h2. Getting the plugin
+
+Please head over to "GitHub":http://github.com/yeah/redmine_hoptoad_server/tree/master to fetch the latest version.
+
+h2. Install
+
+Installation is described on the "GitHub page":http://github.com/yeah/redmine_hoptoad_server/blob/7b74149299f4bef6ca20948fe8f7acc2c212bc7d/README.rdoc as well.
+
+h2. License
+
+MIT
+
+h2. Author
+
+Jan Schulz-Hofen, "ROCKET RENTALS":http://rocket-rentals.de

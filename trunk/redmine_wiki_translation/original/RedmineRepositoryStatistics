@@ -1,0 +1,14 @@
+h1. Repository Statistics
+
+!>redmine-statistics.jpg!
+
+Redmine generates two SVG images representing the number of _Changes_ and the number of _Revisions_ in the configured repository. One image shows a month to month break down of _Changes_ vs _Revisions_. The other image shows the number of _Changes_ and _Revisions_ made by each commiter.  
+
+h2. Definitions
+
+* _Revisions_ is a count of repository commits and is displayed in redish/orange.
+* _Changes_ is a count of the number of files that have changed overall and is displayed in blue.
+
+h2. Notes
+
+It is known that the SVG images won't render properly using certain browsers and when running Redmine on certain Ruby distribution(s) (versions). See the [[FAQ]]-item [[FAQ#Repository-statistics-doesnt-show-up|FAQ#Repository-statistics-doesnt-show-up]] for a more detailed description of the issue and solutions to solve it.

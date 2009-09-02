@@ -1,0 +1,39 @@
+h1. HowTo keep in sync your git repository for redmine
+
+Here is a HowTo written by Farzy ("Farzad FARID":http://www.pragmatic-source.com/) that explains how to keep two git repositories syncronized
+
+* "Automatic synchronization 2 git repositories [en]":http://www.pragmatic-source.com/en/opensource/tips/automatic-synchronization-2-git-repositories
+* "Synchronisation automatique de deux référentiels git [fr]":http://www.pragmatic-source.com/fr/opensource/tips/synchronisation-automatique-de-deux-referentiels-git
+
+*Summary Of Above Blog Posts*
+
+_In the below example, "git_user" and "project.git" should be modified for your GitHub project_
+<pre>
+git clone --bare git@github.com:git_user/project.git project.git
+cd project.git
+git remote add origin git@github.com:git_user/project.git
+git fetch -v
+git fetch origin
+git reset --soft refs/remotes/origin/master 
+</pre>
+
+_In this cron script, "app" is the owner of the project.git directory_
+<pre>
+sudo vi /etc/cron.d/sync_git_repos
+# One-way synchronization of a local and remote bare Git repository.
+# Repeat this line for each repository.
+*/5 * * * * app cd /path/to/project.git && git fetch origin && git reset --soft refs/remotes/origin/master > /dev/null
+</pre>
+_*/5 in the last line defines the minute at which the synchronization takes place, for example, */2 would cause the sychronization to take place every two minutes. */5 causes the synchronization to take place on minutes divisible by 5 (5, 10, 15, etc.)_
+
+UPDATE: when using sufficiently recent git (>=1.6.0)
+
+<pre>
+git clone --mirror git@github.com:git_user/project.git
+</pre>
+
+then install a crontask
+<pre>
+sudo vi /etc/cron.d/sync_git_repos
+*/5 * * * * app cd /path/to/project.git && git fetch -q
+</pre>

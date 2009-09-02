@@ -1,0 +1,13 @@
+h1. Bots Filter Plugin
+
+h2. Features
+
+Prevent common bots from accessing:
+* alternate format download links (eg. csv, pdf)
+* gantt, calander
+* repository
+* wiki history
+
+h2. Installation
+
+Unzip in your vendor/plugins directory.

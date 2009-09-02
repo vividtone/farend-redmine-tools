@@ -1,0 +1,5 @@
+h1. Login
+
+The *_Sign in_* page is used to login into the project where you have been activated for. The *_Lost password_* link is only displayed if the administrator has activated it.
+
+!redmine-login.jpg!

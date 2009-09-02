@@ -1,0 +1,59 @@
+h1. Customer Plugin
+
+This is a plugin for Redmine that can be used to track basic customer information for each project.  It was created so I could track which project belonged to which customer.
+
+h2. Features
+
+For this first release, I implemented the most basic features.
+
+* Store Customer data
+* Associate a Customer for each project
+* Permissions to control user access to data
+
+h2. Screenshot
+
+!customer-screenshot_thumb.png!:/attachments/download/558
+
+h2. Getting the plugin
+
+A copy of the released version can be downloaded from "Little Stream Software":https://projects.littlestreamsoftware.com/projects/redmine-customers/files.  A development copy can be downloaded from "GitHub":http://github.com/edavis10/redmine-customer-plugin/tree/master
+
+h2. Install
+
+1. Follow the Redmine plugin installation steps at: [[Plugins]] Make sure the plugin is installed to @vendor/plugins/customer_plugin@
+2. Setup the database using the migrations. @rake db:migrate_plugins@
+3. Login to your Redmine install as an Administrator
+4. Setup the permissions for your roles
+5. Add the "Customer module" to the enabled modules for your project
+6. The link to the plugin should appear on that project's navigation as Customer
+
+h2. Usage
+
+# Use the "New" link to create a Customer.
+# Once you have created a customer, use the "Assign" link to assign a customer to a Project.
+# Continue doing steps 1 and 2 until you have assigned customers to all your projects you need.
+
+h2. Upgrade
+
+h3. Zip file
+
+# Download the latest zip file from https://projects.littlestreamsoftware.com/projects/redmine-customers/files
+# Unzip the file to your Redmine into vendor/plugins
+# Restart your Redmine
+
+h3. Git
+
+# Open a shell to your Redmine's vendor/plugins/customer_plugin folder
+# Update your git copy with `git pull`
+# Restart your Redmine
+
+h2. License
+
+This plugin is licensed under the GNU GPL v2.  See LICENSE.txt and GPL.txt for details.
+
+If you would like to report a bug or request a new feature the bug tracker is located at  https://projects.littlestreamsoftware.com
+
+h2. News
+
+"0.1.0 Release announcement":http://theadmin.org/articles/2008/5/22/redmine-customer-plugin (2008-05-22)
+"0.2.0 Release announcement":http://theadmin.org/articles/2009/3/24/customer-plugin-v0-2-0-released (2009-03-24)

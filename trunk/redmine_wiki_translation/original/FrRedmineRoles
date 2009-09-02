@@ -1,0 +1,23 @@
+h1. Rôles et permissions
+
+Les rôles vous permettent de définir les permissions que les membres ont sur un projet. Chaque membre d'un projet a un seul rôle pour le projet. Un utilisateur peut avoir différents rôles sur différents projets.
+
+Vous pouvez créer de nouveaux rôles ou éditer ceux existants. Vous pouvez ne pouvez supprimer un rôle que si personne n'a ce rôle sur un projet.
+
+h2. Propriétés des rôles
+
+* *Nom*: nom d'affichage pour le rôle
+* *Demandes assignables à ce rôle*: si non coché, les demandes ne peuvent être attribuées aux membres ayant ce rôle sur le projet.
+
+h2. Permissions
+
+Vous pouvez, en éditant un rôle, définir ses permission en cochant/décochant les différentes actions.
+
+h2. Rôles systèmes
+
+Il y a deux rôles systèmes dans Redmine : 'Non member' et 'Anonymous'. Ils sont utilisés en interne par Redmine et ne peuvent donc être supprimés.
+
+* *Non member*: ce rôle vous permet de définir les permissions qu'un utilisateur enregistré a sur les projets dont il n'est pas membre.
+* *Anonymous*: ce rôle vous permet de définir les permissions qu'un utilisateur anonyme a sur les projets.
+
+Notez que ces permissions s'appliquent seulement aux projets publics puisqu'un utilisateur non membre d'un projet privé ne peut pas le voir.

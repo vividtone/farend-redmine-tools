@@ -1,0 +1,41 @@
+h1. Release Management
+
+This page will outline how releases will be handled
+
+h2. Major Release (x.0.0)
+
+Redmine currently doesn't do Major releases (pre-1.0.0).
+
+h2. Minor Release (0.x.0)
+
+Minor releases can break backwards compatibility.
+
+h3. Changes allowed
+
+* New features
+* Bug fixes
+* Security fixes
+* Database migrations
+
+h3. Changes not allowed
+
+None at this moment.
+
+h2. Point Release (0.0.x)
+
+Point releases shouldn't break backwards compatibility.
+
+h3. Changes allowed
+
+* Simple new features
+* Bug fixes
+* Security fixes
+
+h3. Changes not allowed
+
+* New features with a lot of changes
+* Database migrations
+
+h2. References
+
+http://www.redmine.org/issues/show/1901#note-14

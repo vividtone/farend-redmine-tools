@@ -1,0 +1,21 @@
+h1. Managing projects
+
+h2. Projects list
+
+* *Project:* The project name
+
+* *Description:* A short description of the project
+
+* *Public:* If the icon !/images/true.png! is present, everybody can see this project. Non-public project can be view only by user who was given acces by an administrator of the project.
+
+* *Subprojects:* Indicate the numbers of subprojects connected to this project.
+
+* *Created:* Indicated the date when this project has been created.
+
+* *Archive:* You can archive a project by clicking on this icon !/images/locked.png!. An archived project is no longer visible by users. It can be un-archived (with its original content) by the administrator. When archiving a project, any subproject is also archived.
+
+* *Delete:* This is pure deletion of the project. Contrary to Archive, you can't restore a deleted project. Use it with a clear-mind.
+
+h2. Adding or editing a project
+
+See [[RedmineProjectSettings|Project settings]].

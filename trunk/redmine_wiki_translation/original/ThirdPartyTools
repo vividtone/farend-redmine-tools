@@ -1,0 +1,16 @@
+h1. Third Party Tools
+
+Here you can find a list of tools which are provided by the Redmine community. Note that these tools are not officially supported by Redmine so please don't open bugs or feature request about them in this Redmine instance. Instead, try to contact the creators or someone using it on the IRC channel.
+
+h2. IRC bot plugins
+
+* "Typethink Redmine Linker":http://www.egghelp.org/tclhtml/3478-4-0-0-1-redmine.htm: a plugin for Eggdrop creating direct links to Redmine issues [Author: Rami Kassab for Typethink]
+* "RBot Redmine plugin":http://github.com/jamtur01/rbot-redmine-plugin/tree/master: a plugin for RBot creating direct links to Redmine issues [Author: James Turnbull]
+
+h2. IDE integrations
+
+* "Redmine Mylyn Connector":http://redmin-mylyncon.wiki.sourceforge.net/: an Eclipse plugin which lets you use Redmine as a task repository for "Mylyn":http://www.eclipse.org/mylyn/ [Author: Sven Krzyzak]
+
+h2. SVN client integrations
+
+* "Tortoise Redmine plugin":http://www.redmine.org/boards/3/topics/5420: a Tortoise SVN plugin that lets Tortoise SVN read the Redmine issues list RSS to choose issues to associate with commit messages. This adds a new button in the Tortoise SVN interface. Works with Tortoise 1.5.x/1.6.x.

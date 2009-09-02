@@ -1,0 +1,170 @@
+h1. Formalisme Wiki
+
+{{>TOC}}
+
+h2. Liens
+
+h3. Liens Redmine
+
+Redmine permet les hyperliens entre demandes, changesets et pages wiki partout où le formalisme wiki est utilisé.
+
+* Lien vers une demande: *!#124* (affiche #124, le lien est barré si la demande est fermée)
+* Lien vers un changeset: *!r758* (affiche r758)
+* Lien vers un changeset avec un hachage non numérique: *commit:c6f4d0fd* (affiche c6f4d0fd).  Ajouté dans r1236.
+
+Liens wiki:
+
+* *&#91;&#91;Guide&#93;&#93;* affiche un lien vers la page nommée 'Guide': [[Guide]]
+* *&#91;&#91;Guide|Manuel utilisateur&#93;&#93;* affiche un lien vers la même page mais avec un texte différent: [[Guide|Manuel utilisateur]]
+
+Vous pouvez aussi établir des liens vers les pages wiki d'autre projets:
+
+* *&#91;&#91;bacasable:une page&#93;&#93;* affiche un lien vers la page nommée 'Une page' du wiki de Bacasable
+* *&#91;&#91;bacasable:&#93;&#93;* affiche un lien vers la page principale du wiki de Bacasable
+
+Les liens wiki sont affichés en rouge lorsque la page n'existe pas encore, exemple: [[Page inexistante]].
+
+Liens vers d'autres ressources (0.7):
+
+* Documents:
+
+  * *!document#17* (lien vers le document portant l'id 17)
+  * *!document:Greetings* (lien vers le document dont le titre est "Greetings")
+  * *!document:"un document"* (les guillements peuvent être utilisés lorsqu'un titre de document comporte des espaces)
+
+* Versions:
+
+  * *!version#3* (lien vers la version portant l'id 3)
+  * *!version:1.0.0* (lien vers la version nommée "1.0.0")
+  * *!version:"1.0 beta 2"*
+
+* Pièces jointes:
+
+  * *!attachment:fichier.zip* (lien vers la pièce jointe de l'objet courant nommée fichier.zip)
+  * Pour l'instant, seules les pièces jointes de l'objet courant peuvent être référencées (si vous êtes dans une demande, seules les pièces jointes de cette demande peuvent être référencées)
+
+* Fichiers du dépôt
+
+  * *source:un/fichier*          -- Lien vers le fichier situé à /un/fichier dans le dépôt du projet
+  * *source:un/fichier@52*       -- Lien vers la révision 52 du fichier
+  * *source:un/fichier#L120*     -- Lien vers la ligne 120 du fichier
+  * *source:un/fichier@52#L120*  -- Lien vers la ligne 120 de la révision 52 du fichier
+  * *export:un/fichier*          -- Force le téléchargement du fichier
+
+Echappement (0.7):
+
+* Vous pouvez empêcher les liens Redmine d'être interprêtés en les faisant précéder d'un point d'exclamation: !
+
+h3. Liens externes
+
+HTTP URLs et adresses de messagerie sont autoamtiquement convertis en liens cliquables: 
+
+<pre>
+http://www.redmine.org, untel@foo.bar
+</pre>
+
+affiche: http://www.redmine.org, untel@foo.bar
+
+Si vous voulez afficher un texte spécifique à la place de l'URL, vous pouvez utiliser la syntaxe textile standarde:
+
+<pre>
+"site web Redmine":http://www.redmine.org
+</pre>
+
+affiche: "site web Redmine":http://www.redmine.org
+
+h2. Formatage de texte
+
+Pour les choses du genre titres, gas, tableaux, listes, Redmine supporte la syntaxe Textile. Voir http://hobix.com/textile/ pour 
+information sur l'utilisation de ces fonctionnalités. Quelques exemples sont proposés ci-dessous, mais le moteur est capable de bien plus.
+
+h3. Style de police
+
+<pre><code>* *gras*
+* _italique_
+* _*gras italique*_
+* +souligné+
+* -barré-
+</code></pre>
+
+Affiche:
+
+ * *gras*
+ * _italique_
+ * _*gras italique*_
+ * +souligné+
+ * -barré-
+
+h3. Images en ligne
+
+* *&#33;image_url&#33;* affiche une image située à image_url (syntaxe textile)
+* *&#33;>image_url&#33;* image flottante à droite
+* Si vous avez attaché une image à votre page wiki, elle peut être affichée en ligne en utilisant son nom de fichier: *&#33;attached_image.png&#33;*
+
+h3. Titres
+
+<pre><code>h1. Titre
+h2. Sous-titre
+h3. Sous-titre
+</code></pre>
+
+h3. Paragraphes
+
+<pre><code>p>. aligné à gauche
+p=. centré
+</code></pre>
+
+p=. Ceci est un paragraphe centré.
+
+h3. Citations
+
+Débutez le paragraphe avec *bq.*
+
+<pre><code>bq. Rails est un framework complet pour développer des applications reposant sur une base de données,
+en conformité avec le motif Modèle-Vue-Contrôleur.
+Pour démarrer, vous avez seulement besoin d'une base de données et d'un serveur web.
+</code></pre>
+
+Affiche:
+
+bq.  Rails est un framework complet pour développer des applications reposant sur une base de données, en conformité avec le motif Modèle-Vue-Contrôleur.
+Pour démarrer, vous avez seulement besoin d'une base de données et d'un serveur web.
+
+h3. Table des matières
+
+<pre><code>{{toc}} => table des matières alignée à gauche
+{{>toc}} => table des matières alignée à droite
+</code></pre>
+
+h2. Macros
+
+Redmine propose d'emblée les macros suivantes:
+
+{{macro_list}}
+
+h2. Coloration syntaxique
+
+La coloration syntaxique repose sur "CodeRay":http://coderay.rubychan.de/, une librairie rapide de coloration syntaxique écrite entièrement en Ruby. Elle supporte actuellement les langages c, html, javascript, rhtml, ruby, scheme, xml.
+
+Vous pouvez mettre en valeur le code dans vos pages wiki en utilisant cette syntaxe:
+
+<pre><code><pre><code class="ruby">
+  placez votre code ici.
+</code></pre>
+</pre></code>
+
+Exemple:
+
+<pre><code class="ruby">
+# The Greeter class
+class Greeter
+  def initialize(name)
+    @name = name.capitalize
+  end
+
+  def salute
+    puts "Hello #{@name}!"
+  end
+end
+</pre></code>
+

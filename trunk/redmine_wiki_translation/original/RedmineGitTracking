@@ -1,0 +1,118 @@
+h1. Using Git to contribute to Redmine
+
+{{>toc}}
+
+Redmine's source tree is stored in Subversion, and everything eventually feeds into there. Some who are comfortable using Git prefer to use it for its branching and merging features, and because you don't need to have SVN commit access to make commits.
+
+*Caution*: The git repository at complete.org isn't kept current, as of this writing the last change was done Mon, 8 Sep 2008. Cloning the "GitHub mirror":http://github.com/edavis10/redmine/tree/master is recommended for the latest development work.
+
+If you were looking for Subversion instructions, they can be found on the [[Download|download]] and [[CheckingoutRedmine|checkout]] pages.
+
+h2. Initialization
+
+If you don't yet have Git, see the 5-minute Git Guide in the links below for download information. You'll want a Git version of at least 1.5.x.
+To start out, run these commands:
+
+<pre>
+git clone git://git.complete.org/branches/redmine-integration
+cd redmine-integration
+git config --add remote.origin.fetch +refs/remotes/svn/*:refs/remotes/svn/*
+git fetch
+</pre>
+
+h2. Exploration
+
+You can see all the branches that Git obtained for you:
+
+<pre>
+git branch -r | less
+</pre>
+
+You'll see output like this (many lines omitted here):
+
+<pre>
+  origin/HEAD
+  origin/fb-bug-259-git
+  origin/fb-bug-261-issue-redirect
+  origin/fb-bug-641-context-done
+  svn/git
+  svn/issue_relations
+  svn/mailing_lists
+  svn/tags/0.6.3
+  svn/tags/0.6.3@1011
+  svn/time
+  svn/trunk
+  svn/wiki
+</pre>
+
+The "origin" branches are being maintained in Git (no corresponding Subversion branch). The svn branches are identical copies of the same branch in the Redmine Subversion repository.
+
+You'll base your work off these branches.
+
+h2. Starting Your Feature
+
+With git, branches are cheap and merges are easy, so you'll usually want to start a new branch for each feature you work on. A single branch will probably correspond to a single issue in Redmine when you submit the patch.
+
+You'll want to base your patch on svn trunk. So you'll set up a branch like so:
+
+<pre>
+$ git branch my-feature svn/trunk
+Branch my-feature set up to track remote branch refs/remotes/svn/trunk.
+$ git checkout my-feature
+</pre>
+
+The first line created a branch named @my-feature@, which will be based on svn/trunk. The second command checks out that branch, which means that your working copy is switched to it, and any commits you make will be posted to that branch.
+
+Note that the act of committing doesn't sent any patches to anyone else; as Git is distributed, commits are recorded locally only until you're ready to push them upstream.
+
+You can run @git branch@ to see what branch you're on -- it'll have an asterisk next to it, like this:
+
+<pre>
+$ git branch
+  master
+* my-feature
+</pre>
+
+h2. Working on your feature
+
+Now that you have made your branch, it's time start work.
+
+Here are some commands you may want to use:
+
+|_.task|_.command|
+|Commit outstanding changes|@git commit -a@|
+|Add a new file to the repo|@git add filename@|
+|Remove a file from the repo and working directory|@git rm filename@|
+|Rename a file in repo and working directory|@git mv oldname newname@|
+|View history|@git log@|
+|Get help|@git commandname --help@|
+
+Note that @git command@ is the same as @git-command@. You can use @man git-command@ to see the manpage for any Git command.
+
+h2. Merging with trunk
+
+If you are working with your feature for awhile, you may find that Subversion has updated. Ideally you will make your eventual diff work with the latest trunk revision, so you'll want to make your patch work with that. To update your patches to apply on top of the latest trunk, do this:
+
+<code>
+git fetch
+git rebase svn/trunk
+</code>
+
+h2. Submitting your Patch
+
+When you're done working on your patch, make sure you have committed it to Git. Then you can generate diffs.
+
+You can generate one big diff, that includes all the changes you have made on the branch, even if they were made in multiple commits. Run this:
+
+<code>
+git diff svn/trunk..HEAD > /tmp/feature.diff
+</code>
+
+That means "calculate the difference between the trunk and the latest commit on this branch, and store it as a diff in /tmp/feature.diff". Then go to the redmine.org, create an issue, and attach /tmp/feature.diff to it.
+
+If you wish to submit one patch for each commit, just run @git format-patch svn/trunk@. You'll get one file generated for each commit, complete with the commit log. Then you'll want to attach each of these at redmine.org. Usually, though, you'll want the one big diff.
+
+h2. External Links
+
+* "Git homepage":http://www.git.or.cz/
+* "5-Minute Git Guide":http://software.complete.org/site/wiki/GitGuide

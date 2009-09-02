@@ -1,0 +1,117 @@
+h1. Repositories
+
+{{>toc}}
+
+h2. General information
+
+Redmine natively supports integration with different SCM-tools: "Subversion":http://subversion.tigris.org/, "CVS":http://www.nongnu.org/cvs/, "Mercurial":http://www.selenic.com/mercurial/, "Darcs":http://darcs.net/, "Git":http://git.or.cz, and "Bazaar":http://bazaar-vcs.org/.
+
+Note that you need to install the appropriate binaries on your Redmine host and make sure that these binaries are available in the @PATH@ environment variable:
+
+|*SCM*|*Tested with*|*Comments*|
+|Subversion|1.3 & 1.4 & 1.5 & 1.6|1.3 or higher required|
+|CVS|1.12.12|1.12 required, won't work with CVSNT|
+|Mercurial|0.9.3| |
+|Bazaar|1.0.0.candidate.1| |
+|Darcs|1.0.7||
+|Git|1.5.4.2||
+
+For example, if you want to access Subversion repositories in Redmine, you'll have to install the svn binaries on the Redmine host. Redmine currently doesn't make use of the Ruby Bindings for Subversion.
+
+h2. Attaching an existing repository to a project
+
+In the project settings, make sure that the 'Repository' module is enabled and go to the 'Repository' tab.
+Select the SCM that corresponds to your repository and enter the path or URL of your repository.
+
+*Important*: When you first browse the repository, Redmine retrieves the description of all of the existing commits and stores them in the database.
+This is done only once per repository but can very long (or even time out) if your repository has hundreds of commits.
+
+To avoid this, you can do it offline.
+After having your repository declared in Redmine, run the following command:
+<pre>
+$ ruby script/runner "Repository.fetch_changesets" -e production
+</pre>
+
+All commits will be retrieved in the Redmine database.
+
+h3. Subversion repository
+
+The usual protocols are supported (eg. @http:@, @svn:@, @file:@), just enter the URL of the repository.
+
+For example:
+<pre>
+http://host/path/to/the/repository
+</pre>
+
+You can specify a username and password if the repository requires authentication.
+
+Note: if you want to access the repository using @svn+ssh://@, you'll have to configure svn+ssh to be non-interactive.
+This requires to setup a public/private key pair for ssh authentication.
+
+h3. CVS repository
+
+Enter:
+* the URL of the repository (it can be either a path or a connection string, eg. @:pserver@).
+* the module name
+
+For example:
+<pre>
+:pserver:login:password@host:/path/to/the/repository
+</pre>
+
+h3. Git repository
+
+h4. Local environment setup
+
+Redmine requires a *bare* and *local* repository to enable browsing through Redmine.
+
+Imagine you want to browse the to-do list manager project "Donebox": its clone URL is @git://github.com/ook/donebox.git@.
+On the server where you're running Redmine, create a directory accessible by the user running your Redmine server:
+<pre>
+$ sudo mkdir -p /var/redmine/git_repositories
+$ sudo chown rails:rails /var/redmine/git_repositories
+$ cd /var/redmine/git_repositories
+</pre>
+
+Note the second line: it changes the ownership of the newly created directory to the user @rails@ and the group @rails@. Of course, you have to replace it according to your server settings (it can be @www-data@, @apache@ or when you are having a very bad sysadmin: @root@). Keep in mind that this user needs to have the (local-)permissions to run the @git@ command.
+
+h4. Create the bare repository
+
+After the preceding steps have been taken it is time to create our bare repository:
+<pre>
+$ pwd
+/var/redmine/git_repositories
+$ git clone --bare git://github.com/ook/donebox.git
+Initialized empty Git repository in /var/redmine/git_repositories/donebox/
+remote: Counting objects: 401, done.
+remote: Compressing objects: 100% (246/246), done.
+remote: Total 401 (delta 134), reused 401 (delta 134)
+Receiving objects: 100% (401/401), 179.55 KiB | 185 KiB/s, done.
+Resolving deltas: 100% (134/134), done.
+</pre>
+
+Our bare repository is now created successfully! Now go to your Redmine project settings, go to the repositories tab and choose @git@ as the SCM, then put in the "Path to .git directory" (in our example this is @/var/redmine/git_repositories/donebox/@) and save the settings. Have a look at your repository tab: you should now be able to browse your repository successfully.
+
+Note: of course, this git repository won't update by itself. You'll have to @git pull@ it regulary by hand or set up a cron job which will execute the @git pull@-command automatically for you.
+
+h4. Bare repository on Windows
+
+If your bare repository is install on *Windows*, adding :
+<pre>;%GIT_PATH%\cmd;%GIT_PATH%\bin;</pre> to your %%PATH%% environment variable.
+Where %%GIT_PATH%% is the install directory of Git (eg: _C:/Git_)
+
+h3. Mercurial repository
+
+TBD
+
+h3. Bazaar repository
+
+TBD
+
+h3. Darcs repository
+
+TBD
+
+h2. Repository user-mapping
+
+TBD

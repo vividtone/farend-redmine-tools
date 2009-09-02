@@ -1,0 +1,636 @@
+h1. Redmine plugin list
+
+{{>toc}}
+
+This is a directory of the available plugins for Redmine, sorted in an alphabetical order. There exists a [[ExtensionListInfo#Redmine-plugin-list-legend|legend]] of the information listed in the respective plugin entry fields.
+General information about Redmine plugins and how to install them into your Redmine can be found at [[Plugins]].
+
+h2. A
+
+_No entries._
+
+h2. B
+
+h3. Blog plugin
+
+* "Blog":http://www.redmine.org/boards/3/topics/5782 is a plugin which provides a blog within Redmine.
+** Author: "_Andrew Chaika_":http://www.redmine.org/account/show/4018
+** Latest release: _<code>0.0.5</code>, 2009-08-01_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/Ubik/redmine_blogs/tree_
+** Public ITS: _http://github.com/Ubik/redmine_blogs/issues_
+
+h3. Bots Filter plugin
+
+* [[PluginBotsFilter|Bots Filter]] prevents common bots from crawling various urls.
+** Author: "_Jean-Philippe Lang_":http://www.redmine.org/account/show/1
+** Latest release: _<code>1.0</code>, 2009-02-05_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _n/a_
+** Public ITS: _http://www.redmine.org/projects/redmine/issues_
+
+h3. Budget plugin
+
+* [[PluginBudget|Budget]] is a plugin to manage a set of deliverables for each project, automatically calculating key performance indicators.
+** Author: "_Eric Davis_":http://www.redmine.org/account/show/5
+** Latest release: _<code>0.2.0</code>, 2009-04-27_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/edavis10/redmine-budget-plugin/tree_
+** Public ITS: _https://projects.littlestreamsoftware.com/projects/redmine-budget/issues_
+
+h3. Bugcloud plugin
+
+* [[PluginBugcloud|Bugcloud]] is a plugin that visualizes the issues as an issue cloud.
+** Author: _Maedana_
+** Latest release: _<code>0.0.2.1</code>, 2009-07-28_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/maedana/redmine_bugcloud/tree_
+** Public ITS: _http://github.com/maedana/redmine_bugcloud/issues_
+
+h3. Bulk Time Entry plugin
+
+* [[PluginBulkTimeEntry|Bulk Time Entry]] is a plugin to enter multiple time entries at one time.
+** Author: "_Eric Davis_":http://www.redmine.org/account/show/5
+** Latest release: _<code>0.3.0</code>, 2009-03-18_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/edavis10/redmine-bulk_time_entry_plugin/tree_
+** Public ITS: _https://projects.littlestreamsoftware.com/projects/redmine-bte/issues_
+
+h2. C
+
+h3. Campfire Notifications plugin
+
+* "Campfire Notifications":http://www.redmine.org/boards/3/topics/6215 is a plugin which sends issues notifications (containing a short abstract on issue creation and edition, as well as a link to the issue in Redmine) to a "Campfire":http://campfirenow.com/ chat room.
+** Author: "_Édouard Brière_":http://www.redmine.org/account/show/5493
+** Latest release: _<code>0.0.1</code>, 2009-05-31_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/edouard/redmine_campfire_notifications/tree_
+** Public ITS: _http://github.com/edouard/redmine_campfire_notifications/issues_
+
+h3. Charts plugin
+
+* [[PluginCharts|Charts]] is a plugin which integrates some project charts like a burndown chart.
+** Author: "_Maciej Szczytowski_":http://www.redmine.org/account/show/6580
+** Latest release: _<code>0.0.12</code>, 2009-06-29_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/mszczytowski/redmine_charts/tree_
+** Public ITS: _http://github.com/mszczytowski/redmine_charts/issues_
+
+h3. Chat plugin
+
+* [[PluginChat|Chat]] is a plugin which provides the ability to chat within Redmine using a "Juggernaut Powered":http://juggernaut.rubyforge.org/ chat room. Early state!
+** Author: _John Brien_
+** Latest release: _<code>0.0.1</code>, 2008-10-15_
+** Compatible with: _Redmine 0.8.x_
+** Public SCM: _http://github.com/jbrien/redmine-chat-plugin/tree_
+** Public ITS: _http://github.com/jbrien/redmine-chat-plugin/issues_
+
+h3. Code Book plugin
+
+* [[PluginCodeBook|Code Book]] is a plugin that provides code snippet management.
+** Author: _Steffen Roegner_
+** Latest release: _<code>0.1.0</code>, 2009-06-09_
+** Compatible with: _Redmine 0.8.x_
+** Public SCM: _http://github.com/sroegner/redmine_codebook/tree_
+** Public ITS: _http://github.com/sroegner/redmine_codebook/issues_
+
+h3. Code Review plugin
+
+* "Code Review":http://www.redmine.org/boards/3/topics/7646 is a plugin which lets you annotate source code within the repository browser.
+** Author: "_Haru Iida_":http://www.redmine.org/account/show/5250
+** Latest release: _<code>0.2.3</code>, 2009-08-25_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://code.google.com/p/r-labs/source/browse/#svn/trunk/plugins/redmine_code_review_
+** Public ITS: _http://code.google.com/p/r-labs/issues/list_
+
+h3. Collapse plugin
+
+* [[PluginCollapse|Collapse]] is a plugin which moves the Redmine sidebar to the left side, makes it collapsible and adds some other features to the sidebar.
+** Author: "_Mischa The Evil_":http://www.redmine.org/account/show/1565
+** Latest release: _<code>0.2.2</code>, 2009-06-10_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Conflicts with: _[[Plugin List#Wiki-Extensions-plugin|Wiki Extensions plugin <= 0.0.7]]_
+** Public SCM: _n/a_
+** Public ITS: _n/a_
+
+h3. Customer plugin
+
+* [[PluginCustomer|Customer]] is a plugin to track basic customer information and provides a way to see which project belonged to a customer.
+** Author: "_Eric Davis_":http://www.redmine.org/account/show/5
+** Latest release: _<code>0.2.0</code>, 2009-03-24_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/edavis10/redmine-customer-plugin/tree_
+** Public ITS: _https://projects.littlestreamsoftware.com/projects/redmine-customers/issues_
+
+h2. D
+
+h3. Developer Rates plugin
+
+* "Developer Rates":http://www.redmine.org/boards/3/topics/6449 is a plugin which will let you attach an hourly rate to each time entry thus providing a way to track any hourly costs in Redmine.
+** Author: "_Shaun Gilroy_":http://www.redmine.org/account/show/3959
+** Latest release: _<code>0.2.0</code>, 2009-05-21_
+** Compatible with: _Redmine 0.8.x_
+** Public SCM: _http://github.com/farviewsoft/redmine_dev_rates/tree_
+** Public ITS: _http://github.com/farviewsoft/redmine_dev_rates/issues_
+
+h3. Diff Email plugin
+
+* [[PluginDiffEmail|Diff Email]] is a plugin which sends diff mails of the code changes of last changeset to other users.
+** Author: _Lamar_
+** Latest release: _<code>0.0.1</code>, 2008-11-13_
+** Compatible with: _???_
+** Public SCM: _http://github.com/Lamar/redmine_diff_email/tree_
+** Public ITS: _http://github.com/Lamar/redmine_diff_email/issues_
+
+h2. E
+
+h3. Embedded plugin
+
+* [[PluginEmbedded|Embedded]] is a plugin which lets you embed HTML files (eg. auto generated documentation, test reports) in your projects.
+** Author: "_Jean-Philippe Lang_":http://www.redmine.org/account/show/1
+** Latest release: _<code>0.0.1</code>, 2009-02-22_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://www.redmine.org/projects/redmine/repository/browse/plugins/embedded_
+** Public ITS: _http://www.redmine.org/projects/redmine/issues_
+
+h3. Estimer plugin
+
+* "Estimer":http://forge.isotrol.org/projects/show/org00002-estimer is a plugin to estimate a software project. It is based on Function Point and Use case Point method.
+** Author: _Nicolas Bertet, Adrián Peña Castro & Jacobo Abengozar Vázquez_
+** Latest release: _<code>0.9.1</code>, 2009-07-02 (this release is faulty versioned as @0.0.1@)_
+** Compatible with: _Redmine 0.8.4_
+** Public SCM: _http://forge.isotrol.org/repositories/show/org00002-estimer_
+** Public ITS: _http://forge.isotrol.org/projects/org00002-estimer/issues_
+
+h3. Exception Handler plugin
+
+* [[PluginExceptionHandler|Exception Handler]] is a plugin which will allow Redmine to send emails when an exception or error occurs.
+** Author: "_Eric Davis_":http://www.redmine.org/account/show/5
+** Latest release: _<code>0.2.0</code>, 2009-03-09_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/edavis10/redmine-exception-handler-plugin/tree_
+** Public ITS: _https://projects.littlestreamsoftware.com/projects/redmine-exception/issues_
+
+h3. ezFAQ plugin
+
+* [[PluginEzfaq|ezFAQ]] is a FAQ management plugin which provides per-project FAQ's.
+** Author: "_Chaoqun Zou_":http://www.redmine.org/account/show/460
+** Latest release: _<code>0.3.5</code>, 2009-06-09_
+** Compatible with: _Redmine Trunk_
+** Public SCM: _http://github.com/zouchaoqun/ezfaq/tree_
+** Public ITS: _http://github.com/zouchaoqun/ezfaq/issues_
+
+h3. ezFtpSearch plugin
+
+* [[PluginEzftpsearch|ezFtpSearch]] is a Ftp file search plugin, with a ftp spider.
+** Author: "_Chaoqun Zou_":http://www.redmine.org/account/show/460
+** Latest release: _<code>0.1.0</code>, 2009-06-16_
+** Compatible with: _Redmine Trunk_
+** Public SCM: _http://github.com/zouchaoqun/ezftpsearch/tree_
+** Public ITS: _http://github.com/zouchaoqun/ezftpsearch/issues_
+
+h3. ezLibrarian plugin
+
+* [[PluginEzlibrarian|ezLibrarian]] is a book shelf and device room management plugin designed for use in a company or department.
+** Author: "_Chaoqun Zou_":http://www.redmine.org/account/show/460
+** Latest release: _<code>0.1.5</code>, 2009-07-13_
+** Compatible with: _Redmine Trunk_
+** Public SCM: _http://github.com/zouchaoqun/ezlibrarian/tree_
+** Public ITS: _http://github.com/zouchaoqun/ezlibrarian/issues_
+
+h3. ezSidebar plugin
+
+* [[PluginEzsidebar|ezSidebar]] is a simple plugin to make it easy to add content (like Google Ads) to Redmine's sidebar.
+** Author: "_Chaoqun Zou_":http://www.redmine.org/account/show/460
+** Latest release: _<code>0.1.1</code>, 2009-06-23_
+** Compatible with: _Redmine Trunk_
+** Public SCM: _http://github.com/zouchaoqun/ezsidebar/tree_
+** Public ITS: _http://github.com/zouchaoqun/ezsidebar/issues_
+
+h3. ezSummary plugin
+
+* [[PluginEzSummary|ezSummary]] is a plugin which will send an issue status summary mail to the specified email-address.
+** Author: _Peng Zuo & "Chaoqun Zou_":http://www.redmine.org/account/show/460
+** Latest release: _<code>0.0.1</code>, 2009-06-03_
+** Compatible with: _Redmine Trunk_
+** Public SCM: _http://github.com/nan1nan1/redmine_ezsummary/tree_
+** Public ITS: _http://github.com/nan1nan1/redmine_ezsummary/issues_
+
+h2. F
+
+_No entries._
+
+h2. G
+
+h3. Github Hook plugin
+
+* [[PluginGithubHook|Github Hook]] allows you to update your local Git repositories in Redmine when changes have been pushed to "Github":http://github.com.
+** Author: "_Jakob Skjerning_":http://www.redmine.org/account/show/2207
+** Latest release: _<code>0.1.1</code>, 2009-08-03_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/koppen/redmine_github_hook_
+** Public ITS: _http://github.com/koppen/redmine_github_hook/issues_
+
+h3. Global Filter plugin
+
+* [[PluginGlobalFilter|Global Filter]] is a simple plugin to include a list of filter queries applicable across projects on the Redmine homepage.
+** Author: "_Kumudha Rangachari_":http://www.redmine.org/account/show/7220
+** Latest release: _<code>0.0.1</code>, 2009-08-05_
+** Compatible with: _Redmine Trunk & Redmine 0.8.4(Untested)_
+** Public SCM: _http://github.com/kumudhachari/global_filter_redmine_plugin/tree/master_
+** Public ITS: _http://github.com/kumudhachari/global_filter_redmine_plugin/issues_
+
+h3. Google Analytics plugin
+
+* [[PluginGoogleAnalytics|Google Analytics]] is a simple plugin to include a Google Analytics tracking code within Redmine.
+** Author: "_Eric Davis_":http://www.redmine.org/account/show/5
+** Latest release: _<code>0.2.0</code>, 2009-04-14_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/edavis10/redmine-google-analytics-plugin/tree_
+** Public ITS: _https://projects.littlestreamsoftware.com/projects/redmine-analytics/issues_
+
+h3. Google Calendar plugin
+
+* [[PluginGoogleCalendar|Google Calendar]] is a simple plugin to include a Google Calendar iframe as a tab within Redmine projects.
+** Author: "_Jim Mulholland_":http://www.redmine.org/account/show/551
+** Maintainer: "_Mischa The Evil_":http://www.redmine.org/account/show/1565
+** Latest release: _<code>0.1.2</code>, 2009-06-29_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/MischaTheEvil/redmine_google_calendar/tree_
+** Public ITS: _http://github.com/MischaTheEvil/redmine_google_calendar/issues_
+
+h3. Graphs plugin
+
+* [[PluginGraphs|Graphs]] is a plugin which provides additional graphs for the issue tracker.
+** Author: "_Brad Beattie_":http://www.redmine.org/account/show/2928
+** Latest release: _<code>0.1.0</code>, 2009-05-25_
+** Compatible with: _Redmine Trunk ("3PD-fork":http://github.com/kolewu/redmine-graphs-plugin/tree for 0.8.x-compatibility exists)_
+** Public SCM: _http://github.com/bradbeattie/redmine-graphs-plugin/tree_
+** Public ITS: _n/a_
+
+h2. H
+
+h3. Hoptoad Server plugin
+
+* [[PluginHoptoadServer|HoptoadServer]] transforms Redmine into a hub for Rails exception handling, similar to "Hoptoad":http://hoptoadapp.com/welcome or "Exceptional":http://getexceptional.com/. An issue will be created or updated for every exception which is thrown in your live applications.
+** Author: "_Jan Schulz-Hofen_":http://www.redmine.org/account/show/347
+** Latest release: _<code>0.0.1</code>, 2009-07-05_
+** Compatible with: _???_
+** Public SCM: _http://github.com/yeah/redmine_hoptoad_server/tree_
+** Public ITS: _http://github.com/yeah/redmine_hoptoad_server/issues_
+
+h3. Hudson plugin
+
+* "Hudson":http://www.redmine.org/boards/3/topics/6650 is a plugin which integrates Hudson jobs into Redmine.
+** Author: "_Toshiyuki Ando_":http://www.redmine.org/account/show/6147
+** Latest release: _<code>0.1.6</code>, 2009-07-27_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://code.google.com/p/r-labs/source/browse/#svn/trunk/plugins/redmine_hudson_
+** Public ITS: _http://code.google.com/p/r-labs/issues/list_
+
+h2. I
+
+h3. Importer plugin
+
+* [[PluginImporter|Importer]] is a plugin which imports user data from CSV files. The packaged source can be downloaded from "here":http://www.martinliu.info/2009/04/redmine_importer-redmine-csv-import-plugin/.
+** Author: "_Martin Liu_":http://www.redmine.org/account/show/4835
+** Latest release: _<code>0.3.1</code>, 2009-04-01_
+** Compatible with: _Redmine 0.8.x ("3PD-fork":http://github.com/rchady/redmine_importer/tree for Trunk-compatibility exists)_
+** Public SCM: _n/a_
+** Public ITS: _n/a_
+
+h3. Issue Due Date plugin
+
+* [[PluginIssueDueDate|Issue Due Date]] is a plugin which will automatically set the Issue due dates to the due dates of versions or deliverables.
+** Author: "_Eric Davis_":http://www.redmine.org/account/show/5
+** Latest release: _<code>0.1.0</code>, 2009-07-18_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/edavis10/redmine_issue_due_date_
+** Public ITS: _https://projects.littlestreamsoftware.com/projects/redmine-misc/issues_
+
+h3. Issue Group plugin
+
+* "IssuesGroup":http://www.redmine.org/boards/3/topics/4701 is a plugin implementation of issues grouping, query categorization and subissues features.
+** Author: "_Andrew Chaika_":http://www.redmine.org/account/show/4018
+** Latest release: _<code>0.1.5</code>, 2009-06-01_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/Ubik/redmine_issues_group/tree/origin_
+** Public ITS: _http://github.com/Ubik/redmine_issues_group/issues_
+
+h2. J
+
+_No entries._
+
+h2. K
+
+h3. Kanban plugin
+
+* [[PluginKanban|Kanban]] is a plugin to manage Redmine's issues in the "Kanban":http://en.wikipedia.org/wiki/Kanban style of Project Management.
+** Author: "_Eric Davis_":http://www.redmine.org/account/show/5
+** Latest release: _<code>0.1.1</code>, 2009-07-21_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/edavis10/redmine_kanban/tree_
+** Public ITS: _https://projects.littlestreamsoftware.com/projects/redmine-kanban/issues_
+
+
+h2. L
+
+h3. Laconi.ca plugin
+
+* "Laconi.ca":http://www.redmine.org/boards/3/topics/7117 is a plugin which will send Redmine notifications to Laconi.ca, Twitter, or Identi.ca services.
+** Author: "_Ciaran Jessup_":http://www.redmine.org/account/show/4327
+** Latest release: _<code>0.0.1</code>, 2009-07-21_
+** Compatible with: _Redmine 0.8.x_
+** Public SCM: _http://github.com/ciaranj/redmine_laconi.ca/tree_
+** Public ITS: _http://github.com/ciaranj/redmine_laconi.ca/issues_
+
+h3. Local Avatars plugin
+
+* "LocalAvatars":http://www.redmine.org/boards/3/topics/5365 is a plugin implementation of local user avatars.
+** Author: "_Andrew Chaika_":http://www.redmine.org/account/show/4018
+** Latest release: _<code>0.0.2</code>, 2009-04-21_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/Ubik/redmine_local_avatars/tree_
+** Public ITS: _http://github.com/Ubik/redmine_local_avatars/issues_
+
+h2. M
+
+h3. Markdown formatter plugin
+
+* [[PluginMarkdownFormatter|Markdown formatter]] adds Markdown text formatting capability to Redmine.
+** Author: "_Lary Baltz_":http://www.redmine.org/account/show/2721
+** Latest release: _<code>0.0.1</code>, 2008-11-14_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/bitherder/redmine_markdown_formatter/tree_
+** Public ITS: _http://github.com/bitherder/redmine_markdown_formatter/issues_
+
+h3. Markdown Extra formatter plugin
+
+* [[PluginMarkdownExtraFormatter|Markdown Extra formatter]] adds Markdown Extra text formatting capability to Redmine.
+** Author: _Junya Ogura_
+** Latest release: _<code>0.0.2</code>, 2009-06-19_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/juno/redmine_markdown_extra_formatter/tree_
+** Public ITS: _http://github.com/juno/redmine_markdown_extra_formatter/issues_
+
+h3. Messenger plugin
+
+* [[PluginMessenger|Messenger]] is a plugin to interact with other users within Redmine via IM (Jabber / XMPP4r).
+** Author: "_Maciej Szczytowski_":http://www.redmine.org/account/show/6580
+** Latest release: _<code>0.0.7</code>, 2009-02-27_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/mszczytowski/redmine_messenger/tree_
+** Public ITS: _http://mszczytowski.lighthouseapp.com/projects/19134-redmine_messenger/tickets_
+
+h3. My Widgets plugin
+
+* [[PluginMyWidgets|My Widgets]] is a plugin that provides additional blocks for "the my page portal":/my/page.
+** Author: "_Brad Beattie_":http://www.redmine.org/account/show/2928
+** Latest release: _<code>0.1.0</code>, 2009-07-10_
+** Compatible with: _Redmine Trunk (earlier development-snapshots are compatible with Redmine 0.8.x)_
+** Public SCM: _http://github.com/bradbeattie/redmine-my-widgets-plugin/tree_
+** Public ITS: _n/a_
+
+h2. N
+
+h3. New Issue Alerts plugin
+
+* [[PluginNewIssueAlerts| NewIssueAlerts]] is a plugin that sends an email to specified email addresses when a new issue is logged.
+** Author: "_Emmanuel Bretelle_":http://www.redmine.org/account/show/5835
+** Latest release: _<code>0.0.2</code>, 2009-08-03_
+** Compatible with: _Redmine 0.8.4 & Redmine Trunk_
+** Public SCM: _http://github.com/chantra/redmine_newissuealerts/tree/master_
+** Public ITS: _http://github.com/chantra/redmine_newissuealerts/issues_
+
+h2. O
+
+_No entries._
+
+h2. P
+
+h3. Project Scores plugin
+
+* [[PluginProjectScores|Project Scores]] is a plugin which will let a user score a project on different (hard-coded) criteria.
+** Author: "_Eric Davis_":http://www.redmine.org/account/show/5
+** Latest release: _<code>0.0.1</code>, 2009-01-05_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/edavis10/redmine_score_plugin/tree_
+** Public ITS: _https://projects.littlestreamsoftware.com/projects/redmine-scores/issues_
+
+h3. Projects Tree View plugin
+
+* "Projects Tree View":http://www.redmine.org/boards/3/topics/4645 is a plugin which turns the projects index view into a tree view that can be expanded and collapsed.
+** Author: "_Chris Peterson_":http://www.redmine.org/account/show/924
+** Latest release: _<code>0.0.2</code>, 2009-03-31_
+** Compatible with: _Redmine Trunk (using workaround)_
+** Public SCM: _n/a_
+** Public ITS: _n/a_
+
+h2. Q
+
+h3. Question plugin
+
+* [[PluginQuestion|Question]] is a plugin which will allow users to ask questions to each other in issue notes.
+** Author: "_Eric Davis_":http://www.redmine.org/account/show/5
+** Latest release: _<code>0.3.0</code>, 2009-03-10_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/edavis10/question_plugin/tree_
+** Public ITS: _https://projects.littlestreamsoftware.com/projects/redmine-questions/issues_
+
+h2. R
+
+h3. Rate plugin
+
+* [[PluginRate|Rate]] is a plugin which will store billable rates for users.
+** Author: "_Eric Davis_":http://www.redmine.org/account/show/5
+** Latest release: _<code>0.1.0</code>, 2009-04-21_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/edavis10/redmine_rate/tree_
+** Public ITS: _https://projects.littlestreamsoftware.com/projects/redmine-rate/issues_
+
+h3. RD formatter plugin
+
+* [[PluginRDFormatter|RD formatter]] adds Ruby Doc text formatting capability to Redmine.
+** Author: "_Yuki Sonoda_":http://www.redmine.org/account/show/1249
+** Latest release: _<code>0.0.1</code>, 2008-11-09_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/yugui/redmine_rd_formatter/tree_
+** Public ITS: _http://github.com/yugui/redmine_rd_formatter/issues_
+
+h3. Repo Pygments plugin
+
+* "Repo Pygments":http://www.redmine.org/boards/3/topics/6890 is a plugin which allows using Pygments as a highlight tool for repository files.
+** Author: "_Jongliang Zhang_":http://www.redmine.org/account/show/5341
+** Latest release: _<code>0.0.2</code>, 2009-06-15_
+** Compatible with: _???_
+** Public SCM: _n/a_
+** Public ITS: _n/a_
+
+h3. Require Closing Note plugin
+
+* [[PluginRequireClosingNote|Require Closing Note]] is a plugin which forces users to enter a comment when closing an issue.
+** Author: _Adam Walters_
+** Latest release: _<code>0.0.1</code>, 2009-04-09_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/ajwalters/redmine_require_closing_note/tree_
+** Public ITS: _http://github.com/ajwalters/redmine_require_closing_note/issues_
+
+h3. Resources plugin
+
+* [[PluginResources|Resources]] is a plugin which allows links to resources to be added to an issue. For the purposes of this plugin, a resource is any external site that is useful for the understanding or completion of an issue.
+** Author: _Daniel Vandersluis_
+** Latest release: _<code>0.1.2</code>, 2009-03-12_
+** Compatible with: _Redmine 0.8.x_
+** Public SCM: _http://github.com/dvandersluis/redmine_resources/tree_
+** Public ITS: _http://github.com/dvandersluis/redmine_resources/issues_
+
+h2. S
+
+h3. Schedules plugin
+
+* [[PluginSchedules|Schedules]] is a plugin which will schedule users to assigned projects over time.
+** Author: "_Brad Beattie_":http://www.redmine.org/account/show/2928
+** Latest release: _<code>0.4.2</code>, 2009-05-29_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/bradbeattie/redmine-schedules-plugin/tree_
+** Public ITS: _https://projects.littlestreamsoftware.com/projects/redmine-schedules/issues_
+
+h3. Scrumdashboard plugin
+
+* "Scrumdashboard":http://www.redmine.org/boards/3/topics/5808 is a plugin which provides a scrum dashboard to Redmine and which can be used on a per-project base.
+** Author: _Terje Alexander Barth, "Mats Klepsland":http://www.redmine.org/account/show/5177, Einar Myre & Marius Olsen_
+** Latest release: _<code>1.2</code>, 2009-07-23_
+** Compatible with: _Redmine 0.8.x_
+** Public SCM: _http://github.com/thus/redmine-scrumdashboard-plugin/tree_
+** Public ITS: _http://github.com/thus/redmine-scrumdashboard-plugin/issues_
+
+h3. Simple CI plugin
+
+* [[PluginSimpleCI|Simple CI]] is a generic plugin for integrating per-project RSS continuous integration feeds (eg. "Cruise Control":http://cruisecontrol.sourceforge.net/) in Redmine.
+** Author: "_Jean-Philippe Lang_":http://www.redmine.org/account/show/1
+** Latest release: _<code>1.0</code>, 2009-05-10_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://www.redmine.org/projects/redmine/repository/browse/plugins/simple_ci_
+** Public ITS: _http://www.redmine.org/projects/redmine/issues_
+
+h3. Status Updates plugin
+
+* "Status Updates":http://www.redmine.org/boards/1/topics/1483 is a plugin that allows users to create small status updates about what they’re currently working on. You can think of it as Twitter on a per-project base, within Redmine.
+** Author: "_Brian Terlson_":http://www.redmine.org/account/show/1342
+** Latest release: _<code>0.1.1</code>, 2009-06-09_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/bterlson/redmine-status-updates/tree_
+** Public ITS: _http://github.com/bterlson/redmine-status-updates/issues_
+
+h3. Stuff To Do plugin
+
+* [[PluginStuffToDo|Stuff To Do]] is a plugin which allows a user to order and prioritize the issues they are doing into a specific order. It will also allow other privileged users to reorder the user's work queue.
+** Author: "_Eric Davis_":http://www.redmine.org/account/show/5
+** Latest release: _<code>0.3.0</code>, 2009-03-17_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/edavis10/redmine-stuff-to-do-plugin/tree_
+** Public ITS: https://projects.littlestreamsoftware.com/projects/redmine-stuff-to-do/issues__
+
+h3. Subtasks plugin
+
+* [[PluginSubtasks|Subtasks]] is a plugin which provides advanced subtasking functionality in Redmine.
+** Author: "_Aleksei Gusev_":http://www.redmine.org/account/show/2107
+** Latest release: _<code>0.0.1</code>, 2009-07-17_
+** Compatible with: _Redmine Trunk_
+** Public SCM: _http://github.com/hron/redmine_subtasks/tree_
+** Public ITS: _http://github.com/hron/redmine_subtasks/issues_
+
+h3. System Notification plugin
+
+* [[PluginSystemNotification|System Notification]] is a plugin that will allow an Administrator to send notification emails to recently logged in users.
+** Author: "_Eric Davis_":http://www.redmine.org/account/show/5
+** Latest release: _<code>0.2.0</code>, 2009-03-31_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/edavis10/redmine-system-notification-plugin/tree_
+** Public ITS: _https://projects.littlestreamsoftware.com/projects/redmine-notify/issues_
+
+h2. T
+
+h3. Tab plugin
+
+* [[PluginTab|Tab]] is a plugin which adds new Redmine tabs to embed content from an iframe on a per-project and system-wide base.
+** Author: "_James Turnbull_":http://www.redmine.org/account/show/851
+** Latest release: _<code>0.3.1</code>, 2009-08-04_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/jamtur01/redmine_tab/tree_
+** Public ITS: _http://github.com/jamtur01/redmine_tab/issues_
+
+h3. Timesheet plugin
+
+* [[PluginTimesheet|Timesheet]] is a plugin to show and filter timelogs across all projects in Redmine.
+** Author: "_Eric Davis_":http://www.redmine.org/account/show/5
+** Latest release: _<code>0.5.0</code>, 2009-03-06_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/edavis10/redmine-timesheet-plugin/tree_
+** Public ITS: _https://projects.littlestreamsoftware.com/projects/redmine-timesheet/issues_
+
+h3. Todo Lists plugin
+
+* "Todo Lists":http://www.redmine.org/boards/3/topics/4070 is a plugin to create and manage "agile-esque" todo lists on a per-project and per-user base.
+** Author: "_David Lyons_":http://www.redmine.org/account/show/3975
+** Latest release: _<code>0.0.3.6</code>, 2009-07-27_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/dalyons/redmine-todos-scrum-plugin/tree_
+** Public ITS: _http://github.com/dalyons/redmine-todos-scrum-plugin/issues_
+
+h2. U
+
+h3. User Import plugin
+
+* "User Import":http://www.redmine.org/boards/3/topics/6867 is a another plugin which imports user data from CSV files (based on [[Plugin List#Importer-plugin|Importer]] plugin).
+** Author: "_Hiroyuki Shirakawa_":http://www.redmine.org/account/show/6269
+** Latest release: _<code>0.0.1</code>, 2009-06-13_
+** Compatible with: _Redmine 0.8.x_
+** Public SCM: _n/a_
+** Public ITS: _n/a_
+
+h2. V
+
+h3. Vote plugin
+
+* "Vote":http://www.redmine.org/boards/3/topics/5506 is a plugin which allows users to vote on issues which are important to them.
+** Author: "_Andrew Chaika_":http://www.redmine.org/account/show/4018
+** Latest release: _<code>0.0.2</code>, 2009-04-29_
+** Compatible with: _Redmine Trunk ("3PD-fork":http://github.com/jimmyz/redmine_vote/tree for 0.8.x-compatibility exists)_
+** Public SCM: _http://github.com/Ubik/redmine_vote/tree_
+** Public ITS: _http://github.com/Ubik/redmine_vote/issues_
+
+h2. W
+
+h3. Wiki Extensions plugin
+
+* "Wiki Extensions":http://www.redmine.org/boards/3/topics/7130 is a plugin which adds several useful wiki macros to Redmine.
+** Author: "_Haru Iida_":http://www.redmine.org/account/show/5250
+** Latest release: _<code>0.0.8</code>, 2009-08-14_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Conflicts with: _[[Plugin List#Collapse-plugin|Collapse plugin <= 0.2.2]]_
+** Public SCM: _http://code.google.com/p/redminewikiext/source/browse/#svn/trunk/redmine_wiki_extensions_
+** Public ITS: _http://code.google.com/p/redminewikiext/issues/list_
+
+
+h3. Whining plugin
+
+* [[PluginWhining| Whining]] is a plugin that provides email alerts to the assignee of an issue when the issue had not been updated since a certain time.
+** Author: "_Emmanuel Bretelle_":http://www.redmine.org/account/show/5835
+** Latest release: _<code>0.0.1</code>, 2009-07-16_
+** Compatible with: _Redmine 0.8.4_
+** Public SCM: _http://github.com/chantra/redmine_whining/tree/master_
+** Public ITS: _http://github.com/chantra/redmine_whining/issues_
+
+
+h2. X
+
+_No entries._
+
+h2. Y
+
+_No entries._
+
+h2. Z
+
+_No entries._

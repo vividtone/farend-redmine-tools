@@ -1,0 +1,28 @@
+h1. Checking-out Redmine
+
+Before checking-out Redmine, you have to decide which version you need to obtain:
+
+h2. Stable version
+
+The latest, well-tested stable-release taken from the @0.8.x@-branch (which is recommended for production) is currently @0.8.4@. It can be checked-out using the URL:
+* @http://redmine.rubyforge.org/svn/tags/0.8.4/@
+
+The 0.8.x-branch (which contains updates included in the upcoming [[ReleaseManagement#Point-Release-00x|point-releases]] in the 0.8.x-branch) can be checked-out using the URL:
+* @http://redmine.rubyforge.org/svn/branches/0.8-stable/@
+
+h2. Development version
+
+The bleeding-edge development-version of Redmine which contains all the cool new features. Though, it can be broken some days (very rare).
+The latest development version of Redmine remains in the trunk and can be checked-out using the URL:
+* @http://redmine.rubyforge.org/svn/trunk/@
+
+h2. Legacy version
+
+The latest legacy-release taken from the @0.7.x@-branch is currently @0.7.4@. It can be checked-out using the URL:
+* @http://redmine.rubyforge.org/svn/tags/0.7.4/@
+
+h2. Older version
+
+If you need to use a specific, outdated version for firm-policy things or something... Why not... It can be checked-out by choosing the version you need before appending it's number to the end of this URL:
+* @http://redmine.rubyforge.org/svn/tags/{version}/@
+

@@ -1,0 +1,164 @@
+h1. Configuration de Redmine
+
+{{>TOC}}
+
+h2. Général 
+
+h3. Titre de l'application
+
+Titre apparaîssant à la une de l'application.
+
+h3. Texte d'accueil
+
+Texte affiché sur la page d'aperçu de l'application. Ce texte peut contenir des balises HTML.
+
+h3. Thème
+
+Cette option vous permet de choisir un thème personnalisé.
+Redmine est fourni avec un thème alternatif, qui propose principalement la coloration de la liste des demandes en se basant sur les priorités des demandes.
+
+Capture d'écran:
+
+!alternate_theme.png!
+
+Les thèmes sont placés dans @public/themes/@. Vous pouvez en savoir davantage sur les [[frHowTo_create_a_custom_Redmine_theme|thèmes]].
+
+h3. Langue par défaut
+
+La langue par défaut est choisie lorsque l'application ne peut déterminer la langue du navigateur de l'utilisateur. La langue par défaut est également utilisée pour l'envoi de messages à de multiples utilisateurs. _Par défaut: English_
+
+h3. Format de date
+
+Vous permet de choisir la façon dont les dates sont affichées:
+
+  * *Basé sur la langue de l'utilsiateur*: les dates seront affichées spécifiquement pour chaque utilisateur, selon le format défini pour sa langue
+  * *Autres formats*: les dates seront toujours affichées en utilisant le format spécifié
+
+_Par défaut: Basé sur la langue de l'utilisateur_
+
+h3. Taille max des fichiers
+
+La taille maximum des fichiers déposés (en kylo-bytes). _Par défaut: 2048 (i.e. 2MB)_
+
+h3. Nom d'hôte
+
+Nom d'hôte de l'application. Ce nom est utilisé pour écrire les URLs dans les messages envoyés aux utilisateurs.
+
+h3. Protocole
+
+Le protocole utilisé pour générer les liens dans les messages de notification. _Par défaut: http_
+
+h3. Formatage du texte
+
+La méthode de formatage appliquée aux champs "description" des demandes, annonces, documents...
+
+h3. Compression historique wiki
+
+Vous permet d'activer la compression du stockage de l'historique des wiki (réduit la taille de la base de données). _par défaut: aucun_
+
+h3. Limite du contenu des flux RSS
+
+Nombre maximum d'enregistrements contenus dans les flux RSS. _Par défaut: 15_
+
+h2. Authentification
+
+h3. Authentification obligatoire
+
+Si cette option est cochée, aucune page de l'application n'est accessible aux utilisateurs anonymes. Les utilisateurs doivent s'enregistrer pour accéder à l'application. _Par défaut: Non._
+
+h3. Autologin
+
+Cette option permet aux utilisateurs d'employer la fonctionnalité d'autologin. _Par défaut: Désactivé_
+
+h3. Inscription des nouveaux utilisateurs
+
+Cette option vous permet d'activer/désactiver l'auto-enregistrement de nouveaux utilisateurs:
+
+* *désactivé*: les utilisateurs ne sont pas autorisés à s'enregistrer
+* *activation du compte par email*: les nouveaux utilisateurs reçoivent un message contenant un lien utilisé pour activer leur compte (les utilisateurs doivent fournir une adresse de messagerie valide).
+* *activation manuelle du compte* _(par defaut)_: les comptes des nouveaux utilisateurs sont créés mais requièrent l'approbation d'un administrateur. les administrateurs reçoivent un message les informant qu'un compte attend leur approbation.
+* *activation automatique du compte*: les nouveaux utilisateurs peuvent se connecter dès qu'ils se sont enregistrés.
+
+h3. Mot de passe perdu
+
+Si cette option est sélectionnée, la fonctionnalité de mot de passe perdu est disponible. _Par défaut: Oui_
+
+h2. Suivi des demandes
+
+h3. Autoriser les relations entre demandes de différents projets
+
+Si coché, des relations entre demandes de différents projets peuvent être créées. _Par défaut: Non_
+
+h3. Afficher par défaut les demandes des sous-projets sur les projets principaux
+
+Si coché, les demandes des sous-projets seront affichées par défaut dans la liste des demandes, dans le calendrier et le gantt du projet principal (Depuis r1198). _Par défaut: Oui_
+
+h3. Limite export demandes
+
+Nombre maximum de demandes contenues dans les exports CSV et PDF. _Par défaut: 500_
+
+h3. Colonnes affichées par défaut sur la liste des demandes
+
+Ce paramétrage vous permet de définir les colonnes affichées par défaut dans les listes de demande.
+Seuls les champs personnalisés marqués "pour tous les projets" peuvent être choisis ici.
+
+h2. Notifications par mail
+
+h3. Adresse d'émission
+
+L'adresse de messagerie utilisée dans le champ "From" des messages envoyés aux utilisateurs.
+
+h3. Destinataire en copie cachée (cci)
+
+Si coché, les messages de notification seront envoyés en copie cachée. _Par défaut: Oui_
+
+h3. Pied-de-page des emails
+
+Vous pouvez enter ici un texte qui sera ajouté aux messages envoyés par l'application.
+
+h2. Dépôts
+
+h3. Récupération auto. des commits
+
+Si cette option est activée, l'application récupère automatiquement les nouvelles révisions lorsqu'un utilisateur consulte le dépôt.
+_Par défaut: Oui_
+
+Vous pouvez désactiver cette option et automatiser l'appel à Repository#fetch_changesets pour récupérer périodiquement en tâche de fond les révisions de tous les dépôts.
+Exemple:
+<pre>ruby script/runner "Repository.fetch_changesets" -e production</pre>
+
+h3. Activer les WS pour la gestion des dépôts
+
+Cette option ne devrait être activée que si vous avez installé le script pour la création automatique de dépôts SVN. _Par défaut: Non_
+
+h3. Encodages des dépôts
+
+Cette option vous permet de spécifier les encodages préférés des fichiers du dépôt (valeurs multiples autorisées séparées par des virgules). Ces encodages sont utilisés pour convertir le contenu des fichiers et des diff à UTF-8 pour qu'ils soient correctement affichés dans le navigateur.
+Lorsque vous entrez plusieurs encodages, le premier encodage valide pour un contenu de fichier donné est utilisé.
+
+Par exemple, pour les utilisateurs français, cette option peut être paramétrée à: 
+
+  UTF-8, ISO 8859-15, CP1252
+
+Pour les utilisateurs japonais:
+
+  ISO-2022-JP, EUC-JP, UTF-8, SHIF_JIS, WINDOWS-31J
+
+h3. Référencement et résolution des demandes dans les commentaires de commits
+
+Lorsqu'ils sont récupérés des dépôts, les messages de commit sont analysés pour en déduire l'identifiant des demandes référencées ou corrigées.
+Cette option vous permet de définir les mots-clefs pouvant être utilisés dans un message de commit pour référencer ou résoudre automatiquement une demande, et pour spécifier le statut à appliquer à la demande résolue.
+
+Les mots-clefs par défaut sont:
+
+* pour référencer une demande: refs, references, IssueID
+* pour résoudre une demande: fixes, closes
+
+Il n'y a pas de statut par défaut défini pour les demandes résolues. Vous devrez en spécifier un pour permettre la fermeture automatique de demandes. Si vous voulez référencer une demande sans utiliser de mots-clefs, entrez une seul étoile: * dans le paramètre *Mots-clefs de résolution*. Dans ce cas, tout identifiant de demande trouvé dans le message sera lié au changeset.
+
+Example d'un message de commit utilisant les mots-clefs par défaut:
+
+  Ce commit refs #1, #2 et fixes #3
+
+Ce message référencerait les demandes 1 et 2 et résoudrait automatiquement la demande 3.
+Après un mot-clef, les identifiants de demandes peuvent être séparés par un espace, une virgule ou &.

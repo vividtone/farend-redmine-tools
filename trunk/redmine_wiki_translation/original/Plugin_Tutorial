@@ -1,0 +1,350 @@
+h1. Plugin Tutorial
+
+Note: To follow this tutorial, you need to run Redmine devel r1786 or higher.
+
+{{toc}}
+
+h2. Creating a new Plugin
+
+Creating a new plugin can be done using the Redmine plugin generator.
+Syntax for this generator is:
+
+<pre>ruby script/generate redmine_plugin <plugin_name></pre>
+
+So open up a command prompt and "cd" to your redmine directory, then execute the following command:
+
+  % ruby script/generate redmine_plugin Polls
+
+The plugin structure is created in @vendor/plugins/redmine_polls@:
+
+<pre>
+      create  vendor/plugins/redmine_polls/app/controllers
+      create  vendor/plugins/redmine_polls/app/helpers
+      create  vendor/plugins/redmine_polls/app/models
+      create  vendor/plugins/redmine_polls/app/views
+      create  vendor/plugins/redmine_polls/db/migrate
+      create  vendor/plugins/redmine_polls/lib/tasks
+      create  vendor/plugins/redmine_polls/assets/images
+      create  vendor/plugins/redmine_polls/assets/javascripts
+      create  vendor/plugins/redmine_polls/assets/stylesheets
+      create  vendor/plugins/redmine_polls/lang
+      create  vendor/plugins/redmine_polls/README
+      create  vendor/plugins/redmine_polls/init.rb
+      create  vendor/plugins/redmine_polls/lang/en.yml
+</pre>
+
+Edit @vendor/plugins/redmine_polls/init.rb@ to adjust plugin information (name, author, description and version):
+
+<pre><code class="ruby">
+require 'redmine'
+
+Redmine::Plugin.register :redmine_polls do
+  name 'Polls plugin'
+  author 'John Smith'
+  description 'A plugin for managing polls'
+  version '0.0.1'
+end
+</code></pre>
+
+Then restart the application and point your browser to http://localhost:3000/admin/info.
+After logging in, you should see your new plugin in the plugins list:
+
+p=. !plugins_list1.png!
+
+h2. Generating a model
+
+Let's create a simple Poll model for our plugin:
+
+  ruby script/generate redmine_plugin_model polls poll question:string yes:integer no:integer
+
+This creates the Poll model and the corresponding migration file.
+
+Please note that timestamped migrations are not supported by the actual Redmine plugin engine (Engines). If your migrations are named with a timestamp, rename it using "001", "002", etc. instead.
+
+Migrate the database using the following command:
+
+  rake db:migrate_plugins
+
+Note that each plugin has its own set of migrations.
+
+Lets add some Polls in the console so we have something to work with.  The console is where you an interactively work and examine the Redmine environment and is very informative to play around in.  But for now we just need create two Poll objects
+
+<pre>
+script/console
+>> Poll.create(:question => "Can you see this poll ?")
+>> Poll.create(:question => "And can you see this other poll ?")
+>> exit
+</pre>
+
+Edit @vendor/plugins/redmine_polls/app/models/poll.rb@ in your plugin directory to add a #vote method that will be invoked from our controller:
+
+<pre><code class="ruby">
+class Poll < ActiveRecord::Base
+  def vote(answer)
+    increment(answer == 'yes' ? :yes : :no)
+  end
+end
+</code></pre>
+
+h2. Generating a controller
+
+For now, the plugin doesn't do anything. So let's create a controller for our plugin.
+We can use the plugin controller generator for that. Syntax is:
+
+<pre>ruby script/generate redmine_plugin_controller <plugin_name> <controller_name> [<actions>]</pre>
+
+So go back to the command prompt and run:
+
+<pre>
+% ruby script/generate redmine_plugin_controller Polls polls index vote
+      exists  app/controllers/
+      exists  app/helpers/
+      create  app/views/polls
+      create  test/functional/
+      create  app/controllers/polls_controller.rb
+      create  test/functional/polls_controller_test.rb
+      create  app/helpers/polls_helper.rb
+      create  app/views/polls/index.html.erb
+      create  app/views/polls/vote.html.erb
+</pre>
+
+A controller @PollsController@ with 2 actions (@#index@ and @#vote@) is created.
+
+Edit @vendor/plugins/redmine_polls/app/controllers/polls_controller.rb@ in @redmine_polls@ directory to implement these 2 actions.
+
+<pre><code class="ruby">
+class PollsController < ApplicationController
+  unloadable
+
+  def index
+    @polls = Poll.find(:all)
+  end
+
+  def vote
+    poll = Poll.find(params[:id])
+    poll.vote(params[:answer])
+    if poll.save
+      flash[:notice] = 'Vote saved.'
+      redirect_to :action => 'index'
+    end
+  end
+end
+</code></pre>
+
+Then edit @vendor/plugins/redmine_polls/app/views/polls/index.html.erb@ that will display existing polls:
+
+
+<pre>
+<h2>Polls</h2>
+
+<% @polls.each do |poll| %>
+  <p>
+  <%= poll[:question] %>?
+  <%= link_to 'Yes', {:action => 'vote', :id => poll[:id], :answer => 'yes'}, :method => :post %> (<%= poll[:yes] %>) /
+  <%= link_to 'No', {:action => 'vote', :id => poll[:id], :answer => 'no'}, :method => :post %> (<%= poll[:no] %>)
+  </p>
+<% end %>
+</pre>
+
+You can remove @vendor/plugins/redmine_polls/app/views/polls/vote.html.erb@ since no rendering is done by the corresponding action.
+
+Now, restart the application and point your browser to http://localhost:3000/polls.
+You should see the 2 polls and you should be able to vote for them:
+
+p=. !pools1.png!
+
+Note that poll results are reset on each request if you don't run the application in production mode, since our poll "model" is stored in a class variable in this example.
+
+h2. Extending menus
+
+Our controller works fine but users have to know the url to see the polls. Using the Redmine plugin API, you can extend standard menus.
+So let's add a new item to the application menu.
+
+h3. Extending the application menu
+
+Edit @vendor/plugins/redmine_polls/init.rb@ at the root of your plugin directory to add the following line at the end of the plugin registration block:
+
+<pre><code class="ruby">
+Redmine::Plugin.register :redmine_polls do
+  [...]
+  
+  menu :application_menu, :polls, { :controller => 'polls', :action => 'index' }, :caption => 'Polls'
+end
+</code></pre>
+
+Syntax is:
+
+  menu(menu_name, item_name, url, options={})
+
+There are 4 menus that you can extend:
+
+* @:top_menu@ - the top left menu
+* @:account_menu@ - the top right menu with sign in/sign out links
+* @:application_menu@ - the main menu displayed when the user is not inside a project
+* @:project_menu@ - the main menu displayed when the user is inside a project
+
+Available options are:
+
+* @:param@ - the parameter key that is used for the project id (default is @:id@)
+* @:if@ - a Proc that is called before rendering the item, the item is displayed only if it returns true
+* @:caption@ - the menu caption that can be:
+
+  * a localized string Symbol
+  * a String
+  * a Proc that can take the project as argument
+
+* @:before@, @:after@ - specify where the menu item should be inserted (eg. @:after => :activity@)
+* @:last@ - if set to true, the item will stay at the end of the menu (eg. @:last => true@)
+* @:html_options@ - a hash of html options that are passed to @link_to@ when rendering the menu item
+
+In our example, we've added an item to the application menu which is emtpy by default.
+Restart the application and go to http://localhost:3000:
+
+p=. !application_menu.png!
+
+Now you can access the polls by clicking the Polls tab from the welcome screen.
+
+h3. Extending the project menu
+
+Now, let's consider that the polls are defined at project level (even if it's not the case in our example poll model). So we would like to add the Polls tab to the project menu instead.
+Open @init.rb@ and replace the line that was added just before with these 2 lines:
+
+<pre><code class="ruby">
+Redmine::Plugin.register :redmine_polls do
+  [...]
+
+  permission :polls, {:polls => [:index, :vote]}, :public => true
+  menu :project_menu, :polls, { :controller => 'polls', :action => 'index' }, :caption => 'Polls', :after => :activity, :param => :project_id
+end
+</code></pre>
+
+The second line adds our Polls tab to the project menu, just after the activity tab.
+The first line is required and declares that our 2 actions from @PollsController@ are public. We'll come back later to explain this with more details.
+
+Restart the application again and go to one of your projects:
+
+p=. !project_menu.png!
+
+If you click the Polls tab, you should notice that the project menu is no longer displayed.
+To make the project menu visible, you have to initialize the controller's instance variable @@project@.
+
+Edit your PollsController to do so:
+
+<pre><code class="ruby">
+def index
+  @project = Project.find(params[:project_id])
+  @polls = Poll.find(:all) # @project.polls
+end
+</code></pre>
+
+The project id is available in the @:project_id@ param because of the @:param => :project_id@ option in the menu item declaration above.
+
+Now, you should see the project menu when viewing the polls:
+
+p=. !project_menu_pools.png!
+
+h2. Adding new permissions
+
+For now, anyone can vote for polls. Let's make it more configurable by changing the permission declaration.
+We're going to declare 2 project based permissions, one for viewing the polls and an other one for voting. These permissions are no longer public (@:public => true@ option is removed).
+
+Edit @vendor/plugins/redmine_polls/init.rb@ to replace the previous permission declaration with these 2 lines:
+
+<pre><code class="ruby">
+
+  permission :view_polls, :polls => :index
+  permission :vote_polls, :polls => :vote
+</code></pre>
+
+
+Restart the application and go to http://localhost:3000/roles/report:
+
+p=. !permissions1.png!
+
+You're now able to give these permissions to your existing roles.
+
+Of course, some code needs to be added to the PollsController so that actions are actually protected according to the permissions of the current user.
+For this, we just need to append the @:authorize@ filter and make sure that the @project instance variable is properly set before calling this filter.
+
+Here is how it would look like for the @#index@ action:
+
+<pre><code class="ruby">
+class PollsController < ApplicationController
+  unloadable
+  
+  before_filter :find_project, :authorize, :only => :index
+
+  [...]
+  
+  def index
+    @polls = Poll.find(:all) # @project.polls
+  end
+
+  [...]
+  
+  private
+  
+  def find_project
+    # @project variable must be set before calling the authorize filter
+    @project = Project.find(params[:project_id])
+  end
+end
+</code></pre>
+
+Retrieving the current project before the @#vote@ action could be done using a similar way.
+After this, viewing and voting polls will be only available to admin users or users that have the appropriate role on the project.
+
+h2. Creating a project module
+
+For now, the poll functionality is added to all your projects. But you way want to enable polls for some projects only.
+So, let's create a 'Polls' project module. This is done by wrapping the permissions declaration inside a call to @#project_module@.
+
+Edit @init.rb@ and change the permissions declaration:
+
+<pre><code class="ruby">
+  project_module :polls do
+    permission :view_polls, :polls => :index
+    permission :vote_polls, :polls => :vote
+  end
+</code></pre>
+
+Restart the application and go to one of your project settings.
+Click on the Modules tab. You should see the Polls module at the end of the modules list (disabled by default):
+
+p=. !modules.png!
+
+You can now enable/disable polls at project level.
+
+h2. Improving the plugin views
+
+h3. Adding stylesheets
+
+Let's start by adding a stylesheet to our plugin views.
+Create a file named @voting.css@ in the @vendor/plugins/redmine_polls/assets/stylesheets@ directory:
+
+<pre>
+a.vote { font-size: 120%; }
+a.vote.yes { color: green; }
+a.vote.no  { color: red; }
+</pre>
+
+When starting the application, plugin assets are automatically copied to @public/plugin_assets/redmine_polls/@ by Rails Engines to make them available through your web server. So any change to your plugin stylesheets or javascripts needs an application restart.
+
+Then, append the following lines at the end of @vendor/plugins/redmine_polls/app/views/polls/index.html.erb@ so that your stylesheet get included in the page header by Redmine:
+
+<pre>
+<% content_for :header_tags do %>
+    <%= stylesheet_link_tag 'voting', :plugin => 'redmine_polls' %>
+<% end %>
+</pre>
+
+Note that the @:plugin => 'redmine_polls'@ option is required when calling the @stylesheet_link_tag@ helper.
+
+Javascripts can be included in plugin views using the @javascript_include_tag@ helper in the same way.
+
+h3. Setting page title
+
+You can set the HTML title from inside your views by using the @html_title@ helper.
+Example:
+
+  <% html_title "Polls" -%>

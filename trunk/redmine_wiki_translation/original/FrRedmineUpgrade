@@ -1,0 +1,36 @@
+h1. Mise à jour
+
+h2. Mettre à jour depuis un checkout SVN
+
+1. Allez dans le répertoire racine de Redmine et exécutez la commande suivante:
+
+  svn update
+
+2. Migrez votre base (svp faites une sauvegarde de la base avant):
+
+  rake db:migrate RAILS_ENV="production"
+
+3. Nettoyez le cache et les sessions existantes:
+
+<pre>
+rake tmp:cache:clear
+rake tmp:sessions:clear
+</pre>
+
+4. Redémarrez l'application et allez dans "Administration -> Rôles & permissions" pour vérifier/paramétrer les permissions sur les nouvelles fonctionnalités, s'il y en a.
+
+h2. Mettre à jour depuis une version téléchargée
+
+1. Décompresser la nouvelle archive du programme dans un nouveau répertoire.
+   
+2. Copiez vos paramètres de base @config/database.yml@ dans le nouveau répertoire de configuration @config@.
+
+3. Réentrez vos paramètres SMTP dans @config/environment.rb@ mais ne remplacez *pas* ce fichier avec l'ancien.
+
+4. Allez dans votre nouveau répertoire redmine décompressé, puis migrez votre base de données (svp faites une sauvegarde de la base avant de faire cela):
+
+  rake db:migrate RAILS_ENV="production"
+
+5. Copiez le contenu du répertoire @RAILS_ROOT/files@ dans votre nouvelle installation.
+
+6. Démarrez l'application et allez dans "Administration -> Rôles & permissions" pour vérifier/paramétrer les permissions sur les nouvelles fonctionnalités, s'il y en a.

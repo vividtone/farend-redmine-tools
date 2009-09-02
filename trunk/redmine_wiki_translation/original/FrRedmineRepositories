@@ -1,0 +1,54 @@
+h1. Dépôts
+
+Redmine supporte nativement l'intégration avec différents SCM: "Subversion":http://subversion.tigris.org/, "CVS":http://www.nongnu.org/cvs/, "Mercurial":http://www.selenic.com/mercurial/, "Darcs":http://darcs.net/, "Git":http://git.or.cz (as of r1236), et "Bazaar":http://bazaar-vcs.org/ (depuis r950).
+
+notez que vous devrez installer les binaires appropriés sur votre hôte Redmine:
+
+|*SCM*|*Testé avec*|*Commentaires*|
+|Subversion|1.3 & 1.4|1.3 ou plus requis|
+|CVS|1.12.12|1.12 requis, ne fonctionne pas avec CVSNT|
+|Mercurial|0.9.3| |
+|Bazaar|1.0.0.candidate.1| |
+|Darcs|1.0.7| |
+|Git|1.5.4.2|depuis r1236, prévu dans Redmine 0.7|
+
+Par exemple, si vous souhaitez accéder à un dépôt Subversion dans Redmine, vous devez installer les binaires svn sur l'hôte Redmine.
+
+h2. Lier un dépôt existant à un projet
+
+Dans la configuration du projet, vérifiez que le module 'Dépôt' est activé et allez sur l'onglet 'Dépôt'.
+Choisissez le SCM correspondant à votre dépôt et entrez le chemin ou l'URL de votre dépôt.
+
+*Important*: Lorsque vous parcourez le dépôt pour la première fois, Redmine récupère la description de tous les commits existants et les stocke en base de données. Ceci est fait une seule fois par dépôt mais peut s'avérer très long (allant même jusqu'au time out) si votre dépôt a des centaines de commits.
+
+Pour éviter cela, vous pouvez le faire hors ligne.
+Après avoir déclaré votre dépôt dans Redmine, lancez la commande suivante:
+
+  ruby script/runner "Repository.fetch_changesets" -e production
+
+Tous les commits seront récupérés dans la base de données de Redmine.
+
+h3. Dépôt Subversion
+
+Les protocoles communs sont supportés (cad. @http:@, @svn:@, @file:@), entrez seulement l'URL de votre dépôt.
+
+Exemple:
+
+<pre>
+http://hote/chemin/vers/le/depot
+</pre>
+
+Vous pouvez spécifier un nom d'utilisateur et un mot de passe si le dépôt requiert une authentification.
+
+Note: si vous souhaitez accéder au dépôt en utilisant @svn+ssh://@, vous aurez à configurer svn+ssh pour le rendre non interactif.
+Cela nécessite de configurer une paire de clefs publique/privée pour l'authentification ssh.
+
+h3. Dépôt CVS
+
+Entrez:
+* l'URL du dépôt (qui peut être soit un chemin ou une chaîne de connexion, exemple: @:pserver@).
+* le nom de module
+
+Exemple:
+
+  :pserver:compte:motdepasse@hote:/chemin/vers/le/depot

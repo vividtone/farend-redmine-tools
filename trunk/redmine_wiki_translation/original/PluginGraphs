@@ -1,0 +1,44 @@
+h1. Graphs Plugin
+
+This is a plugin for Redmine provides additional graphs for the system. As of the first release, the following graphs are included.
+
+* Version completion (total issues vs closed issues over time in a single version)
+* Open aging issues (by creation date and last updated date)
+* Total issues over time (all issues over time)
+
+h2. Screenshots
+
+!open-aging-issues_thumb.png!:/attachments/1736/open-aging-issues.png
+
+!total-issues-over-time_thumb.png!:http://www.redmine.org/attachments/1737/total-issues-over-time.png
+
+!version-completion_thumb.png!:http://www.redmine.org/attachments/1738/version-completion.png
+
+h2. Install
+
+# Download the archive file and extract it to your vendor/plugins folder. You can also download directly from GitHub using git: @git clone git://github.com/bradbeattie/redmine-graphs-plugin.git vendor/plugins/redmine_graphs@ (a version for redmine 0.8 is available from @git://github.com/kolewu/redmine-graphs-plugin.git@)
+# Follow the Redmine [[Plugins|plugin installation]] steps.
+
+h2. Upgrade
+
+h3. Zip file
+
+# Download the latest release file
+# Remove the old installation from your vendor/plugins folder
+# Unzip the file to your Redmine into vendor/plugins
+# Restart your Redmine instance
+
+h3. Git
+
+# Open a shell to your Redmine's vendor/plugins/redmine_graphs folder
+# Update your git copy with @git pull@
+# Restart your Redmine instance
+
+h2. License
+
+This plugin is licensed under the GNU GPL v2. See COPYRIGHT.txt and GPL.txt for details.
+
+h2. News
+
+* 0.1.0 Release announcement (2009-03-19)
+* a version compatible with redmine 0.8 is available on github (2009-06-14)

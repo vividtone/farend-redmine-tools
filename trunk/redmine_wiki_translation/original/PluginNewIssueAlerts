@@ -1,0 +1,22 @@
+h1. NewIssueAlerts Plugin
+
+A plugin that sends an email to specified email addresses when a new issue is logged.
+
+h2. Installation and Setup
+
+# Download the source from http://github.com/chantra/redmine_newissuealerts/tree/master
+# Follow the Redmine plugin installation steps at: http://www.redmine.org/wiki/redmine/Plugins Make sure the plugin is installed to @vendor/plugins/redmine_newissuealerts@
+# run 
+ <pre>
+rake db:migrate_plugins RAILS_ENV=production
+ </pre>
+
+
+h2. License
+
+This plugin is licensed under the GNU GPL v2.  See LICENSE.txt for details.
+
+h2. Bug tracker
+
+If you would like to report a bug, please use the github bug tracker located at http://github.com/chantra/redmine_newissuealerts/issues
+

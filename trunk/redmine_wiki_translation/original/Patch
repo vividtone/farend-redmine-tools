@@ -1,0 +1,30 @@
+h1. Patch
+
+A patch file is a single file that will list all the changes made to Redmine.  It is the preferred way to create and share changes to Redmine.
+
+h2. Creating a patch file
+
+Creating a patch for Redmine is easy.  Just follow the following simple steps:
+
+# Download the development copy of Redmine
+# _Make your changes_
+# Run @svn diff > PATCH_NAME.diff@ in you Redmine folder.  Change PATCH_NAME to something that describes the purpose.
+# Upload the patch file to an issue and share
+
+h2. Applying a patch file
+
+To apply a patch file you can use the "patch":http://www.gnu.org/software/patch/ program.
+
+# Change into your Redmine directory (the one with app, test, and config folders)
+# Run @patch -p0 < PATCH_NAME.diff@
+# Check the messages for any errors.
+
+Some errors might occur because there are changes to the same areas of code.  If you are familiar with merging code, you can try to merge the changes.  Otherwise post for help where you downloaded the patch or in the forums.
+
+h2. Remove a patch file
+
+To remove a patch file you can use the "patch":http://www.gnu.org/software/patch/ program.
+
+# Change into your Redmine directory (the one with app, test, and config folders)
+# Run @patch -p0 -R < PATCH_NAME.diff@
+# Check the messages for any errors.

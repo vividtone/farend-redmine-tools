@@ -1,0 +1,58 @@
+h1. Authentification LDAP
+
+Redmine supporte nativement l'authentification LDAP en utilisant un ou plusieurs annuaires LDAP.
+
+h2. Déclarer le LDAP
+
+Allez dans Administration -> Configuration -> Authentification -> Authentification LDAP et cliquez sur *Nouveau mode d'authentification*.
+
+Entrez les informations suivantes:
+
+* *Nom*: un nom arbitraire pour cet annuaire
+* *Hôte*: le nom d'hôte LDAP
+* *Port*: le port LDAP (389 par défaut)
+* *LDAPS*: cochez ceci si vous souhaitez ou devez utiliser LDAPS pour accéder à l'annuaire
+* *Compte*: laissez ce champ vide si votre LDAP peut être lu anonymement, sinon entrez un nom d'utilisateur ayant permission de lecture sur le LDAP
+* *Mot de passe*: le mot de passe du compte
+* *Base DN*: le DN de plus haut niveau de votre arborescence LDAP
+
+
+* *Identifiant*: entrez le nom de l'attribut LDAP qui sera utilisé en tant que nom d'utilisateur Redmine
+
+Les utilisateurs Redmine devraient maintenant être capable de s'authentifier en utilisant leur nom d'utilisateur et mot de passe LDAP si leurs comptes sont paramétrés pour utiliser LDAP pour l'authentification.
+
+Pour tester ceci, créez un utilisateur Redmine avec un compte correspondant à son compte LDAP, sélectionnez le LDAP dans la liste déroulante *Mode d'authentification* (ce champ n'est visible dans l'écran des comptes que si un LDAP est déclaré) et laissez son mot de passe vide. Essayez de vous connecter à Redmine en utilisant le compte et le mot de passe LDAP.
+
+h2. Création des utilisateurs à la volée
+
+En cochant *Création des utilisateurs à la volée*, tout utilisateur LDAP verra son compte Redmine créé automatiquement lors de sa première connection à Redmine.
+Pour cela, vous devez préciser les attributs LDAP (nom, prénom, email) qui seront utilisés pour créer les comptes Redmine.
+
+Voici un exemple typique utilisant Active Directory:
+
+<pre>
+Nom          = My Directory
+Hôte         = host.domain.org
+Port         = 389
+LDAPS        = non
+Compte       = MonDomaine\NomUtilisateur
+Mot de passe = <motdepasse>
+Base DN      = CN=users,DC=host,DC=domain,DC=org
+
+Création des utilisateurs à la volée = oui
+Attributs
+  Identifiant = sAMAccountName
+  Prénom      = givenName
+  Nom         = sN
+  Email       = mail
+</pre>
+
+notez que les attributs LDAP sont *sensibles à la casse*
+
+h2. Dépannage
+
+Si vous souhaitez utiliser la création d'utilisateurs à la volée, vérifiez que Redmine peut récupérer du LDAP toutes les informations requises pour créer un utilisateur valide.
+Par exemple, la création d'utilisateurs à la volée ne fonctionnera pas si vous n'avez pas d'adresses mail valides dans votre annuaire (vous obtiendrez un message d'erreur 'Invalid username/password' en essayant de vous connecter).
+
+De même, vérifiez que vous n'avez aucun champ personnalisé marqué *obligatoire* dans les comptes utilisateurs. Ces champs personnalisés empêcheraient la création à la volée de comptes utilisateurs.
+

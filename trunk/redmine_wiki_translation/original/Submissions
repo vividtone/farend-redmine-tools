@@ -1,0 +1,50 @@
+h1. Submissions on redmine.org
+
+{{>toc}}
+
+h2. Submitting a Bug
+
+Before submitting a bug report here, please make sure:
+
+* that you're using an appropriate Rails version (see [[RedmineInstall]])
+* that your database is up to date, especially if you've just migrated from a previous version or revision (see [[RedmineUpgrade]])
+* if your problem is related to svn (or any other scm), that the proper binaries are installed on your Redmine host (see [[RedmineRepositories]])
+
+And have a look at the "bug list":http://www.redmine.org/projects/redmine/issues?query_id=1 to see if it has not already been reported.
+
+When filling a bug report, please give the following information with the description of your problem:
+
+* your database version (eg. Postgresql 8.2)
+* your Ruby version (eg. ruby 1.8.6)
+* your Rails version (eg. Rails 1.2.6)
+* your Redmine version (pick the version number in the _Affected version_ field) and the exact revision (eg. r1142) if you're using repository code
+* your scm binary version (eg. svn 1.4) if your problem is about scm integration
+* the error stack trace that you should find in the log file if your report is about an error. The message displayed by the app (eg. _...An error occurred on the page you were trying to access. If you continue..._) is useless here.
+
+The simplest way to get information about your Ruby and Ruby on Rails versions is to run:
+
+<pre>ruby script/about</pre>
+
+within your Redmine installation.
+
+h2. Submitting a Security Vulnerability
+
+If you think that you've found a security vulnerability, please report it by sending an email to: @security(at)redmine.org@.
+
+h2. Submitting a Feature Request
+
+Before submitting a feature request here, please make sure:
+
+* fill the _subject_ as a sum up of your description
+* fill the _description_ as detailed as you can, don't hesitate to describe precisely how this feature should behave, try to add what benefits you're excepting from it
+* please *DON'T* fill the _target version_ field: let the developers decide when integrate
+* please *DON'T* assign the feature request to anybody, let the developers deal with it
+
+h2. Submitting a Wiki improvement
+
+When you edit a wiki page to improve its content, make sure that you fill the _comment_ field with a descriptive summary of the changes you've made to the page. This way we'll be better able to "monitor" and "maintain" the quality of the actual wiki content.
+
+h2. Submitting a Patch
+
+* Changes should be submitted as a single patch file. Instructions for creating a patch using svn can be found [[Patch|here]].
+* You should mention the branch/revision your patch is based on and attach it

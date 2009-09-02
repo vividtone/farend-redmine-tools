@@ -1,0 +1,109 @@
+h1. Budget Plugin
+
+Budget is a plugin to manage the set of deliverables for each project, automatically calculating key performance indicators.
+
+h2. Features
+
+* Add new deliverable to a project - Fixed bid or Time Based
+** New issues appended using JavaScript to the top of the deliverables list
+** Clearing the New Deliverable form after a successful save using JavaScript
+* Listing of deliverables on a project
+** Column sorting by: ID, Score, Subject, Budget, Spent, Due date, Progress
+* JavaScript drop down panel for each deliverable displaying
+** Deliverable details
+** Link to edit the deliverable
+** Link to see the issues assigned to the deliverable, using a issue filter
+** Mass assignment of all issues on a specific version to a deliverable
+** Button to Delete the deliverable
+* Edit a deliverable on a project
+* Automatic calculations for deliverables based on the existing Redmine issue and timelog data
+* Calculations for the whole project, based on the deliverables
+* Flexible role based permissions using Redmine's permissions and roles system
+** (none) - Can assign issues to a deliverable and filter on them. 
+** View - Can see the Budget tab and specific deliverable data: name, dates, progress (based on the %done against the estimated hours), total budget 
+** Manage - Can do everything 
+* Company defaults for:
+** Non billable overhead - in dollars or as a %
+** Materials - in dollars or as a %
+** Deliverable profit - in dollars or as a %
+* Ability to add the Deliverable column to the Main Issues list, including sorting and filtering by Deliverable name
+* Adding the billable rate to project members on a per project basis
+
+h2. Screenshots
+
+!budget_plugin-budget_screen_thumb.png!:/attachments/download/924/budget_plugin-budget_screen.png
+
+Main Budget screen.
+
+!budget_plugin-issues_list_thumb.png!:/attachments/download/925/budget_plugin-issues_list.png
+
+Issue list filtered by a Deliverable.
+
+!budget_plugin-member_billing_rates_thumb.png!:/attachments/download/926/budget_plugin-member_billing_rates.png
+
+Member billing rates in Project Settings.
+
+h2. Getting the plugin
+
+A copy of the plugin can be found in the "downloads":https://projects.littlestreamsoftware.com/projects/list_files/redmine-budget at Little Stream Software and also on "GitHub":http://github.com/edavis10/redmine-budget-plugin/tree/master.
+
+h2. Install
+
+# Follow the Redmine plugin installation steps at: http://www.redmine.org/wiki/redmine/Plugins  Make sure the plugin is installed to Make sure you install the plugin to @vendor/plugins/budget_plugin@.
+# The Rate plugin is required also, install it from "Little Stream Software":https://projects.littlestreamsoftware.com/projects/redmine-rate/files
+# Run the plugin migrations @rake db:migrate_plugins@
+# Restart your Redmine web servers (e.g. mongrel, thin, mod_rails)
+# Login to your Redmine install as an Administrator
+# Enable the permissions for your Roles
+# Setup your companies defaults in the Plugins' configuration panel
+# Add the "Budget module" to the enabled modules for the projects you want to manage
+# The link to the plugin should appear on that project's navigation
+
+h2. Usage
+
+h3.  Adding deliverables
+
+# Use the "New Deliverable" link on sidebar of the Budget page to add a new deliverable
+# The deliverable can be a Fixed Bid or an Hourly deliverable.  The type can be changed later.
+# Saving the deliverable will add it to the Deliverable list.
+
+h3.  Viewing deliverables
+
+# Clicking the pencil icon will drop down the deliverable details, with summary and calculations about the deliverable.
+# Links on the left can be used to edit or delete a deliverable and well as view the issue list for the deliverable.
+
+h3.  Assignment of an issue to a deliverable
+
+Edit an issue and select the deliverable from the dropdown
+
+h3.  Bulk assignment of issues to a deliverable
+
+# Select multiple issues on the issue list
+# Right click and select the edit option
+# Select the deliverable from the dropdown and save
+
+h3.  Bulk Assignment of issues by Version
+
+Issues can be bulk assigned to a deliverable based on a Version.
+
+# Expand the Deliverable to view it
+# Select the Version in the drop down box
+# Click the Bulk Assign button
+# All issues for that version will now be assigned to that Deliverable
+
+h2. License
+
+This plugin is licensed under the GNU GPL v2.  See LICENSE.txt and GPL.txt for details.
+
+h2. Project help
+
+If you need help you can contact the maintainer on the bug tracker at https://projects.littlestreamsoftware.com/projects/redmine-budget
+
+h3.  Bug tracker
+
+If you would like to report a bug or request a new feature the bug tracker is located at https://projects.littlestreamsoftware.com/projects/show/redmine-budget
+
+
+h2. News
+
+* "0.2.0 Release Annoucement":http://theadmin.org/articles/2009/4/27/redmine-budget-plugin-v0-2-0-released-finally

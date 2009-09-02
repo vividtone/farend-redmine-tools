@@ -1,0 +1,143 @@
+h1. Migrating from other systems
+
+{{>TOC}}
+
+h2. Trac
+
+The Trac importer migrates:
+
+    * Users
+    * Components
+    * Milestones
+    * Tickets
+    * Ticket comments and changes (status and resolution)
+    * Trac specific fields (eg. Resolution) are added as custom fields in Redmine
+    * Ticket files and custom fields
+    * Wiki pages with history
+
+Notes:
+
+# User passwords are all set to @trac@
+# Ticket ids are preserved if there's no ticket in your Redmine database yet
+# Custom fields are all created as text custom fields in Redmine
+
+You need the sqlite-ruby gem to access the Trac database.
+
+- For sqlite: <pre>gem install sqlite-ruby</pre>
+- For sqlite3: <pre>gem install sqlite3-ruby</pre>
+
+Before starting, you need a fresh Redmine database, *with default data loaded (required)*. See [[RedmineInstall|Redmine installation]].
+
+The script was tested with a 0.10 Trac sqlite database and a 0.11 Trac sqlite3 database.
+
+1. Run the following command, where test is your Redmine target environment:
+
+  rake redmine:migrate_from_trac RAILS_ENV="test"
+
+2. The script asks you for your Trac settings:
+
+<pre>
+Trac directory []: /var/trac/myproject
+Trac database adapter (sqlite, sqlite3, mysql, postgresql) [sqlite]:
+Database encoding [UTF-8]:
+Target project identifier []: myproject
+</pre>
+
+Trac directory is the root directory of your Trac environment. Redmine will look in this directory for @db/trac.db@ (if you choose sqlite/sqlite3 database) and the @attachments@ directory.
+When using a mysql or postgresql Trac database, the script will ask you for the connection parameters (host, database name, username and password).
+Target project identifier is the identifier of the Redmine project in which the data will be loaded (the project is created if not found).
+
+4. The script migrates your data:
+
+<pre>
+Deleting data
+Migrating components..............................
+Migrating milestones..............
+Migrating custom fields.......
+Migrating tickets.................................
+Migrating wiki...........
+
+Components: 29/30
+Milestones: 14/14
+Tickets: 1275/1275
+Ticket files: 106/106
+Custom values: 4409/4409
+Wiki edits: 102/102
+</pre>
+
+The script gives you the total number of migrated objects.
+Now, you should see a project called Myproject in Redmine with your Trac data loaded in this project.
+
+h2. Mantis
+
+The Mantis importer migrates:
+
+    * Users
+    * Projects
+    * Project versions, categories and news
+    * Project memberships
+    * Bugs
+    * Bug notes, files, relations and monitors
+    * Custom fields
+
+User passwords are all set to "mantis".
+
+Bug files migration only works if they're stored in your Mantis database (this is the default Mantis behaviour).
+
+The script was tested with different 1.0.x Mantis databases and should work with any other recent versions.
+
+Before starting, you need a fresh Redmine database, *with default data loaded (required)*. See [[RedmineInstall|Redmine installation]].
+
+1. Run the following command, where test is your Redmine target environment:
+
+  rake redmine:migrate_from_mantis RAILS_ENV="test"
+
+2. The script asks you for your Mantis database settings:
+
+<pre>
+Please enter settings for your Mantis database
+adapter [mysql]:
+host [localhost]:
+database [bugtracker]: mantis
+username [root]:
+password []:
+encoding [UTF-8]:
+</pre>
+
+Give the adapter, host name, database name, login, password and encoding of your Mantis database, or leave the default values.
+
+The adapter can be mysql (default) or postgresql.
+
+3. The script migrates your data:
+
+<pre>
+Migrating users...............
+Migrating projects.............
+Migrating bugs........................................
+Migrating news...
+Migrating custom fields..
+
+Users: 15/15
+Projects: 13/13
+Memberships: 10/10
+Versions: 33/33
+Categories: 4/4
+Bugs: 180/180
+Bug notes: 336/336
+Bug files: 46/46
+Bug relations: 11/11
+Bug monitors: 8/8
+News: 3/3
+Custom fields: 2/2
+</pre>
+
+The script gives you the total number of migrated objects.
+
+h2. Other systems
+
+You can find other importers submitted by Redmine users:
+* Jira importer: #1385
+* Bugzilla importer: #989
+* Scarab importer: #2928
+
+These scripts are neither tested nor supported.

@@ -1,0 +1,54 @@
+h1. Schedules Plugin
+
+This is a plugin for Redmine to manage users and assigned projects over time. The primary problems that it addresses (and aims to address) are questions like the following:
+
+* If I'm assigned to many projects, which ones should I work on today?
+* How many developer hours are committed to my project this Tuesday?
+* I need another developer for my project tomorrow. Who's available?
+* Are my project's developers logging their time appropriately?
+
+h2. Bug reports and feature requests
+
+It's possible that your concerns have already been addressed in the latest build, available from the "git repository":http://github.com/bradbeattie/redmine-schedules-plugin/tree/master. If you would still like to log an issue, please do so at "Little Stream Software":https://projects.littlestreamsoftware.com/projects/redmine-schedules/issues/new.
+
+h2. Screenshot
+
+!user-week_thumb.png!:/attachments/1585/user-week.png !project-view_thumb.png!:/attachments/1583/project-view.png !user-edit_thumb.png!:/attachments/1581/user-edit.png
+
+h2. Install
+
+# Download the archive file and extract it to your vendor/plugins folder. You can also download directly from GitHub using git: @git clone git://github.com/bradbeattie/redmine-schedules-plugin.git vendor/plugins/redmine_schedules@
+# Follow the Redmine [[Plugins|plugin installation]] steps.
+# Setup the database using the migrations. @rake db:migrate_plugins@
+# Login to your Redmine install as an Administrator
+# Setup the permissions for your roles
+# Add the "Schedules module" to the enabled modules for your project
+
+h2. Usage
+
+Navigate to the schedules page and use the "Edit" link to modify your times. Hopefully, the interface is sufficiently intuitive.
+
+h2. Upgrade
+
+h3. Zip file
+
+# Download "the latest release file":https://projects.littlestreamsoftware.com/projects/list_files/redmine-schedules
+# Unzip the file to your Redmine into vendor/plugins
+# Restart your Redmine instance
+
+h3. Git
+
+# Open a shell to your Redmine's vendor/plugins/redmine_schedules folder
+# Update your git copy with @git pull@
+# Restart your Redmine instance
+
+h2. License
+
+This plugin is licensed under the GNU GPL v2. See COPYRIGHT.txt and GPL.txt for details.
+
+h2. News
+
+* 0.4.0 Release announcement (2009-04-28)
+* 0.3.0 Release announcement (2009-03-24)
+* 0.2.0 Release announcement (2009-02-27)
+* 0.1.0 Release announcement (2009-02-13)

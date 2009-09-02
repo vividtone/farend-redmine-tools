@@ -1,0 +1,13 @@
+h1. Sending reminder emails
+
+Redmine offers a rake task that send reminder emails about issues due in the next days.
+
+Available options:
+
+* days: number of days to remind about (defaults to 7)
+* tracker: id of tracker (defaults to all trackers)
+* project: id or identifier of project (defaults to all projects)
+
+The following example will send an email to each user who have assigned issues that are due in the next 7 days:
+
+  rake redmine:send_reminders days=7 RAILS_ENV="production"

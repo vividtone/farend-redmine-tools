@@ -1,0 +1,21 @@
+h1. Whining Plugin
+
+A _plugin_ that will email issue assignee when their issue has not been updated for a certain amount of days.
+
+h2. Installation and Setup
+
+# Download the source from http://github.com/chantra/redmine_whining/tree/master
+# Follow the Redmine plugin installation steps at: http://www.redmine.org/wiki/redmine/Plugins Make sure the plugin is installed to @vendor/plugins/redmine_whining@
+# Create a cron job with a line similar to this:
+ <pre>
+ 0 7 * * 1,2,3,4,5 www-data cd /path/to/redmine && /usr/bin/rake redmine:send_whining days=7 RAILS_ENV="production"
+ </pre>
+
+h2. License
+
+This plugin is licensed under the GNU GPL v2.  See LICENSE.txt for details.
+
+h2. Bug tracker
+
+If you would like to report a bug, please use the github bug tracker located at http://github.com/chantra/redmine_whining/issues
+

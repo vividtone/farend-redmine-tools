@@ -1,0 +1,59 @@
+h1. Accounts
+
+{{>toc}}
+
+h2. My account
+
+This screen lets you edit your account settings: lastname, firstname, email address, language.
+
+h3. Mail notifications
+
+If *Mail notifications* is checked, you will receive notifications about any event that occurs on the projects you belong to (issue added or edited, new document,...).
+
+If it's unchecked, you will only receive notifications about the issues you're involved in (author or assignee) and about things you watch (eg. issues, forums).
+
+h3. Password
+
+To change your password, type your old password and your new password twice. Password length must be between 4 and 12 characters.
+
+If your account uses an external authentication mean (LDAP), you can't change your password in Redmine.
+
+h2. My page
+
+This page lets you display various blocks of information about your projects. By default only the following two blocks are enabled:
+* @Issues assigned to me@
+** _providing a cross-project list of issues, which are assigned to the current user, showing the issue id's, projects, trackers and subjects with the current issue status appended between braces_
+* @Reported issues@
+** _providing a cross-project list of issues, which are reported by the current user, showing the issue id's, projects, trackers and subjects with the current issue status appended between braces_
+
+Each user can personalize the own "My page" by clicking on "Personalize this page". Then the user can choose which of the available blocks of information should be displayed or not.
+The additional blocks besides the two default ones are:
+* @Calendar@
+** _providing a cross-project weekly calendar overview_
+* @Documents@
+** _providing a cross-project overview of the latest documents_
+* @Latest news@
+** _providing a cross-project overview of the latest news_
+* @Spent time@
+** _providing a cross-project overview of the spent time entries of the current user of the last seven days_
+* @Watched issues@
+** _providing a cross-project list of issues, which are watched by the current user, showing the issue id's, projects, trackers and subjects with the current issue status appended between braces_
+
+The layout (as in positioning of the blocks) of the "My page" can also be re-ordered and modified using drag-and-drop.
+
+h2. Password lost
+
+If you forget your password, a procedure lets you to choose a new one.
+
+On the login screen, click on *Lost password*. Enter your email address and submit the form. An email is then sent to you. It contains a link that allows you to change your password.
+
+Note that this functionality can be disabled by the administrator. Also, if your account uses an external authentication mean (LDAP), this procedure isn't be available.
+
+h2. Register
+
+By registering, you can get an account without the intervention of the administrator.
+
+On the login screen, click on *Register*. Fill the form and submit it. An email will be sent to you.
+To activate your account, use the link that is contained in this mail.
+
+Note that this functionality can be disabled by the administrator.

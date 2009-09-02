@@ -1,0 +1,246 @@
+h1. Changelog for 0.7.x
+
+{{>toc}}
+
+h2. v0.7.4 (2008-12-30)
+
+* Fixed several XSS vulnerabilities
+* Fixed a SQL injection vulnerability
+
+h2. v0.7.3 (2008-07-06)
+
+* Allow dot in firstnames and lastnames
+* Add project name to cross-project Atom feeds
+* Encoding set to utf8 in example database.yml
+* HTML titles on forums related views
+* Fixed: various XSS vulnerabilities
+* Fixed: Entourage (and some old client) fails to correctly render notification styles
+* Fixed: Fixed: timelog redirects inappropriately when :back_url is blank
+* Fixed: wrong relative paths to images in wiki_syntax.html
+
+h2. v0.7.2 (2008-06-15)
+
+* Links to repository directories on the repo browser
+* Move status to front in Activity View
+* Remove edit step from Status context menu
+* Fixed: No way to do textile horizontal rule
+* Fixed: Repository: View differences doesn't work
+* Fixed: attachement's name maybe invalid.
+* Fixed: Error when creating a new issue
+* Fixed: NoMethodError on @available_filters.has_key?
+* Fixed: Check All / Uncheck All in Email Settings
+* Fixed: "View differences" of one file at /repositories/revision/ fails
+* Fixed: Column width in "my page"
+* Fixed: private subprojects are listed on Issues view
+* Fixed: Textile: bold, italics, underline, etc... not working after parentheses
+* Fixed: Update issue form: comment field from log time end out of screen
+* Fixed: Editing role: "issue can be assigned to this role" out of box
+* Fixed: Unable use angular braces after include word
+* Fixed: Using '*' as keyword for repository referencing keywords doesn't work
+* Fixed: Subversion repository "View differences" on each file rise ERROR
+* Fixed: View differences for individual file of a changeset fails if the repository URL doesn't point to the repository root
+* Fixed: It is possible to lock out the last admin account
+* Fixed: Wikis are viewable for anonymous users on public projects, despite not granting access
+* Fixed: Issue number display clipped on 'my issues'
+* Fixed: Roadmap version list links not carrying state
+* Fixed: Log Time fieldset in IssueController#edit doesn't set default Activity as default
+* Fixed: git's "get_rev" API should use repo's current branch instead of hardwiring "master"
+* Fixed: browser's language subcodes ignored
+* Fixed: Error on project selection with numeric (only) identifier.
+* Fixed: Link to PDF doesn't work after creating new issue
+* Fixed: "Replies" should not be shown on forum threads that are locked
+* Fixed: SVN errors lead to svn username/password being displayed to end users (security issue)
+* Fixed: http links containing hashes don't display correct
+* Fixed: Allow ampersands in Enumeration names
+* Fixed: Atom link on saved query does not include query_id
+* Fixed: Logtime info lost when there's an error updating an issue
+* Fixed: TOC does not parse colorization markups
+* Fixed: CVS: add support for modules names with spaces
+* Fixed: Bad rendering on projects/add
+* Fixed: exception when viewing differences on cvs
+* Fixed: export issue to pdf will messup when use Chinese language
+* Fixed: Redmine::Scm::Adapters::GitAdapter#get_rev ignored GIT_BIN constant
+* Fixed: Adding non-ASCII new issue type in the New Issue page have encoding error using IE
+* Fixed: Importing from trac : some wiki links are messed
+* Fixed: Incorrect weekend definition in Hebrew calendar locale
+* Fixed: Atom feeds don't provide author section for repository revisions
+* Fixed: In Activity views, changesets titles can be multiline while they should not
+* Fixed: Ignore unreadable subversion directories (read disabled using authz)
+* Fixed: lib/SVG/Graph/Graph.rb can't externalize stylesheets
+* Fixed: Close statement handler in Redmine.pm
+
+h2. v0.7.1 (2008-05-04)
+
+* Thai translation added (Gampol Thitinilnithi)
+* Translations updates
+* Escape HTML comment tags
+* Prevent "can't convert nil into String" error when :sort_order param is not present
+* Fixed: Updating tickets add a time log with zero hours
+* Fixed: private subprojects names are revealed on the project overview
+* Fixed: Search for target version of "none" fails with postgres 8.3
+* Fixed: Home, Logout, Login links shouldn't be absolute links
+* Fixed: 'Latest projects' box on the welcome screen should be hidden if there are no projects
+* Fixed: error when using upcase language name in coderay
+* Fixed: error on Trac import when :due attribute is nil
+
+h2. v0.7.0 (2008-04-28)
+
+* Forces Redmine to use rails 2.0.2 gem when vendor/rails is not present
+* Queries can be marked as 'For all projects'. Such queries will be available on all projects and on the global issue list.
+* Add predefined date ranges to the time report
+* Time report can be done at issue level
+* Various timelog report enhancements
+* Accept the following formats for "hours" field: 1h, 1 h, 1 hour, 2 hours, 30m, 30min, 1h30, 1h30m, 1:30
+* Display the context menu above and/or to the left of the click if needed
+* Make the admin project files list sortable
+* Mercurial: display working directory files sizes unless browsing a specific revision
+* Preserve status filter and page number when using lock/unlock/activate links on the users list
+* Redmine.pm support for LDAP authentication
+* Better error message and AR errors in log for failed LDAP on-the-fly user creation
+* Redirected user to where he is coming from after logging hours
+* Warn user that subprojects are also deleted when deleting a project
+* Include subprojects versions on calendar and gantt
+* Notify project members when a message is posted if they want to receive notifications
+* Fixed: Feed content limit setting has no effect
+* Fixed: Priorities not ordered when displayed as a filter in issue list
+* Fixed: can not display attached images inline in message replies
+* Fixed: Boards are not deleted when project is deleted
+* Fixed: trying to preview a new issue raises an exception with postgresql
+* Fixed: single file 'View difference' links do not work because of duplicate slashes in url
+* Fixed: inline image not displayed when including a wiki page
+* Fixed: CVS duplicate key violation
+* Fixed: ActiveRecord::StaleObjectError exception on closing a set of circular duplicate issues
+* Fixed: custom field filters behaviour
+* Fixed: Postgresql 8.3 compatibility
+* Fixed: Links to repository directories don't work
+
+h2. v0.7.0 RC1 (2008-03-29)
+
+* Overall activity view and feed added, link is available on the project list
+* Git VCS support
+* Rails 2.0 sessions cookie store compatibility
+* Use project identifiers in urls instead of ids
+* Default configuration data can now be loaded from the administration screen
+* Administration settings screen split to tabs (email notifications options moved to 'Settings')
+* Project description is now unlimited and optional
+* Wiki annotate view
+* Escape HTML tag in textile content
+* Add Redmine links to documents, versions, attachments and repository files
+* New setting to specify how many objects should be displayed on paginated lists. There are 2 ways to select a set of issues on the issue list:
+
+    * by using checkbox and/or the little tick that will select/unselect all issues
+    * by clicking on the rows (but not on the links), Ctrl and Shift keys can be used to select multiple issues
+
+* Context menu disabled on links so that the default context menu of the browser is displayed when right-clicking on a link (click anywhere else on the row to display the context menu)
+* User display format is now configurable in administration settings
+* Issue list now supports bulk edit/move/delete (for a set of issues that belong to the same project)
+* Merged 'change status', 'edit issue' and 'add note' actions:
+
+    * Users with 'edit issues' permission can now update any property including custom fields when adding a note or changing the status
+    * 'Change issue status' permission removed. To change an issue status, a user just needs to have either 'Edit' or 'Add note' permissions and some workflow transitions allowed
+
+* Details by assignees on issue summary view
+* 'New issue' link in the main menu (accesskey 7). The drop-down lists to add an issue on the project overview and the issue list are removed
+* Change status select box default to current status
+* Preview for issue notes, news and messages
+* Optional description for attachments
+* 'Fixed version' label changed to 'Target version'
+* Let the user choose when deleting issues with reported hours to:
+
+    * delete the hours
+    * assign the hours to the project
+    * reassign the hours to another issue
+
+* Date range filter and pagination on time entries detail view
+* Propagate time tracking to the parent project
+* Switch added on the project activity view to include subprojects
+* Display total estimated and spent hours on the version detail view
+* Weekly time tracking block for 'My page'
+* Permissions to edit time entries
+* Include subprojects on the issue list, calendar, gantt and timelog by default (can be turned off is administration settings)
+* Roadmap enhancements (separate related issues from wiki contents, leading h1 in version wiki pages is hidden, smaller wiki headings)
+* Make versions with same date sorted by name
+* Allow issue list to be sorted by target version
+* Related changesets messages displayed on the issue details view
+* Create a journal and send an email when an issue is closed by commit
+* Add 'Author' to the available columns for the issue list
+* More appropriate default sort order on sortable columns
+* Add issue subject to the time entries view and issue subject, description and tracker to the csv export
+* Permissions to edit issue notes
+* Display date/time instead of date on files list
+* Do not show Roadmap menu item if the project doesn't define any versions
+* Allow longer version names (60 chars)
+* Ability to copy an existing workflow when creating a new role
+* Display custom fields in two columns on the issue form
+* Added 'estimated time' in the csv export of the issue list
+* Display the last 30 days on the activity view rather than the current month (number of days can be configured in the application settings)
+* Setting for whether new projects should be public by default
+* User preference to choose how comments/replies are displayed: in chronological or reverse chronological order
+* Added default value for custom fields
+* Added tabindex property on wiki toolbar buttons (to easily move from field to field using the tab key)
+* Redirect to issue page after creating a new issue
+* Wiki toolbar improvements (mainly for Firefox)
+* Display wiki syntax quick ref link on all wiki textareas
+* Display links to Atom feeds
+* Breadcrumb nav for the forums
+* Show replies when choosing to display messages in the activity
+* Added 'include' macro to include another wiki page
+* RedmineWikiFormatting page available as a static HTML file locally
+* Wrap diff content
+* Strip out email address from authors in repository screens
+* Highlight the current item of the main menu
+* Added simple syntax highlighters for php and java languages
+* Do not show empty diffs
+* Show explicit error message when the scm command failed (eg. when svn binary is not available)
+* Lithuanian translation added (Sergej Jegorov)
+* Ukrainan translation added (Natalia Konovka & Mykhaylo Sorochan)
+* Danish translation added (Mads Vestergaard)
+* Added i18n support to the jstoolbar and various settings screen
+* RedCloth's glyphs no longer user
+* New icons for the wiki toolbar (from http://www.famfamfam.com/lab/icons/silk/)
+* The following menus can now be extended by plugins: top_menu, account_menu, application_menu
+* Added a simple rake task to fetch changesets from the repositories: rake redmine:fetch_changesets
+* Remove hardcoded "Redmine" strings in account related emails and use application title instead
+* Mantis importer preserve bug ids
+* Trac importer: Trac guide wiki pages skipped
+* Trac importer: wiki attachments migration added
+* Trac importer: support database schema for Trac migration
+* Trac importer: support CamelCase links
+* Removes the Redmine version from the footer (can be viewed on admin -> info)
+* Rescue and display an error message when trying to delete a role that is in use
+* Add various 'X-Redmine' headers to email notifications: X-Redmine-Host, X-Redmine-Site, X-Redmine-Project, X-Redmine-Issue-Id, -Author, -Assignee, X-Redmine-Topic-Id
+* Add "--encoding utf8" option to the Mercurial "hg log" command in order to get utf8 encoded commit logs
+* Fixed: Gantt and calendar not properly refreshed (fragment caching removed)
+* Fixed: Textile image with style attribute cause internal server error
+* Fixed: wiki TOC not rendered properly when used in an issue or document description
+* Fixed: 'has already been taken' error message on username and email fields if left empty
+* Fixed: non-ascii attachement filename with IE
+* Fixed: wrong url for wiki syntax pop-up when Redmine urls are prefixed
+* Fixed: search for all words doesn't work
+* Fixed: Do not show sticky and locked checkboxes when replying to a message
+* Fixed: Mantis importer: do not duplicate Mantis username in firstname and lastname if realname is blank
+* Fixed: Date custom fields not displayed as specified in application settings
+* Fixed: titles not escaped in the activity view
+* Fixed: issue queries can not use custom fields marked as 'for all projects' in a project context
+* Fixed: on calendar, gantt and in the tracker filter on the issue list, only active trackers of the project (and its sub projects) should be available
+* Fixed: locked users should not receive email notifications
+* Fixed: custom field selection is not saved when unchecking them all on project settings
+* Fixed: can not lock a topic when creating it
+* Fixed: Incorrect filtering for unset values when using 'is not' filter
+* Fixed: PostgreSQL issues_seq_id not updated when using Trac importer
+* Fixed: ajax pagination does not scroll up
+* Fixed: error when uploading a file with no content-type specified by the browser
+* Fixed: wiki and changeset links not displayed when previewing issue description or notes
+* Fixed: 'LdapError: no bind result' error when authenticating
+* Fixed: 'LdapError: invalid binding information' when no username/password are set on the LDAP account
+* Fixed: CVS repository doesn't work if port is used in the url
+* Fixed: Email notifications: host name is missing in generated links
+* Fixed: Email notifications: referenced changesets, wiki pages, attachments... are not turned into links
+* Fixed: Do not clear issue relations when moving an issue to another project if cross-project issue relations are allowed
+* Fixed: "undefined method 'textilizable'" error on email notification when running Repository#fetch_changesets from the console
+* Fixed: Do not send an email with no recipient, cc or bcc
+* Fixed: fetch_changesets fails on commit comments that close 2 duplicates issues.
+* Fixed: Mercurial browsing under unix-like os and for directory depth > 2
+* Fixed: Wiki links with pipe can not be used in wiki tables
+* Fixed: migrate_from_trac doesn't import timestamps of wiki and tickets
+* Fixed: when bulk editing, setting "Assigned to" to "nobody" causes an sql error with Postgresql

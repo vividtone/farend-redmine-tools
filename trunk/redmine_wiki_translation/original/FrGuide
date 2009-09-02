@@ -1,0 +1,40 @@
+h1. Redmine guide
+
+h2. Guide d'installation
+
+* [[frRedmineInstall|Installer Redmine]]
+* [[frRedmineUpgrade|Mettre à jour une installation existante]]
+* [[frRedmineMigrate|Migrer depuis d'autres systèmes]]
+
+h2. Guide de l'administrateur
+
+* [[frRedmineSettings|Configuration de l'application]]
+* [[frRedmineRoles|Rôles et permissions]]
+* [[frRedmineIssueTrackingSetup|Système de suivi de demandes]]
+* [[frRedmineCustomFields|Champs personnalisés]]
+* [[frRedmineProjects|Gérer les projets]]
+* [[frRedmineUsers|Gérer les utilisateurs]]
+* [[frRedmineLDAP|Authentification LDAP]]
+* [[frRedmineReceivingEmails|Recevoir des mails]]
+
+h2. Guide de l'utilisateur
+
+* [[frRedmineAccounts|Comptes utilisateur]]
+* [[frRedmineProjectSettings|Configuration d'un projet]]  
+* [[frRedmineIssues|Suivi de demandes]]
+
+  * [[frRedmineIssueList|Liste de demandes]]
+  * [[frRedmineRoadmap|Roadmap]]
+  * [[frRedmineVersion|Vue version]]
+* [[frTime tracking|Suivi du temps]]
+* [[frRedmineWikis|Wikis]]
+* [[frRedmineRepositories|Dépôts]]
+
+h2. Guide du développeur
+
+* [[Download|Instructions subversion]] sur la page de téléchargements habituelle (anglais)
+* [[frPlugin_Tutorial|Tutoriel]] sur l'écriture d'un plugin Redmine
+
+Voir également: [[frRedmineWikiFormatting|formalisme Wiki]]
+
+Ce guide est également disponible en [[Guide|anglais]]

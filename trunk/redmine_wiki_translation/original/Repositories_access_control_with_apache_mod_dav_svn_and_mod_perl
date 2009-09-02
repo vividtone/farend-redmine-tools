@@ -1,0 +1,181 @@
+h1. Repositories access control with apache mod dav svn and mod perl
+
+{{>TOC}}
+
+h2. Overview
+
+In this documentation, we will configure apache to delegate authentication to mod_perl. It's tested on apache2 with mysql and postgresql but should work with allmost every databases for which there is a perl DBD module.
+
+You need Redmine r860 or later. If your Redmine is older than r916, download "Redmine.pm":http://redmine.rubyforge.org/svn/trunk/extra/svn/Redmine.pm
+
+You need a working apache on your SVN server and you must install some modules at least mod_dav_svn, mod_perl2, DBI and DBD::mysql (or the DBD driver for you database as it should work on allmost all databases).
+
+If the repositories are not created automatically by reposman.rb, it is important that the repository name is the same as the project identifier in Redmine, otherwise Redmine.pm will fail to authenticate users.
+
+On Debian/ubuntu you must do :
+
+  aptitude install libapache2-svn libapache-dbi-perl libapache2-mod-perl2 libdbd-mysql-perl libdigest-sha1-perl
+
+h2. Enabling apache modules
+
+On debian/ubuntu :
+
+<pre>
+a2enmod dav
+a2enmod dav_svn
+a2enmod perl
+</pre>
+
+h2. Apache configuration for subversion repositories and redmine 0.7.X and before
+
+You need to copy "Redmine.pm" on your SVN server and add something like that to your apache configuration (for example in @/etc/APACHE_DIR/conf.d/@)
+
+You must change the Redmine.pm path and database informations to fit your needs.
+
+<pre>
+   PerlRequire /usr/local/apache/Redmine.pm
+   <Location /svn>
+     DAV svn
+     SVNParentPath "/var/svn"
+
+     AuthType Basic
+     AuthName redmine
+     Require valid-user
+
+     PerlAccessHandler Apache::Authn::Redmine::access_handler
+     PerlAuthenHandler Apache::Authn::Redmine::authen_handler
+  
+     ## for mysql
+     PerlSetVar dsn DBI:mysql:database=databasename;host=my.db.server
+     ## for postgres
+     # PerlSetVar dsn DBI:Pg:dbname=databasename;host=my.db.server
+
+     PerlSetVar db_user redmine
+     PerlSetVar db_pass password
+  </Location>
+
+  # a private location in read only mode to allow Redmine browsing
+  <Location /svn-private>
+    DAV svn
+    SVNParentPath "/var/svn"
+    Order deny,allow
+    Deny from all
+    # only allow reading orders
+    <Limit GET PROPFIND OPTIONS REPORT>
+      Allow from redmine.server.ip
+    </Limit>
+  </Location>
+</pre>
+
+It will add add two Location directives, one @/svn@ with authentication and access control against the Redmine database for users and one @/svn-private@ in read-only with IP limitation for Redmine browsing.
+
+And that's done. You can try to browse some public repository with:
+<pre>
+svn ls http://my.svn.server/svn/myproject
+</pre>
+
+If you try to browse some non public repository, it will ask you a password.
+
+h2. Apache configuration for subversion repositories and redmine after 0.7.X 
+
+There's some difference in Redmine.pm so configuration is different. Everything else in the previous part works.
+
+You first need to copy or link Redmine.pm to /usr/lib/perl5/Apache/Redmine.pm, then you add this configuration to apache :
+<pre>
+   PerlLoadModule Apache::Redmine
+   <Location /svn>
+     DAV svn
+     SVNParentPath "/var/svn"
+
+     AuthType Basic
+     AuthName redmine
+     Require valid-user
+
+     PerlAccessHandler Apache::Authn::Redmine::access_handler
+     PerlAuthenHandler Apache::Authn::Redmine::authen_handler
+  
+     ## for mysql
+     RedmineDSN "DBI:mysql:database=databasename;host=my.db.server"
+     ## for postgres
+     # RedmineDSN "DBI:Pg:dbname=databasename;host=my.db.server"
+
+     RedmineDbUser "redmine"
+     RedmineDbPass "password"
+  </Location>
+</pre>
+
+If you want to connect your LDAP authentication to Apache, you can install the Authen::Simple::LDAP perl module.  I found that connecting to my LDAP server to authenticate with every request can be quite slow.  I added the following to my configuration and had a significant performance increase.
+
+<pre>
+   PerlLoadModule Apache::Redmine
+   <Location /svn>
+     DAV svn
+     SVNParentPath "/var/svn"
+
+     AuthType Basic
+     AuthName redmine
+     Require valid-user
+
+     PerlAccessHandler Apache::Authn::Redmine::access_handler
+     PerlAuthenHandler Apache::Authn::Redmine::authen_handler
+  
+     ## for mysql
+     RedmineDSN "DBI:mysql:database=databasename;host=my.db.server"
+     ## for postgres
+     # RedmineDSN "DBI:Pg:dbname=databasename;host=my.db.server"
+
+     RedmineDbUser "redmine"
+     RedmineDbPass "password"
+     #Cache the last 50 auth entries
+     RedmineCacheCredsMax 50
+  </Location>
+</pre>
+
+
+h2. Apache configuration for after redmine 0.7.X and git access
+
+Now that reposman.rb can create git repositories, you can use Redmine.pm to access them the same way than subversion. You first need to copy or link Redmine.pm to /usr/lib/perl5/Apache/Redmine.pm, then you add this configuration to apache : 
+
+<pre>
+Alias /git /var/git
+
+PerlLoadModule Apache::Redmine
+<Location /git>
+  DAV on
+
+  AuthType Basic
+  Require valid-user
+  AuthName "Git"
+
+  PerlAccessHandler Apache::Authn::Redmine::access_handler
+  PerlAuthenHandler Apache::Authn::Redmine::authen_handler
+
+  RedmineDSN "DBI:mysql:database=redmine;host=localhost"
+  RedmineDbUser "redmine"
+  RedmineDbPass "password"
+</Location>
+
+Alias /git-private /var/git
+
+<Location /git-private>
+   Order deny,allow
+   Deny from all
+   <Limit GET PROPFIND OPTIONS REPORT>
+      Options Indexes FollowSymLinks MultiViews
+   Allow from 127.0.0.1
+   </Limit>
+</Location>
+</pre>
+
+To verify that you can access repository through Redmine.pm, you can use curl :
+<pre>
+% curl --netrc --location http://localhost/git/ecookbook/HEAD   
+ref: refs/heads/master
+</pre>
+
+h2. Gotchas
+
+If you run this in Phusion Passenger, make sure you don't turn PassengerHighPerformance on. If you do, the rewrites to catch subversion dav will be bypassed with some interesting dump in the log as a result.
+Example: 
+> ActionController::RoutingError (No route matches "/svn/rm-code" with {:method=>:get}):
+(if your repo are named rm-code)

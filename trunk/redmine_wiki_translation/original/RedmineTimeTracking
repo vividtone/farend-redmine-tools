@@ -1,0 +1,7 @@
+h1. Time tracking
+
+You can enter an estimated time on each issue and track how many hours you spent on each of them.
+
+Estimated and spent hours can be entered using the following formats:
+* Hours and minutes: 1h, 1 h, 1 hour, 2 hours, 30m, 30min, 1h30, 1h30m, 1:30
+* Hours as decimal: 1.5, 1,5 (equals to 1h30)

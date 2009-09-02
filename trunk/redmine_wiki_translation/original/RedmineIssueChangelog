@@ -1,0 +1,18 @@
+h1. The Change log
+
+h2. Overview
+
+Redmine provides a change log, which provides a project-level overview of all closed issues, sorted per target version.
+
+!changelog-overview.jpg!
+
+Considering the fact that this is an overview of what has changed in the specified target-versions only closed issues which have the target-version field filled are shown in this overview.
+
+!>sidebar-changelog.jpg!
+
+h2. Sidebar
+
+
+p<. The contextual sidebar on the right of the change log provides several things:
+* checkboxes and an apply-button to include/exclude issues from specific trackers on the changelog (which trackers are shown here with checkboxes depends on the individual [[RedmineIssueTrackingSetup#Trackers|tracker-configuration]])
+* links to the configured target-versions of the project where each links to the change log itself starting with the selected target-version

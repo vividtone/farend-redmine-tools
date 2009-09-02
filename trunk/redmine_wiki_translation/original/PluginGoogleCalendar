@@ -1,0 +1,131 @@
+h1. Google Calendar plugin
+
+{{>toc}}
+
+A plugin for Redmine which provides the project-manager a way to include a Google Calendar iframe as a tab within Redmine projects.
+
+h2. Packager and maintainer
+
+* Mischa The Evil
+
+h2. Author
+
+* Jim Mulholland
+
+h2. Changelog
+
+For the complete changelog see the @CHANGELOG@-file in the Redmine Google Calendar plugin directory.
+
+h2. Latest stable release
+
+The currently available, latest stable release of the plugin is version *0.1.2*.
+
+h2. Description
+
+The Google Calendar plugin is a simple Redmine plugin which provides the project-manager a way to include a Google Calendar iframe as a tab within Redmine projects. The calendar timezone will be user-dependent based off the timezone in your Redmine user account and defaulted to the timezone set in the <code><iframe></code> if the user does not have a timezone selected.
+
+h2. Compatibility
+
+This plugin is compatible with Redmine 0.8.x as well as with the current Redmine trunk.
+
+h2. Prerequisites
+
+The plugin requires the "@tzinfo@":http://tzinfo.rubyforge.org/ gem to be available. If it does not already exist on your server, you can install it using a command like: <pre>$ sudo gem install tzinfo</pre>
+
+h2. Obtaining 
+
+h3. Packaged releases
+
+The plugin can be downloaded as packaged releases from:
+* this GitHub-site: http://github.com/MischaTheEvil/redmine_google_calendar/downloads
+* this MediaFire-account: http://www.mediafire.com/evildev
+
+h3. Source on GitHub
+
+bq. URL of the GitHub repository: http://github.com/MischaTheEvil/redmine_google_calendar/tree/master
+
+The source of this plugin can be "cloned" from the GitHub-repo using two different methods:
+* using @git clone@ (Git version < 1.5.3):<pre>
+$ cd {RAILS_ROOT}/vendor/plugins
+$ git clone git://github.com/MischaTheEvil/redmine_google_calendar.git
+</pre>
+
+* using @git-rails@ (Git version >= 1.5.3 -- Because the @git-rails@ gem uses Git Submodules which were introduced in v. 1.5.3):<pre>
+$ sudo gem install git-rails
+$ git-rails install git://github.com/MischaTheEvil/redmine_google_calendar.git
+</pre>
+
+h2. Installation
+
+# Download the plugin from the available sources (see "Obtaining":http://www.redmine.org/wiki/redmine/PluginGoogleCalendar#Obtaining)
+# Install the plugin as described at: http://www.redmine.org/wiki/redmine/Plugins, according to the way you've obtained the plugin (this plugin does not require a plugin database migration)
+# Restart Redmine
+
+h2. Global setup
+
+Before you can actually use the plugin within the preferred projects some setup has to be done first.
+
+# Go to "Administration -> Custom fields" and create a Project custom field of the type "long text", named 'Google Calendar IFrame' for example.
+# Go to "Administration -> Plugins -> Google Calendar Plugin > Configure" to configure the Google Calendar plugin:
+* select the project custom field which contains the Google Calendar-iframe; in this example select the newly created project custom field "Google Calendar IFrame"
+
+h2. Project level setup
+
+After you have completed the global setup of the plugin you can select which projects will actually be able to use the feature brought by the plugin. Due to the way the plugin implements this feature it is also possible to configure which Google Calendar is actually being displayed on a project level base.
+The project level setup consists of the following two tasks:
+
+h3. Retrieve the embedding-code from Google
+
+You should retrieve the actual Google Calendar embedding-code (<code><iframe></code>). Therefore, go to the Google Calendar which you want to embed and:
+
+# Click on "Settings" in the upper left hand corner
+# Click on the "Calendars" tab
+# Select the calendar you want to use
+# In the "Embed This Calendar" section, copy the entire <code><iframe></code> code from the text box
+
+(If this is a private calendar, you will have to replace the "src" in the <code><iframe></code> with the HTML found by clicking the blue "HTML" block in the "Private Address" section on the same page.)
+
+For detailed help on how to obtain the calendar-information see http://www.google.com/calendar/embed/EmbedHelper_en.html.
+
+h3. Configure the plugin per each project
+
+Now the copied <code><iframe></code> code should be added to a Redmine project. At first we need to make sure the plugin is enabled for the project.
+In the preferred Redmine project, go to the "Project settings":
+
+# On the "Modules" tab: enable the plugin-module by checking "Google Calendar".
+# On the "Information" tab: paste the <code><iframe></code> code, that you have copied to your clipboard from the Google Calendar you want to embed, into the 'Google Calendar IFrame' project custom field you created in the global setup under step 1.
+
+After that, a new item named "Calendar" will show up in the project menu. Click on this item to see your Google Calendar.
+
+h2. FAQ
+
+# On the project overview tab I see the iframe code. Could that be removed?
+** Yes, see Redmine patch #1746 which provides an option to project custom fields to hide them from the project overview especially written for this purpose.
+
+h2. Upgrading
+
+# When using packaged releases: download the latest source of the plugin from the available sources (see "Obtaining":http://www.redmine.org/wiki/redmine/PluginGoogleCalendar#Obtaining)
+# Backup the currently deployed Google Calendar plugin (@cp -r /vendor/plugins/redmine_google_calendar /vendor/plugins/redmine_google_calendar-backup@)
+# Reinstall the updated plugin:
+** When using packaged releases: Unpack the downloaded file to your Redmine into the plugin-directory _"../vendor/plugins"_ and let it overwrite your outdated plugin instance (which you've backed-up earlier)
+** When using the GitHub-sources: with either @git pull@ or @git-rails update@
+# Restart your Redmine
+
+h2. Uninstalling
+
+# Remove the directory _"redmine_google_calendar"_ from the plugin-directory _"../vendor/plugins"_
+# Restart Redmine
+
+h2. Licensing
+
+This plugin is open-source and licensed under the "GNU General Public License v2":http://www.gnu.org/licenses/old-licenses/gpl-2.0.html (GPL). See the included @COPYRIGHT.txt@ and @GPL.txt@ files for details.
+
+* ©2009, Mischa The Evil (http://www.evil-dev.net)
+* ©2008, Jim Mulholland (http://www.squeejee.com)
+
+h2. Support
+
+If you would like to report a bug or request a new feature you can open a new issue at the issue-tracking section of the plugins' GitHub site: http://github.com/MischaTheEvil/redmine_google_calendar/issues.
+You can also post your feedback about the plugin in the dedicated plugin-section of the "Redmine forums":http://www.redmine.org/projects/redmine/boards/3.
+
+As an alternative you can also join the @#redmine@-channel on the "freenode":http://freenode.net/irc_servers.shtml IRC network to see if the active maintainer is connected (with the nickname @Mischa_The_Evil@).

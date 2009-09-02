@@ -1,0 +1,48 @@
+h1. Alternate theme
+
+This is a derivative of an older revision of the default Redmine theme which includes issuelist-colouring based on issue's priorities.
+
+h2. Author
+
+Same as the author of Redmine itself: Jean-Philippe Lang.
+
+h2. Description
+
+This is one of the two additional themes which is distributed as part of the Redmine core. It is a derivative of an older revision of the default Redmine theme, which was specifically modified to include issuelist-colouring based on issue's priority, which is included with the Redmine core as an optional, _alternative_ theme.
+
+It's looks can be best described as a light-version of the [[ThemeDefault|default theme]] with some specific enhancements over the default theme. The colouring is mainly designed around three basic colours: blue, dark-blue and white/grey.
+
+It does not provides the more sophistically styled "tabs", "tables", etc. from the [[ThemeDefault|default theme]].
+
+h2. Screenshots
+
+|=. *Project Overview*   |=. *Project Activity*     |
+| !overview-480x360.jpg! | !activity-480x360.jpg!   |
+
+|=. *Project Roadmap*    |=. *Project Issuelist*    |
+| !roadmap-480x360.jpg!  | !issuelist-480x360.jpg!  |
+
+|=. *Project Files*     |=. *Project Repository*   |
+| !files-480x360.jpg!   | !repository-480x360.jpg! |
+
+h2. Obtaining the theme
+
+The theme is included within the Redmine core.
+
+h2. Installation
+
+This theme is included as part of the Redmine core, and therefor does not need a seperate installation. It can be selected as the current theme to use.
+
+h2. Changelog
+
+See the @svn@-log of source:trunk/public/themes/alternate.
+
+h2. Licensing
+
+The alternate theme is open source and released under the terms of the "GNU General Public License v2":http://www.gnu.org/licenses/old-licenses/gpl-2.0.html (GPL).
+
+h2. Support
+
+Support is provided as for Redmine itself. For getting help or discussing about Redmine, you can browse the "Redmine forums":http://www.redmine.org/projects/redmine/boards. Or, join @#redmine@ on the freenode IRC network.
+
+Ultimately, you can raise a bug or feature request by opening a new issue. Before opening an issue here, please read this: [[SubmittingBugs]].

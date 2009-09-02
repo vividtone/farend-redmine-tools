@@ -1,0 +1,37 @@
+h1. Project Scores Plugin
+
+A plugin that will let a user score a project on different criteria.
+
+h2. Alpha Release
+
+*WARNING*: This plugin is an Alpha release and *should not be used on a production system*.  
+
+h2. Features
+
+* Projects can be scored based on user defined values
+* Score groups can be setup to rank a project in different areas (e.g. Profitability, Fun)
+* Total score for a project is calculated
+
+h2. Screenshot:
+
+!redmine_project_scores_thumb.png!:/attachments/download/11
+
+h2. Installation and Setup
+
+There are three ways to download it:
+# Download the plugin.  There are three supported ways:
+#* Downloading the latest archive file from "Little Stream Software projects":https://projects.littlestreamsoftware.com/projects/list_files/redmine-scores
+#* Checkout the source from Subversion
+       @svn co svn://dev.littlestreamsoftware.com/redmine_project_scores_plugin/trunk redmine_project_scores_plugin@
+#* Install it using Rail's plugin installer
+       @script/plugin install svn://dev.littlestreamsoftware.com/redmine_project_scores_plugin/trunk@
+# Install the plugin as described [[Plugins|here]] (this plugin *does* require migrations).
+# Login to your Redmine install as an Administrator.
+# Enable the "Score Module" permissions for your Roles.
+# Add the "Score module" to the enabled modules for your project.
+# The link to the plugin should appear on that project's navigation.
+
+
+h2. News
+
+"0.0.1 Release announcement":http://theadmin.org/articles/2008/1/31/redmine-project-scores-plugin

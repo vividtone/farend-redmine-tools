@@ -1,0 +1,158 @@
+h1. HowTo run Redmine with a Mongrel cluster
+
+(Debian & French Version, Translation as soon as possible :) )
+
+<pre>
+###
+# UTILISER MONGREL ET AUTOMATISER LE LANCEMENT DE REDMINE
+###
+
+*# Nous supposons que notre dossier Redmine est présent à l'adresse /home/svn/redmine/ et qu'il appartient à l'utilisateur USER*
+# On installe Mongrel et son gestionnaire de cluster
+# Je pense que gem n'est pas nécessaire mais au cas ou, pour log : gem install gem_plugin mongrel mongrel_cluster
+apt-get install mongrel mongrel-cluster
+
+# Créons le fichier de configuration pour Redmine
+# -e production indique que le serveur doit tourner en mode production
+# -p 8000 lance Mongrel sur le port 8000
+# -N 3 indique qu'il y aura 3 instances du serveur
+# -c /home/... le chemin vers la racine de redmine
+# -C /home/... le chemin vers où le fichier de configuration va être créé
+# -a dit à Mongrel d'écouter le localhost     
+mongrel_rails cluster::configure -e production -p 8000 -N 3 -c /home/svn/redmine -C /home/svn/redmine/config/mongrel_cluster.yml -a 127.0.0.1 --user USER --group www-data
+
+# On fait un lien de ce fichier de conf pour mongrel
+ln -s /home/svn/redmine/config/mongrel_cluster.yml /etc/mongrel-cluster/sites-enabled/redmine.yml
+
+# On configure maintenant le script de lancement mongrel-cluster qui doit se trouver dans /etc/init.d/
+CONF_DIR=/etc/mongrel-cluster/sites-enabled
+PID_DIR=/home/svn/redmine/tmp/pids
+USER=UTILISATEUR_DE_VOTRE_CHOIX
+GROUP=www-data
+
+# On vérifie les droits sur le fichier
+chmod +x /etc/init.d/mongrel-cluster
+
+# On vérifie que le script est bien lancé au démarrage, c'est normalement le cas :
+ls /etc/rc0.d/ | grep mongrel
+K20mongrel-cluster
+
+# Sinon on l'ajoute à l'aide de updaterc.d => http://pwet.fr/man/linux/administration_systeme/update_rc_d
+update-rc.d -f mongrel-cluster defaults
+
+# On peut maintenant contrôler le serveur :
+/etc/init.d/mongrel-cluster start
+/etc/init.d/mongrel-cluster restart
+/etc/init.d/mongrel-cluster stop
+
+# On teste que tout fonctionne 
+/etc/init.d/mongrel-cluster start
+w3m http://127.0.0.1:8000
+q
+/etc/init.d/mongrel-cluster stop
+w3m http://127.0.0.1:8000
+q
+
+# On configure Apache afin de rediriger les requetes vers le cluster mongrel
+# On active les modules necessaires 
+a2enmod rewrite
+a2enmod proxy_http
+a2enmod proxy_balancer 
+
+# On complète le vhost SVN ou on créé un vhost redmine comme suit on peut peut etre faire mieux comme 
+# http://www.paolocorti.net/2007/11/08/ruby-on-rails-applications-with-mongrel-clusters-and-apache-on-ubuntu/
+
+###########
+# REDMINE #
+###########
+
+<VirtualHost *:80>
+	ServerAdmin webmaster@domaine.com
+	ServerName redmine.domaine.fr
+	DocumentRoot /home/svn/redmine/public/
+
+	<Directory /home/svn/redmine/public/>
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride All
+		Order allow,deny
+		allow from all
+	</Directory>
+
+	# On active les proxy qui sont par défaut désactivés
+	<Proxy *>
+		Order allow,deny
+		Allow from all
+	</Proxy>
+	<Proxy balancer://mongrel_cluster>
+		BalancerMember http://127.0.0.1:8000
+		BalancerMember http://127.0.0.1:8001
+		BalancerMember http://127.0.0.1:8002
+	</Proxy>
+
+	RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} -f
+	RewriteRule (.*) $1 [L]
+
+	ProxyPass / Balancer://mongrel_cluster/
+	ProxyPassReverse / balancer://mongrel_cluster/
+
+	AddOutputFilter DEFLATE text/html text/plain text/xml application/xml application/xhtml+xml text/javascript text/css
+	BrowserMatch ^Mozilla/4 gzip-only-text/html
+	BrowserMatch ^Mozilla/4.0[678] no-gzip
+	BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+
+	ErrorLog /home/svn/redmine/logs/apache2/redmine.error.log
+	LogLevel warn
+	CustomLog /home/svn/redmine/logs/apache2/redmine.access.log combined
+	ServerSignature Off
+</VirtualHost>
+
+# Ne pas oublier de créer un dossier /logs/apache2 (ici dans le repertoire redmine)   
+mkdir -p /home/svn/redmine/logs/apache2
+
+a2ensite redmine
+apache2ctl graceful 
+/etc/init.d/mongrel-cluster start
+
+# Il ne reste normalement plus qu'à se logguer (admin/admin) et à configurer la bête !
+
+####################################
+# CONFIGURATION DES MAILS SORTANTS #
+####################################
+
+# Redmine offre la possibilité d'adresser des notifications sur certains événements (configurables pour chaque projet)
+# Pour ce faire, il convient de configurer le fichier redmine/config/email.yml
+cd /home/svn/redmine/config
+cp email.yml.example email.yml
+pico email.yml
+production:
+  delivery_method: :smtp
+  smtp_settings:
+    address: localhost
+    port: 25
+    domain: domaine.com
+
+sudo /etc/init.d/mongrel-cluster restart
+
+#
+# CADEAU BONUX
+#
+# On peut également souhaiter bénéficier des services Google afin de gérer l'envoi des mails :
+cd /home/svn/redmine/
+apt-get install git
+ruby script/plugin install git://github.com/collectiveidea/action_mailer_optional_tls.git
+
+# Editer le fichier config/email.yml
+cd /home/svn/redmine/config
+cp email.yml.example email.yml
+pico email.yml
+production:
+  delivery_method: :smtp
+  smtp_settings:
+    tls: true
+    address: "smtp.gmail.com"
+    port: '587'
+    domain: "smtp.gmail.com"
+    authentication: :plain
+    user_name: "votreadresse@gmail.com"
+    password: "votremotdepasse"
+</pre>

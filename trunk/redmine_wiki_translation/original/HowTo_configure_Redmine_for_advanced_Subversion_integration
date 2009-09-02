@@ -1,0 +1,27 @@
+h1. HowTo configure Redmine for advanced Subversion integration
+
+These HowTos are intended for those who want to automate SVN repository creation and rights management. They require some system administration skills.
+
+_Note: These HowTos are useless for those who simply want to browse existing repositories from within Redmine (like "this one":http://www.redmine.org/repositories/show/1). To do so, make sure that the svn binaries are installed on the Redmine host. Now go to the project settings to configure the path to the repository._
+
+There are basically two ways to automate SVN repository management:
+
+# using apache/mod_dav_svn/mod_perl
+# using pam modules and nss (the historical, deprecated one)
+
+h3. Using apache/mod_dav_svn/mod_perl
+
+Basically, the first way is handled only by apache/mod_dav_svn and mod_perl, it should work on Windows and Unix. You need moderate Apache skills. It is far simpler and faster to configure and, unless you have very big repositories, many repositories or you really don't want to use mod_perl, is the best way (at least imho).
+
+To follow the preferred, first way:
+
+* Step 1: [[HowTo Automate repository creation]]
+* Step 2: [[Repositories access control with apache, mod_dav_svn and mod_perl]]
+
+h3. Using pam modules and nss
+
+The second way means configuring pam modules to allow project members read/write access, svnserve to allow anonymous users to read public projects and apache/mod_dav to allow Redmine browsing. It works only on Unix with pam modules and a MySQL database. You need quite some large sysadmin skills.
+
+If you do want to follow the hard way:
+* [[HowTo to handle SVN repositories creation and access control with Redmine]]
+* [[HowTo to handle SVN repositories creation and access control with Redmine (part 2)]]

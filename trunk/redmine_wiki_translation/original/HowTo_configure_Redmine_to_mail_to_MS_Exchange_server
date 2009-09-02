@@ -1,0 +1,27 @@
+h1. HowTo configure Redmine to mail to MS Exchange server
+
+MS Exchange works the same way that others SMTP server: just edit your *config/environment.rb* file with your favorite text editor. Around the lines 45, you'll see this:
+
+  config.action_mailer.smtp_settings = {
+                :address => "127.0.0.1",
+                :port => 25,
+                :domain => "somenet.foo",
+                :authentication => :login,
+                :user_name => "redmine",
+                :password => "redmine",
+  }
+
+Most often, MS Exchange will not require authentication informations, so you'll just have to comment out :domain, :authentication, :user_name and :password lines.
+
+  config.action_mailer.smtp_settings = {
+                :address => "*my_ms_exchange_adress*",
+                :port => *25*,
+              #  :domain => "somenet.foo",
+              #  :authentication => :login,
+              #  :user_name => "redmine",
+              #  :password => "redmine",
+   }
+
+Of course, you have to put in front of :address your MS Exchange IP (or DNS name, if Redmine host has a DNS access) and eventually to customize your :port number. For these informations, ask to your administrator.
+
+*Note from another user : This page may be really outdated (2007), it seems changes should only be done in email.yml.*

@@ -1,0 +1,43 @@
+h1. HowTo Install Redmine in a sub-URI
+
+This page explains how to run Redmine in a subdirectory of your site, for instance @http://www.mysite.com/redmine/@ ; in such a case, you can feel lost because the classic Redmine install does not work directly, and the links to css or javascript files seem to be broken. In this page, we assume you want to run Redmine under "/redmine/" subdirectory of your site.
+
+h2. Using Rails features (prefered solution)
+
+Add the following line at the end of your config/environment.rb :
+<pre>
+ActionController::AbstractRequest.relative_url_root = "/redmine"
+</pre>Rails will then prefix all links with "/redmine". It can be considered as the simplest, cleanest and most flexible solution. Then restart your application.
+
+h2. Using Mongrel features
+
+If you run Redmine under Mongrel server, you can alternatively use the "--prefix" option of Mongrel :
+<pre>
+mongrel_rails start --prefix=/redmine
+</pre>You may not run Mongrel on port 80 : if you have an Apache server on the same host, and you run Mongrel on port 8000, you can use the following Apache config to redirect (with Apache's mod_proxy enabled) :
+<pre>
+ProxyPass /redmine http://localhost:8000/redmine
+ProxyPassReverse /redmine http://localhost:8000/redmine
+</pre>
+
+h2. Using Passenger (aka mod_rails) features
+
+If you run Redmine under Apache web server with Phusion Passenger module, you can follow "this guide":http://www.modrails.com/documentation/Users%20guide.html#deploying_rails_to_sub_uri ; please note it won't work correctly on some versions of Passenger or some Linux distributions.
+
+h2. With a reverse proxy
+
+If you have an Apache webserver in front of it (with mod_proxy enabled), or an Apache reverse proxy on another machine, you can run Redmine on a specific port and use this kind of config so it appears to be running in a subdirectory :
+<pre>
+ProxyPass /redmine http://real-redmine-server.localdomain:3000/
+ProxyPassReverse /redmine http://real-redmine-server.localdomain:3000/
+</pre>See Apache official documentation to adapt it.
+
+
+h2. Old versions of Redmine and Rails
+
+If you run a very old version of Redmine (don't know exactly which ones), maybe your version of Rails' ActionController does not support the "relative_url_root" mentionned above. Then you can look at "this page":https://www.riscosopen.org/wiki/documentation/pages/Running+Rails+applications+from+subdirectories/versions/16 to reproduce the same behaviour, but it is NOT a very good idea in most cases, you should consider upgrading Redmine.
+
+h2. References
+
+If this page did not answered your problems, you can see #2508 or "this thread":http://www.redmine.org/boards/2/topics/show/2244.
+

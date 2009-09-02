@@ -1,0 +1,39 @@
+h1. Champs personnalisés
+
+Les champs personnalisés vous permettent d'ajouter des informations additionnelles aux projets, demandes ou utilisateurs. Un champ pseronnalisé peut adopter l'un des types suivants :
+
+* *Entier*: un nombre entier positif ou négatif
+* *Chaîne*: une seule ligne de saisie
+* *Texte*: un texte de plusieurs lignes
+* *Date* : une date
+* *Booléen*: une case à cocher
+* *Liste*: une liste déroulante
+
+Des règles de validation peuvent être définies pour chaque champ:
+
+* *Longueurs mini - maxi* : longueurs minimum et maximum pour le champ (0 signifie qu'il n'y a aucune restriction)
+* *Expression régulière* : une expression peut être utilisée pour valider le contenu du champ
+
+Exemples:
+
+
+  ^\[A-Z]{4}\d+$ : 4 lettres majuscule suivies par un ou plusieurs chiffres
+  ^[^0-9]*$ : caractères seuls - pas de chiffres
+
+* *Valeurs possible*: valeurs possibles pour les champs "Liste". Vous pouvez ajouter davantage de valeurs en cliquant sur cet icône: !/images/add.png!
+
+h2. Champs pour les projets
+
+* *Obligatoire*: champ obligatoirement rempli pour pouvoir créer/sauvegarder le projet
+
+h2. Champs pour les demandes
+
+
+* *Obligatoire*: champ obligatoirement rempli pour pouvoir créer/sauvegarder la demande
+* *Pour tous les projets*: si coché, ce champ est utilisé pour les demandes de tous les projets. Si non coché, chaque projet peut choisir d'utiliser le champ pour ses propres demandes (voir [[frRedmineProjectSettings|configuration du projet]]).
+
+
+h2. Champs pour les utilisateurs
+
+* *Obligatoire*: champ obligatoirement rempli pour pouvoir créer/sauvegarder le projet
+

@@ -1,0 +1,115 @@
+h1. Automating repository creation
+
+{{>TOC}}
+
+h2. Overview
+
+As of version 0.5.0, Redmine is able to handle Subversion repository creation. This is done by reposman.rb a script found in extra/svn/. With a recent version of Redmine (0.6.0 or re. 860 and later), reposman.rb can register the new repository in Redmine for you and set the owner of repository to who you want. If you have an older version, you will have to register repositories by yourself.
+
+Projects are retrieved from Redmine using a SOAP web service. This web service is disabled by default in Redmine.  To enable it, go to « Administration -> Settings -> Repository » and check *Enable WS for repository management*.
+
+Before going further, we need to choose some names, I will use @my.redmine.host@ as the redmine hostname and @my.svn.server@ as the svn server... You must create the directory where you want to put all your repositories, the owner must be root with your apache user as the group (e.g. @www-data@ on Debian/Ubuntu). I will use @/var/svn@ :
+<pre>
+mkdir /var/svn
+chown root:www-data /var/svn
+chmod 0750 /var/svn
+</pre>
+
+We must also choose the directory apache will use to serve repositories to users, I choose @/svn@, so repository URL will look like http://my.svn.server/svn/PROJECTID/ and a last one, the directory apache will use for Redmine browsing, I will use @/svn-private/@.
+
+And eventually, you need to know the name of apache user, as it's @www-data@ on debian/ubuntu. I will use this one.
+
+h2. Warnings
+
+Notice that reposman.rb before re. 916 has a problem. You don't need to update redmine but just use the latest reposman.rb located in @extra/svn@.
+
+The Perl reposman version is deprecated for new installation as it can't register and set the owner.
+
+h2. Command line arguments
+
+It takes 2 mandatory arguments:
+
+    * @svn-dir@: path to the directory where your svn repositories are located
+    * @redmine-host@: host name of your Redmine install
+
+And two optional arguments (added in re. 860):
+
+    * @owner@: the owner of repositories
+    * @url@: the base url Redmine will use to access your
+             repositories. With this option, reposman will register the new
+             repositories so that you will have nothing to do
+    
+The Perl reposman version is deprecated for new installation as it
+can't register and set the owner.
+
+h2. Question you should answer before going further
+
+If Redmine and your svn repositories are on the same server, you may use the file:/// protocol of svn to browse them, but even if it seems a good idea, if later you want to move repositories on another server, you will have a problem because you can't change repository path in redmine for now.
+
+The best way I can think of now is to do as if repositories and redmine are already on two different servers and using network subversion to allow Redmine browsing.
+
+If you want to use local browsing (the file:/// protocol), use @--url file:///var/svn/@ instead of.
+
+h2. Automating repository creation to authenticate with apache/webdav and mod_perl
+
+Before going further, we will check that reposman find the Redmine Web Service. *Do this as an unprivileged user* that can't write in /var/svn :
+
+<pre>
+ruby reposman.rb --redmine my.redmine.host --svn-dir /var/svn --owner www-data --url http://my.svn.server/svn-private/ --verbose
+querying Redmine for projects...
+retrieved 2 projects
+treating project myproject
+svnadmin: Repository creation failed
+...
+</pre>
+
+It's normal the creation failed, you have no right, but the good point is that reposman find the Web Service and projects.
+
+If this doesn't work, make sure you have check the *Enable WS for repository management* option.
+
+Now that you know everything is ok, you just need to invoke reposman.rb as root with the right options :
+
+<pre>
+  reposman.rb --redmine my.redmine.host --svn-dir /var/svn --owner www-data --url http://svn.server/svn-private/
+</pre>
+
+Be careful with the @--url@ option, you can't change it if you change your thought after.
+
+You can now add this line in your crontab :
+
+<pre>
+cat /etc/cron.d/redmine
+10 * * * * root ruby reposman.rb --redmine my.redmine.host --svn-dir /var/svn --owner www-data --url http://my.svn.server/svn-private/ >> /var/log/reposman.log
+</pre>
+
+It's allmost done for this part.
+
+h2. Web Service and Security
+
+For the moment, the WS is open to everybody once actived and you surely don't want that someone register repository's project for you. You can block access to the WS with apache (if you don't use apache, I let you do your homework...) with the Location apache directive like this :
+
+<pre>
+   <Location /sys>
+      Order allow,deny
+      Allow from ip.of.my.svn.server
+   </Location>
+</pre>
+
+So if you are using apache and mongrel, you will have something like that :
+
+<pre>
+<VirtualHost *:80>
+   ServerName redmine.my.domain
+   ServerAdmin webmaster@localhost
+
+   <Location /sys>
+      Order allow,deny
+      Allow from ip.of.my.svn.server
+   </Location>
+
+   ProxyPass / http://localhost:3000/
+   ProxyPassReverse / http://localhost:3000/
+</VirtualHost>
+</pre>
+
+You can now go to [[Repositories_access_control_with_apache_mod_dav_svn_and_mod_perl]] to enable apache access for your users

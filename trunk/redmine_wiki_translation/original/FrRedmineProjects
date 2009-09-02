@@ -1,0 +1,16 @@
+h1. Gérer les projets
+
+h2. Liste des projets
+
+* *Projet:* Le nom du projet
+* *Description:* Une courte description du projet
+* *Public:* Si l'icône !/images/true.png! est présente, tout le mode peut voir ce projet. Les projets non publics ne peuvent être vus que par les utilisateurs auxquels un administateur a ouvert l'accès au projet.
+* *Sous-projets:* Indique le nombre de sous-projets liés à ce projet.
+* *Créé:* Indique la date à laquelle ce projet a été créé.
+* *Archiver:* Vous pouvez archiver un projet en cliquant sur cette icône !/images/locked.png!. Un projet archivé n'est plus visible pour les utilisateurs. Il peut être restauré (avec son contenu originel) par l'administateur. En archivant un projet tout sous-projet est également archivé.
+
+* *Supprimer:* La suppression pure et simple du projet. Contrairement à l'archivage, vous ne pourrez restaurer un projet supprimé. Utilisez la suppression avec précautions.
+
+h2. Ajouter ou supprimer un projet
+
+Voir [[frRedmineProjectSettings|Configuration d'un projet]].

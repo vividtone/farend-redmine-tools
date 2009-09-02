@@ -1,0 +1,16 @@
+h1. Managing users
+
+h2. Users list
+
+Accounts status:
+
+* This icon !/images/locked.png! means that the account is locked. A user having a locked account cannot log in and access the application.
+* This icon !/images/user_new.png! means that the user hasn't actived his account yet.
+
+The Lock/Unlock buttons let you lock/unlock the user accounts.
+
+h2. Adding or editing a User
+
+A user designated as administrator has unrestricted access to the application and to all projects.
+
+In editing mode, leave the Password field blank in order to keep the user's password unchanged.

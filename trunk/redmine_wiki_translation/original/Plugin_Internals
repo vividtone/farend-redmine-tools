@@ -1,0 +1,83 @@
+h1. Plugin Internals
+
+{{>toc}}
+
+This page will be used as a central place to store information about plugin-development in Redmine.
+
+h2. Require a certain Redmine version
+
+Sometimes plugins require a specific feature implemented in the Redmine core or the plugin overrides a specific view which requires you to control on which (specific) versions of Redmine the plugin can be installed to assure that the required core is available. Such prevents a lot of issues regarding plugin-compatibility.
+
+The above can be accomplished by utilizing the @requires_redmine@-method (see issue #2162 for the implementation dicussion  and it's actual implementation in r2042). Utilisation of the method provides an easy, reliable way to create plugins that require a specific version of Redmine and which are setup to stop Redmine with a message about a non-supported version if the version-requirement is not met.
+
+h2. Overriding the Redmine Core
+
+You can override views but not controllers or models in Redmine. Here's how Redmine/Rails works if you try to override a controller (or model) and a view for a fictional plugin @MyPlugin@:
+
+h3. Controllers (or models)
+
+# Rails bootstraps and loads all it's framework
+# Rails starts to load code in the plugins
+# Rails finds @IssueController@ in MyPlugin and see it defines a @show@ action
+# Rails loads all the other plugins
+# Rails then loads the application from _../app_
+# Rails finds @IssueController@ again and see it also defines a @show@ action
+# Rails (or rather Ruby) overwrites the @show@ action from the plugin with the one from _../app_
+# Rails finishes loading and serves up requests
+
+h3. Views
+
+View loading is very similar but with one small difference (because of Redmine's patch to Engines)
+
+# Rails bootstraps and loads all it's framework
+# Rails starts to load code in the plugins
+# Rails finds a views directory in _../vendor/plugins/my_plugin/app/views_ and *pre-pends* it to the views path
+# Rails loads all the other plugins
+# Rails then loads the application from _../app_
+# Rails finishes loading and serves up requests
+# Request comes in, and a view needs to be rendered
+# Rails looks for a matching template and loads the plugin's template since it was *pre-pended* to the views path
+# Rails renders the plugins'view
+
+Due to the fact that it is so easy to extend models and controllers the Ruby way (via including modules), Redmine shouldn't (and doesn't) maintain an API for overriding the core's models and/or controllers. Views on the other hand are tricky (because of Rails magic) so an API for overriding them is way more useful (and thus implemented in Redmine).
+
+To override an existing Redmine Core view just create a view file named exactly after the one in _../app/views/_ and Redmine will use it. For example to override the project index page add a file to _../vendor/plugins/my_plugin/app/views/projects/index.rhtml_.
+
+h2. Extending the Redmine Core
+
+As explained above: you rarely want to override a model/controller. Instead you should either:
+* add new methods to a model/controller or 
+* wrap an existing method.
+
+h3. Adding a new method
+
+A quick example of *adding a new method* can be found on Eric Davis' "Budget plugin":http://github.com/edavis10/redmine-budget-plugin/blob/5076b1c88b57c2068aa92cdf694769dbd22d061a/lib/issue_patch.rb. Here he added a new method to Issue called @deliverable_subject@ and also declared a relationship.
+
+h3. Wrapping an existing method
+
+A quick example of *wrapping an existing method* can be found on Eric Davis' "Rate plugin":http://github.com/edavis10/redmine_rate/blob/4666ddb10e1061ca3ef362735d0d264676b99024/lib/rate_users_helper_patch.rb. Here he uses the @alias_method_chain@ to hook into the UsersHelper and wrap the @user_settings_tabs@ method. So when the Redmine Core calls @user_settings_tabs@ the codepath looks like:
+
+# Redmine Core calls @UsersHelper#user_settings_tabs@ 
+# @UsersHelper#user_settings_tabs@ runs (which is actually @UsersHelper#user_settings_tabs_with_rate_tab@)
+# @UsersHelper#user_settings_tabs_with_rate_tab@ calls the original @UsersHelper#user_settings_tabs@ (renamed to @UsersHelper#user_settings_tabs_without_rate_tab@)
+# The result then has a new Hash added to it
+# @UsersHelper#user_settings_tabs_with_rate_tab@ returns the combined result to the Redmine core, which is then rendered
+
+"@alias_method_chain@":http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/Module.html#M001188 is a pretty advanced method but it's also really powerful.
+
+h2. Using Rails callbacks in Redmine plugins
+
+When you want to hook into all issues which are saved/created for example, you can better use "Rails callbacks":http://api.rubyonrails.org/classes/ActiveRecord/Callbacks.html instead of Redmine [[Hooks|hooks]]. Main reason for this is that the @:controller_issues_edit_before_save@-hook is not triggered when a new issue is created.
+For example see the implementation of this in Eric Davis' "Kanban plugin":
+# http://github.com/edavis10/redmine_kanban/blob/000cf175795c18033caa43082c4e4d0a9f989623/init.rb#L10
+# http://github.com/edavis10/redmine_kanban/blob/000cf175795c18033caa43082c4e4d0a9f989623/lib/redmine_kanban/issue_patch.rb#L13
+
+This will make sure that @issue.update_kanban_from_issue@ runs every time an issue is saved (new or updated).
+
+If you want to hook into new issues only you can use the @before_create@ callback instead of the @after_save@ callback. If you want to make sure that the issue indeed is saved successfully before your code is executed you could better use the @after_create@-callback.
+
+h2. References
+
+* http://www.redmine.org/boards/3/topics/show/5121 (Which version of Redmine I need to use your plugin?)
+* http://www.redmine.org/boards/3/topics/show/4283 (Can a plugin modify the view of the projects page?)
+* http://www.redmine.org/boards/3/topics/show/4095 (Rails Engines and extending the issue model)

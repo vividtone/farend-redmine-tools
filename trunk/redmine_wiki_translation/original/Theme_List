@@ -1,0 +1,94 @@
+h1. Redmine theme list
+
+{{>toc}}
+
+This is a directory of the available themes for Redmine, sorted in an alphabetical order. There exists a [[ExtensionListInfo#Redmine-theme-list-legend|legend]] of the information listed in the respective theme entry fields. 
+General information about Redmine themes and how to install them into your Redmine can be found on [[Themes]].
+
+h2. A
+
+h3. Alternate theme
+
+* [[ThemeAlternate|Alternate]] is a derivative of the default theme including issuelist-colouring based on issue's priority (included).
+** Author: "_Jean-Philippe Lang_":http://www.redmine.org/account/show/1
+** Latest release: _<code>n/a</code>, 2008-03-19_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://www.redmine.org/projects/redmine/repository/browse/trunk/public/themes/alternate_
+** Public ITS: _http://www.redmine.org/projects/redmine/issues_
+
+h2. B
+
+h3. Basecamp theme
+
+* [[ThemeBasecamp|Basecamp]] is a Redmine-port of 37signals® Basecamp® theme.
+** Author: "_Peter Theill_":http://www.redmine.org/account/show/1377
+** Latest release: _<code>n/a</code>, 2009-07-17_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _n/a_
+** Public ITS: _n/a_
+
+h2. C
+
+h3. Classic theme
+
+* [[ThemeClassic|Classic]] is a the more classic-looking redmine theme (included).
+** Author: "_Jean-Philippe Lang_":http://www.redmine.org/account/show/1
+** Latest release: _<code>n/a</code>, 2008-11-27_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://www.redmine.org/projects/redmine/repository/browse/trunk/public/themes/classic_
+** Public ITS: _http://www.redmine.org/projects/redmine/issues_
+
+h2. D
+
+h3. Default theme
+
+* [[ThemeDefault|Default]] the default Redmine theme (included).
+** Author: "_Jean-Philippe Lang_":http://www.redmine.org/account/show/1
+** Latest release: _<code>n/a</code>, 2009-07-10
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://www.redmine.org/projects/redmine/repository/browse/trunk/public/stylesheets_
+** Public ITS: _http://www.redmine.org/projects/redmine/issues_
+
+h2. E - R
+
+_no entries_
+
+h2. S
+
+h3. SP theme
+
+* [[ThemeSP|SP]] is a theme under development with a highly flexible project menu, condensed header, reworked issue controls and much much more.
+** Author: "_Shane Pearlman_":http://www.redmine.org/account/show/679
+** Latest release: _<code>n/a</code>, n/a_
+** Compatible with: _n/a_
+** Public SCM: _n/a_
+** Public ITS: _http://shaneandpeter-design.heroku.com/_
+
+h3. Squeejee theme
+
+* [[ThemeSqueejee|Squeejee]] is a dark-theme showing Redmine's theme-capabilities.
+** Author: "_Wynn Netherland_":http://www.redmine.org/account/show/1374
+** Maintainer: "_Mischa The Evil_":http://www.redmine.org/account/show/1565
+** Latest release: _<code>0.2.0</code>, 2009-05-25_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _n/a_
+** Public ITS: _n/a_
+
+h2. T - V
+
+_no entries_
+
+h2. W
+
+h3. Watersky theme
+
+* [[ThemeWatersky|Watersky]] is a blue theme based on the Redmine Alternate theme.
+** Author: "_Konstantin Zaitsev_":http://www.redmine.org/account/show/4703
+** Latest release: _<code>1.1</code>, 2009-06-23_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://code.google.com/p/kosz-redmine-tools/source/browse/#svn/trunk/themes/watersky_
+** Public ITS: _http://code.google.com/p/kosz-redmine-tools/issues/list_
+
+h2. X - Z
+
+_no entries_

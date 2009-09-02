@@ -1,0 +1,119 @@
+h1. Charts plugin
+
+{{>toc}}
+
+A Redmine plugin which integrates some project-based, time-tracking charts.
+
+h2. Author
+
+* Maciej Szczytowski
+
+h2. Changelog
+
+h3. 0.0.12
+
+* many bug fixes ("!#6":http://github.com/mszczytowski/redmine_charts/issues/#issue/6, "!#7":http://github.com/mszczytowski/redmine_charts/issues/#issue/7, "!#8":http://github.com/mszczytowski/redmine_charts/issues/#issue/8, "!#9":http://github.com/mszczytowski/redmine_charts/issues/#issue/9, "!#10":http://github.com/mszczytowski/redmine_charts/issues/#issue/10)
+* new conditions (trackers, priorities, versions)
+* pages on deviations chart ("!#5":http://github.com/mszczytowski/redmine_charts/issues/#issue/5)
+* hours logged for project and not estimated issues on deviations chart
+
+h2. Latest release
+
+The currently available, latest release of the plugin is version *0.0.12*.
+
+h2. Description
+
+The Charts plugin integrates some project-based, time-tracking charts. Most of the charts provided by this plugin depend on issues which have a certain amount of estimated time set and logged spent-time (on plugins as well as on the project itself).
+
+h3. Chart types
+
+In total four kinds of charts are provided by the plugin:
+# @Burndown@
+** Timeline with estimated, logged and remaining hours.
+# @Logged hours ratio@
+** Number of hours which were logged, proportional to total total, grouped and filtered by users, issues, activities, categories, version, priorities or trackers.
+# @Logged hours timeline@
+** Timeline with logged hours, grouped and filtered by users, issues, activities, categories, version, priorities and trackers.
+# @Logged hours deviations@
+** Ratio of logged and remaining hours to estimated hours for each estimated issue.
+
+h2. Screenshots
+
+h3. Burndown chart
+
+!http://farm4.static.flickr.com/3487/3219872709_03a137e740_o.jpg!
+
+h3. Logged hours ratio chart
+
+!http://farm4.static.flickr.com/3313/3220723922_64540005a0_o.jpg!
+
+h3. Logged hours timeline
+
+!http://farm4.static.flickr.com/3112/3220723804_2b274e7e2f_o.jpg!
+
+h3. Logged hours deviations
+
+!http://farm4.static.flickr.com/3441/3219872389_4f1d105c1d_o.jpg!
+
+h2. Compatibility
+
+This plugin is compatible with Redmine 0.8.x as well as with the current Redmine trunk.
+
+h2. Dependencies
+
+This plugin relies on the "OpenFlashChart":http://pullmonkey.com/projects/open_flash_chart Rails plugin to render the charts. It can be installed into your Redmine instance using the following commands:
+<pre>
+$ cd {REDMINE_ROOT}
+$ ./script/plugin install git://github.com/pullmonkey/open_flash_chart.git
+</pre>
+
+h2. Obtaining 
+
+bq. URL of the GitHub repository: http://github.com/mszczytowski/redmine_charts/tree/
+
+The source of this plugin can be "cloned" from the GitHub-repo using:
+<pre>
+$ cd {RAILS_ROOT}
+$ git clone git://github.com/mszczytowski/redmine_charts.git vendor/plugins/redmine_charts
+</pre>
+
+h2. Installation
+
+# Download the plugin from the available source (see "[[PluginCharts#Obtaining|obtaining]]")
+# Install the plugin as described at: http://www.redmine.org/wiki/redmine/Plugins (this plugin does not require a plugin database migration)
+# Restart Redmine
+
+h2. Setup
+
+After you have completed the installation of the plugin you can select which projects will actually be able to use the feature brought by the plugin by activating the plugin's module in the "project settings":
+
+In the preferred Redmine project, go to the "Project settings":
+
+* On the "Modules" tab: enable the plugin-module by checking "Charts".
+
+After that, a new item named "Charts" will show up in the project menu. Click on this item to see the project's charts.
+
+h2. Upgrading
+
+# Backup the currently deployed Charts plugin (@cp -r /vendor/plugins/redmine_charts /vendor/plugins/redmine_charts-backup@)
+# Reinstall the updated plugin:
+** using the command: @git pull@
+# Restart your Redmine
+
+h2. Uninstalling
+
+# Remove the directory _"redmine_charts"_ from the plugin-directory _"../vendor/plugins"_
+# Restart Redmine
+
+h2. Licensing
+
+This plugin is open-source and licensed under the "GNU General Public License v2":http://www.gnu.org/licenses/old-licenses/gpl-2.0.html (GPL).
+
+* ©2009, Maciej Szczytowski (http://github.com/mszczytowski/)
+
+h2. Support
+
+If you would like to report a bug or request a new feature you can open a new issue at the issue-tracking section of the plugins' GitHub site: http://github.com/mszczytowski/redmine_charts/issues.
+You can also post about the plugin in the dedicated plugin-section of the "Redmine forums":http://www.redmine.org/projects/redmine/boards/3.
+
+As an alternative you can also join the @#redmine@ channel on the "freenode":http://freenode.net/irc_servers.shtml IRC network to see if there is anyone who can provide some support.

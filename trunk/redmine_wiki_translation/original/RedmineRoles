@@ -1,0 +1,23 @@
+h1. Roles & permissions
+
+Roles lets you define the permissions that the members have on a project. Each member of a project has a one Role for the project. A user can have different roles for different projects.
+
+You can create new roles or edit existing ones. You can delete a role only if nobody has this role on a project.
+
+h2. Roles properties
+
+* *Name*: display name of the role
+* *Issues can be assigned to this role*: if unchecked, issues can not be assigned to members with this role on a project.
+
+h2. Permission
+
+When editing a role, you can define its permissions by checking/unchecking the different actions.
+
+h2. System roles
+
+There are 2 system roles in Redmine: 'Non member' and 'Anonymous'. They are internally used by Redmine and thus can not be deleted.
+
+* *Non member*: this role lets you define the permissions that a registered user has on projects which he is not a member of.
+* *Anonymous*: this role lets you define the permissions that anonymous users have on the projects.
+
+Note that these permissions only apply to public projects since a user who is not a member of a private project can not even see it.

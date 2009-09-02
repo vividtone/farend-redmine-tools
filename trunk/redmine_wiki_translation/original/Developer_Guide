@@ -1,0 +1,19 @@
+h2. Developer guide
+
+h3. General development
+
+* Subversion instructions can be found on the usual [[Download|download]] page and checking-out URL's on the [[CheckingoutRedmine|checkout-page]]
+* [[RedmineGitTracking|Using the Git Tracking Branch]] -- an alternative if you use Git
+* Creating and applying [[Patch|patches]]
+* An [[ReleaseManagement|explanation]] of what changes may be in future Redmine releases
+* A description of the content of both the [[Plugin List|Redmine plugin list]] and the [[Theme List|Redmine theme list]] can be found at the "[[ExtensionListInfo|extension list info]]" page
+
+h3. Plugin development
+
+* A step-by-step [[Plugin_Tutorial|tutorial]] on writing a Redmine plugin
+* An incomplete list of available [[Hooks|plugin hooks]]
+* The internal handling of Redmine plugins on the [[Plugin_Internals|plugin-internals]] page
+
+h3. Theme development
+
+* A howto ([[HowTo create a custom Redmine theme]]) which explains how to create a custom Redmine theme

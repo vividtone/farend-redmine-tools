@@ -1,0 +1,50 @@
+h1. Basecamp theme
+
+{{>toc}}
+
+This is a Redmine-port of the 37signals® Basecamp® theme which includes issuelist-colouring based on issue's priority.
+
+h2. Author
+
+Peter Theill.
+
+h2. Description
+
+The basecamp® theme is a Redmine-port of the famous 37signals® Basecamp® theme. It is derivated from the [[ThemeAlternate|alternate theme]] but supports/includes most of recent changes in the [[ThemeDefault|default theme]].
+
+It's looks can be best described as a darker version of the [[ThemeDefault|default theme]] with some specific enhancements over the default theme. The colouring is mainly designed around the three default Basecamp® colours: black, grey and blue-ish.
+
+h2. Screenshots
+
+|=. *Project Issuelist*  |=. *New Issue form*       |
+| !picture_1.png!        | !picture_2.png!          |
+
+|=. *My page*            |=. *User Profile*         |
+| !picture_3.png!        | !picture_4.png!          |
+
+h2. Obtaining the theme
+
+The theme can be downloaded as packaged releases as an attachment of this page or the latest version of the theme can be downloaded as an unpackaged @application.css@ from the "dedicated page":http://theill.com/stuff/redmine/ provided by the author of this theme.
+
+h2. Installation
+
+Follow the Redmine theme installation steps at: http://www.redmine.org/wiki/redmine/Themes#Installing-a-theme.
+
+h2. Changelog
+
+h3. 2009-07-17
+
+* ["fixed":http://www.redmine.org/boards/1/topics/1524#message-7212] On the 'My Page' section the two left/right floating @DIV@-tags flow over the wrapping content @DIV@ when you have a lot of content. This doesn't happen in IE only in Firefox and Chrome.
+* ["improved":http://www.redmine.org/boards/1/topics/1524#message-7483] updated the theme to latest version of Redmine
+
+h3. 2008-06-29
+
+* Initial release...
+
+h2. Licensing
+
+The basecamp® theme is open source and released under the terms of the "GNU General Public License v2":http://www.gnu.org/licenses/old-licenses/gpl-2.0.html (GPL).
+
+h2. Support
+
+Support is provided by the author of the theme itself. For getting help or discussing about the theme, you can browse the dedicated "forum-thread":http://www.redmine.org/boards/1/topics/show/1524.

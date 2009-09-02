@@ -1,0 +1,37 @@
+h1. ezLibrarian Plugin
+
+It's a book shelf and device room management plugin for redmine.
+Current version: 0.1.1. ONLY compatible with Redmine last devel.
+If you use redmine 0.8.3, please download the attached version 0.0.2 
+
+h2. Feature
+
+1. Designed for using in company's book shelf and device room management.
+2. You can input the book(device)'s info to the system and view them later.
+3. It can record the user who is holding the book(device).
+4. Every holder change will be recorded too.
+5. User can write reviews for the book(device).
+6. Note: the books(devices) are not categorized by project.
+
+The plugin archive is attached here.
+It can also be downloaded at github: http://github.com/zouchaoqun/ezlibrarian/tree/master
+.
+Screenshot:
+
+!ezlibrarian_1_tn.png!:/attachments/download/1612 !ezlibrarian_2_tn.png!:/attachments/download/1614 !ezlibrarian_3_tn.png!:/attachments/download/1616
+
+
+h2. Plugin installation 
+
+1. Stop redmine (kill ruby.exe)
+
+2. Copy the plugin directory (redmine_ezlibrarian) into the ./vendor/plugins directory
+NOTE: The plugin directory must be
+<pre>redmine_ezlibrarian!</pre>
+
+3. Migrate plugin for the production database (versus your development database, which is default... refer to database.yml):
+<pre>
+rake db:migrate_plugins RAILS_ENV=production
+</pre>
+
+4. Start Redmine

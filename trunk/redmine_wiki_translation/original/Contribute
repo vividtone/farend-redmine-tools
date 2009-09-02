@@ -1,0 +1,45 @@
+h1. Contribute
+
+{{>toc}}
+
+Redmine is built and maintained by community volunteers. If you enjoy using it and would like give back to the community, there are several ways to contribute back to the project. Also read the "forum thread":http://www.redmine.org/boards/1/topics/show/4325 for some more specific ideas.
+
+h2. Code Related
+
+These require a familiarity with Ruby on Rails development. If you are still new to Rails, Community members can help you if you get stuck with something or have any other questions.
+
+You will need to download a copy of the current development-code. The official code repository is located in Subversion and can be downloaded by following the [[Download]] instructions.
+
+A copy of the source is mirrored to "GitHub":http://github.com/edavis10/redmine/tree/master if you would like to use git for development. Contact "Eric Davis":http://www.redmine.org/account/show/5 if you need help or would like to merge in some changes.
+
+h3. Patch checking
+
+Fixing outdated patches so they can apply cleanly to the latest code is very useful. A lot of issues have patches for them but they need to be updated to the latest version.  **"List of issues with a patch pending":http://www.redmine.org/projects/redmine/issues?query_id=5**
+
+h3. Code documentation
+
+Documenting classes and methods using RDoc will help developers understand how Redmine works better.  **"List of documentation issues":http://www.redmine.org/projects/redmine/issues?query_id=84**
+
+h3. Development
+
+Patches to fix bugs or add new features are always appreciated. If you are going to work on a specific issue, make a note in the issue details so the developers will know what you're working on.
+
+h2. Non Code Related
+
+These don't require any software development experience, just some time and the desire to help.
+
+h3. User support
+
+Helping out other users in the "Forums":http://www.redmine.org/projects/redmine/boards and the IRC channel (#redmine @ freenode) is always useful. Frequent problems or questions should be brought up so the wiki can be updated to help future users.
+
+h3. Localization support
+
+[[HowTo_translate_Redmine_in_your_own_language|Translations]] should be kept up-to-date alongside the development of Redmine. You could provide updates of the translations where necessary or proposed to support Redmines I18n-support. **"List of Localization and Translation issues":http://www.redmine.org/projects/redmine/issues?query_id=7**
+
+h3. Issue triage
+
+Sometimes issues are reported without all the information needed by a developer. Getting the details of the bug or feature from the reporter and the community will help everyone understand what is needed.
+
+h3. Design and User interface
+
+Redmine uses a very basic design and user interface. Any improvements to it including new themes, skinning, or interface adjustments could help every user of Redmine.  **"List of User Interface Issues":http://www.redmine.org/projects/redmine/issues?query_id=83**

@@ -1,0 +1,12 @@
+h1. Redmine 0.7
+
+Main features for the 0.7 release:
+* Improved ticket list UI (multiple selection)
+* Bulk edit/move/delete tickets
+* Easier ticket update in a single action
+* Global activity view and feed
+* Improved time tracking reporting
+* Wiki annotate view (you can see an exemple "here":http://www.redmine.org/wiki/redmine/Overview/annotate)
+* Additional [[RedmineWikiFormatting|Redmine links]] available
+* Default value for custom fields
+* "Git":http://git.or.cz/ version control system support

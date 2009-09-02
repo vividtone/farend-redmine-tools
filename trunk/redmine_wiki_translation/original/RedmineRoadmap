@@ -1,0 +1,34 @@
+h1. Roadmap
+
+The roadmap provides a highly-configurable, version-based view on the issue tracking system that helps planning and managing the development of a project.
+It also provides an in-depth (version-based) overview of the current state of your project.
+
+h2. Overview
+
+If you select the Roadmap you will get an overview of the current state of your project, like the following:
+
+!roadmap-default.jpg! 
+
+The above mentioned view contains the following "blocks" of information for all (incomplete) versions:
+* a progressbar which indicates overall active/done/closed-ratio based on the %-done and statuses of the issues targetted to the corresponding version, visualized by different colour-gradients and including the date the version has been scheduled to be complete
+the content of the wiki-page that has been configured to be attached to the version
+* if configured: the content of the wiki-page that has been configured to be attached to the version (see below)
+* if configured: a list of all the issues assigned to the specific version (see below)
+
+The mentioned progressbar includes drill-down links to the issue-list which preloads the specific filters thus providing quick links to open/closed issues targetted to a corresponding version. Simply click on the number left to *_open_* to see all open issues in the issue-list. If you like to know which issues are already solved/closed simply click on the number left to *_closed_*.
+
+If you click on the version itself (0.8 right from the !/images/package.png!-icon) you can get a detailed view of the current, overall state of a specific version. This is the [[RedmineVersion|version-view]].
+
+h2. Managing the Roadmap
+
+If you have the appropriate permissions you can change the Roadmap-view in two ways:
+
+# You can attach a wikipage to the version (see [[RedmineProjectSettings#Versions]]) which can be used for describing main objectives of the version etc.
+# You can select the trackers of which individual issues, which are targetted to the corresponding version, are listed in a way that you will see an area with all related issues directly under the version. This behaviour can be changed as an administrator in the area of the [[RedmineIssueTrackingSetup#Trackers|trackers]].
+
+h2. Sidebar
+
+The contextual sidebar on the right of the roadmap provides several things:
+* a checkbox to include completed target-versions on the roadmap
+* checkboxes and an apply-button to include/exclude issues from specific trackers on the roadmap (which trackers are shown here with checkboxes depends on the individual [[RedmineIssueTrackingSetup#Trackers|tracker-configuration]])
+* links to the configured target-versions of the project where each links to the roadmap itself starting with the selected target-version
