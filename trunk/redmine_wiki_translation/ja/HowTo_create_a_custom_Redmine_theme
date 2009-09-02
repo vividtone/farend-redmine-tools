@@ -1,0 +1,45 @@
+h1. Redmineのカスタムテーマの作成
+
+trunk r818以降、Redmineはテーマに対応しています。
+テーマではデフォルトのスタイルシート(application.css)のみを上書きすることができます。
+
+h2. 新しいテーマの作成
+
+@public/themes@ 以下にディレクトリを作成してください。そのディレクトリの名前はテーマの名前として使用されます。
+
+例:
+
+  public/themes/my_theme
+
+独自の @application.css@ を作成し、サブディレクトリ @stylesheets@ 以下に保存してください:
+
+  public/themes/my_theme/stylesheets/application.css
+
+以下はデフォルトのスタイル定義の一部を上書きする例です:
+
+<pre><code>/* load the default Redmine stylesheet */
+@import url(../../../stylesheets/application.css);
+
+/* add a logo in the header */
+#header {
+    background: #507AAA url(../images/logo.png) no-repeat 2px;
+    padding-left: 86px;
+}
+
+/* move the project menu to the right */
+#main-menu { 
+    left: auto;
+    right: 0px;
+}
+</code></pre>
+
+この例では、@my_theme/images/logo.png@ というファイル名で画像ファイルが保存されていることを想定しています。
+
+このテーマをダウンロードして新しいテーマを作成する際の取りかかりとすることができます。Redmineの @public/themes@ ディレクトリに保存してください。
+
+h2. テーマの適用
+
+"管理 -> 設定 -> 表示"に移動し、"テーマ"ドロップダウンリストボックスで新しく作成したテーマを選択後、設定を保存してください。
+新しいテーマが適用された状態でRedmineの画面が表示されます。
+
+_新しくインストールしたテーマは、Redmineを再起動するまで利用可能なテーマの一覧には表示されません。
