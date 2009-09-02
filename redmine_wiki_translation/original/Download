@@ -1,0 +1,45 @@
+h1. Download
+
+h2. Latest stable release: 0.8.4 (2009-05-17)
+
+Redmine releases can be downloaded at "RubyForge":http://rubyforge.org/frs/?group_id=1850.
+See the [[Changelog]] for details and [[RedmineInstall]] for installation instructions.
+
+h2. Latest source code
+
+You can get the latest source code of Redmine from the Subversion repository hosted at Rubyforge.
+This is the prefered way to get Redmine if you want to benefit from the latest improvements. By using the SVN repository you can also upgrade more easily.
+
+The repository URL is: http://redmine.rubyforge.org/svn
+
+h3. Development
+
+You can [[CheckingoutRedmine|checkout]] the latest development source from the trunk with one of the following commands:
+
+<pre>
+svn co http://redmine.rubyforge.org/svn/trunk redmine
+svn co svn://rubyforge.org/var/svn/redmine/trunk redmine
+</pre>
+
+h3. 0.8 Stable
+
+You can [[CheckingoutRedmine|checkout]] the latest stable source with one of the following commands:
+
+<pre>
+svn co http://redmine.rubyforge.org/svn/branches/0.8-stable redmine-0.8
+svn co svn://rubyforge.org/var/svn/redmine/branches/0.8-stable redmine-0.8
+</pre>
+
+It will create a directory named @redmine-0.8@ and you'll be able to update your Redmine copy using @svn update@ in this directory.
+
+h2. Alternative sources
+
+* "Redmine Bitnami Stack":http://bitnami.org/stack/redmine – an installer which deploys Redmine and all that's necessary to run it (Apache, MySQL, Subversion, Ruby, Rails, etc.). Available for Windows, Linux, Mac x86 and Mac PPC.
+
+h2. Troubleshooting
+
+If you get this error when trying to checkout the source:
+
+  "PROPFIND 200 OK" error
+
+Please contact your network administrator and ask him to enable WebDAV extension in your proxy.

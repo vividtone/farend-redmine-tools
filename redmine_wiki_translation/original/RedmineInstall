@@ -1,0 +1,177 @@
+h1. Installing Redmine
+
+{{>TOC}}
+
+h2. Requirements
+
+h3. Operating system
+
+Redmine should run on most Unix, Linux, Mac and Windows systems as long as ruby is available on this platform.
+
+h3. Ruby & Ruby on Rails
+
+The required Ruby and Ruby on Rails versions for a given Redmine version is:
+
+|_. Redmine version|_. Supported Ruby versions|_. Required Rails version|
+|current trunk|ruby 1.8.6, 1.8.7|Rails 2.2.2|
+|trunk before r2493|ruby 1.8.6, 1.8.7|Rails 2.1.2|
+|0.8.x|ruby 1.8.6, 1.8.7|Rails 2.1.2|
+|0.7.x|ruby 1.8.6|Rails 2.0.2|
+
+Official releases include the appropriate Rails version in their @vendor@ directory. So no particular action is needed.
+If you checkout the source from the Redmine repository, you can install a specific Rails version on your machine by running:
+
+  gem install rails -v=2.2.2
+
+Notes:
+* RubyGems 1.3.1 is required
+* Rake 0.8.3 is required
+
+h3. Database
+
+* MySQL 4.1 or higher (recommended) [One exception- the ruby mysql gem does not currently support mysql 5.1]
+
+ * make sure to install the C bindings for ruby that dramatically improve performance. You can get them by running @gem install mysql@.
+
+* PostgreSQL 8
+
+ * make sure your database datestyle is set to ISO (Postgresql default setting). You can set it using: @ALTER DATABASE "redmine_db" SET datestyle="ISO,MDY";@
+
+* SQLite 3
+
+h3. Optional components
+
+      * SCM binaries (eg. @svn@), for repository browsing (must be available in your PATH). See [[RedmineRepositories]] for SCM compatibility and requirements.
+      * "RMagick":http://rmagick.rubyforge.org/ (to enable Gantt export to png image)
+      * "Ruby OpenID Library":http://openidenabled.com/ruby-openid/ (to enable OpenID support) [only on Redmine trunk / 0.9-dev]  Version 2 or greater is required.
+
+h2. Installation
+
+1. [[Download]] and extract the archive or [[CheckingoutRedmine|checkout]] Redmine.
+
+2. Create an empty database and accompanying user named @redmine@ for example.
+
+For MySQL:
+
+<pre>
+create database redmine character set utf8;
+create user 'redmine'@'localhost' identified by 'my_password';
+grant all privileges on redmine.* to 'redmine'@'localhost';
+</pre>
+
+3. Copy @config/database.yml.example@ to @config/database.yml@ and edit this file in order to configure your database settings for "production" environment.
+
+Example for a MySQL database:
+
+<pre>
+production:
+  adapter: mysql
+  database: redmine
+  host: localhost
+  username: redmine
+  password: my_password
+</pre>
+
+If your server is not running on the standard port (3306), use this configuration instead:
+
+<pre>
+production:
+  adapter: mysql
+  database: redmine
+  host: localhost
+  port: 3307
+  username: redmine
+  password: my_password
+</pre>
+
+
+Example for a PostgreSQL database (default port):
+
+<pre>
+production:
+  adapter: postgresql
+  database: <your_database_name>
+  host: <postgres_host>
+  username: <postgres_user>
+  password: <postgres_user_password>
+  encoding: utf8
+  schema_search_path: <database_schema> (default - public)
+</pre>
+
+4. Generate a session store secret (r2493 and higher only.  0.8.x users can skip this step) ***
+
+Redmine stores session data in cookies by default, which requires a secret to be generated. This can be done by running:
+
+   rake config/initializers/session_store.rb
+
+5. Create the database structure, by running the following command under the application root directory:
+
+  rake db:migrate RAILS_ENV="production"
+
+It will create tables and an administrator account.
+
+6. Insert default configuration data in database, by running the following command:
+
+  rake redmine:load_default_data RAILS_ENV="production"
+
+This step is optional but *highly recommended*, as you can define your own configuration from scratch. It will load default roles, trackers, statuses, workflows and enumerations.
+
+7. Setting up permissions
+
+NB: _Windows users have to skip this section._
+
+The user who runs Redmine must have write permission on the following subdirectories: @files@, @log@, @tmp@ (create the last one if not present).
+
+Assuming you run Redmine with a @redmine@ user:
+
+<pre>
+mkdir tmp public/plugin_assets
+sudo chown -R redmine:redmine files log tmp public/plugin_assets
+sudo chmod -R 755 files log tmp public/plugin_assets
+</pre>
+
+8. Test the installation by running WEBrick web server:
+
+  ruby script/server webrick -e production
+
+Once WEBrick has started, point your browser to http://localhost:3000/. You should now see the application welcome page.
+
+9. Use default administrator account to log in:
+
+    * login: admin
+    * password: admin
+
+You can go to @Admin & Settings@ to modify application settings.
+
+h2. SMTP server Configuration
+
+h3. 0.8.x releases
+
+Copy @config/email.yml.example@ to @config/email.yml@ and edit this file to adjust your SMTP settings.
+
+See the [[Email Configuration|email configuration]] examples.
+
+h3. 0.7.x releases
+
+In config/environment.rb, you can set parameters for your SMTP server:
+
+    * config.action_mailer.smtp_settings: SMTP server configuration
+    * config.action_mailer.perform_deliveries: set to false to disable mail delivering
+
+Don't forget to restart the application after any change.
+
+h2. Backups
+
+Redmine backups should include:
+* data (stored in your redmine database)
+* attachments (stored in the @files@ directory of your Redmine install)
+
+Here is a simple shell script that can be used for daily backups (assuming you're using a mysql database):
+
+<pre>
+# Database
+/usr/bin/mysqldump -u <username> -p<password> <redmine_database> | gzip > /path/to/backup/db/redmine_`date +%y_%m_%d`.gz
+
+# Attachments
+rsync -a /path/to/redmine/files /path/to/backup/files
+</pre>

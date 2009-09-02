@@ -1,0 +1,22 @@
+h1. Themes
+
+As of version @0.6.0@ (r818), Redmine provides basic support for themes. Redmine themes can override stylesheets only (like @application.css@).
+
+h2. Installing a theme
+
+1. First, copy the theme-directory into @../public/themes/@. This would result in a directory-path to @application.css@ like: <pre>
+../public/themes/<themename>/stylesheets/application.css</pre>
+
+2. You now may need to restart Redmine so that it shows the newly installed theme in the list of available themes.
+
+2. Go to "Administration -> Settings" and select your newly created theme in the "Theme" drop-down list. Save your settings.
+
+Redmine should now be displayed using the selected theme.
+
+h2. Theme list
+
+A list of available Redmine themes can be found at the [[Theme List|Redmine theme list]].
+
+h2. Creating custom themes
+
+There is a howto ([[HowTo create a custom Redmine theme]]) which explains how to create a custom Redmine theme.

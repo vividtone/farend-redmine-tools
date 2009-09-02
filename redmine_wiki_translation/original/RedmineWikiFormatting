@@ -1,0 +1,189 @@
+h1. Wiki formatting
+
+{{>TOC}}
+
+h2. Links
+
+h3. Redmine links
+
+Redmine allows hyperlinking between issues, changesets and wiki pages from anywhere wiki formatting is used.
+
+* Link to an issue: *!#124* (displays #124, link is striked-through if the issue is closed)
+* Link to a changeset: *!r758* (displays r758)
+* Link to a changeset with a non-numeric hash: *commit:c6f4d0fd* (displays c6f4d0fd).  Added in r1236.
+
+Wiki links:
+
+* *&#91;&#91;Guide&#93;&#93;* displays a link to the page named 'Guide': [[Guide]]
+* *&#91;&#91;Guide|User manual&#93;&#93;* displays a link to the same page but with a different text: [[Guide|User manual]]
+* *&#91;&#91;Guide#User-guide|User guide&#93;&#93;* displays a link to the header on the same page with a different text: [[Guide#User-guide|User guide]]
+
+You can also link to pages of an other project wiki:
+
+* *&#91;&#91;sandbox:some page&#93;&#93;* displays a link to the page named 'Some page' of the Sandbox wiki
+* *&#91;&#91;sandbox:&#93;&#93;* displays a link to the Sandbox wiki main page
+
+Wiki links are displayed in red if the page doesn't exist yet, eg: [[Nonexistent page]].
+
+Links to others resources (0.7):
+
+* Documents:
+
+  * *!document#17* (link to document with id 17)
+  * *!document:Greetings* (link to the document with title "Greetings")
+  * *!document:"Some document"* (double quotes can be used when document title contains spaces)
+
+* Versions:
+
+  * *!version#3* (link to version with id 3)
+  * *!version:1.0.0* (link to version named "1.0.0")
+  * *!version:"1.0 beta 2"*
+
+* Attachments:
+  
+  * *!attachment:file.zip* (link to the attachment of the current object named file.zip)
+  * For now, attachments of the current object can be referenced only (if you're on an issue, it's possible to reference attachments of this issue only)
+
+* Repository files
+
+  * *!source:some/file*          -- Link to the file located at /some/file in the project's repository
+  * *!source:some/file@52*       -- Link to the file's revision 52
+  * *!source:some/file#L120*     -- Link to line 120 of the file
+  * *!source:some/file@52#L120*  -- Link to line 120 of the file's revision 52
+  * *!export:some/file*          -- Force the download of the file
+
+Escaping (0.7):
+
+* You can prevent Redmine links from being parsed by preceding them with an exclamation mark: !
+
+h3. External links
+
+HTTP URLs and email addresses are automatically turned into clickable links: 
+
+<pre>
+http://www.redmine.org, someone@foo.bar
+</pre>
+
+displays: http://www.redmine.org, someone@foo.bar
+
+If you want to display a specific text instead of the URL, you can use the standard textile syntax:
+
+<pre>
+"Redmine web site":http://www.redmine.org
+</pre>
+
+displays: "Redmine web site":http://www.redmine.org
+
+h2. Text formatting
+
+For things such as headlines, bold, tables, lists, Redmine supports Textile syntax.  See http://hobix.com/textile/ for information on using any of these features.  A few samples are included below, but the engine is capable of much more of that.
+
+h3. Font style
+
+<pre><code>* *bold*
+* _italic_
+* *_bold italic_*
+* +underline+
+* -strike-through-
+</code></pre>
+
+Display:
+
+ * *bold*
+ * _italic_
+ * *_bold italic_*
+ * +underline+
+ * -strike-through-
+
+h3. Inline images
+
+* *&#33;image_url&#33;* displays an image located at image_url (textile syntax)
+* *&#33;>image_url&#33;* right floating image
+* *&#33;{width:300px}image_url&#33;* sets the width of the image
+
+If you have an image attached to your wiki page, it can be displayed inline using its filename: *&#33;attached_image.png&#33;*
+
+h3. Headings
+
+<pre><code>h1. Heading
+h2. Subheading
+h3. Subheading
+</code></pre>
+
+h3. Paragraphs
+
+<pre><code>p>. right aligned
+p=. centered
+</code></pre>
+
+p=. This is centered paragraph.
+
+h3. Blockquotes
+
+Start the paragraph with *bq.*
+
+<pre><code>bq. Rails is a full-stack framework for developing database-backed web applications according to the Model-View-Control pattern.
+To go live, all you need to add is a database and a web server.
+</code></pre>
+
+Display:
+
+bq. Rails is a full-stack framework for developing database-backed web applications according to the Model-View-Control pattern.
+To go live, all you need to add is a database and a web server.
+
+h3. Tables
+
+<pre>
+|_.UserID|_.Name|_.Group|
+|\3=.IT|
+|1|Artur Pirozhkov|/2.Users|
+|2|Vasya Rogov|
+|3|John Smith|Admin|
+</pre>
+
+Display:
+
+|_.UserID|_.Name|_.Group|
+|\3=.IT|
+|1|Artur Pirozhkov|/2.Users|
+|2|Vasya Rogov|
+|3|John Smith|Admin|
+
+h3. Table of content
+
+<pre><code>{{toc}} => left aligned toc
+{{>toc}} => right aligned toc
+</code></pre>
+
+h2. Macros
+
+Redmine has the following builtin macros:
+
+{{macro_list}}
+
+
+h2. Code highlighting
+
+Code highlightment relies on "CodeRay":http://coderay.rubychan.de/, a fast syntax highlighting library written completely in Ruby. It currently supports c, html, javascript, rhtml, ruby, scheme, xml languages.
+
+You can highlight code in your wiki page using this syntax:
+
+<pre><code><pre><code class="ruby">
+  Place you code here.
+</code></pre>
+</pre></code>
+
+Example:
+
+<pre><code class="ruby">
+# The Greeter class
+class Greeter
+  def initialize(name)
+    @name = name.capitalize
+  end
+ 
+  def salute
+    puts "Hello #{@name}!"
+  end
+end
+</pre></code>

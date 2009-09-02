@@ -1,0 +1,47 @@
+h1. Classic theme
+
+This is the classic Redmine theme which is inspired by the Redmine v0.5.1 design.
+
+h2. Author
+
+Same as the author of Redmine itself: Jean-Philippe Lang.
+
+h2. Description
+
+This is one of the two additional themes which is distributed as part of the Redmine core. The classic theme is a reincarnation of the old (_classic_) Redmine v0.5.1 design which is reworked to a individual theme after the switch to the v0.6.0 [[ThemeDefault|default theme]].
+
+The classic theme distincts itself by being a more "thicker" styled theme. It clearly distincts different cells and fields by using plain white borders. The links are visually clearly distinctable also. The used colours and icons are pretty coloured though can make the views a bit busy.
+If you are classic-addict you should probably check this them if it suits your demands.
+
+h2. Screenshots
+
+|=. *Project Overview*   |=. *Project Activity*     |
+| !overview-480x360.jpg! | !activity-480x360.jpg!   |
+
+|=. *Project Roadmap*    |=. *Project Issuelist*    |
+| !roadmap-480x360.jpg!  | !issuelist-480x360.jpg!  |
+
+|=. *Project News*       |=. *Project Repository*   |
+| !news-480x360.jpg!     | !repository-480x360.jpg! |
+
+h2. Obtaining the theme
+
+The theme is included within the Redmine core.
+
+h2. Installation
+
+This theme is included as part of the Redmine core, and therefor does not need a seperate installation. It can be selected as the current theme to use.
+
+h2. Changelog
+
+See the @svn@-log of source:trunk/public/themes/classic.
+
+h2. Licensing
+
+The classic theme is open source and released under the terms of the "GNU General Public License v2":http://www.gnu.org/licenses/old-licenses/gpl-2.0.html (GPL).
+
+h2. Support
+
+Support is provided as for Redmine itself. For getting help or discussing about Redmine, you can browse the "Redmine forums":http://www.redmine.org/projects/redmine/boards. Or, join @#redmine@ on the freenode IRC network.
+
+Ultimately, you can raise a bug or feature request by opening a new issue. Before opening an issue here, please read this: [[SubmittingBugs]].

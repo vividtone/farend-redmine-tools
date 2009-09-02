@@ -1,0 +1,51 @@
+h1. HowTo Install Redmine in a home directory on Debian
+
+It seems that the version of Rails in Debian does not play well with Redmine.  We will therefore use Debian packages for the basic Ruby and rubygems infrastructure, but install the remaining parts in a local home directory.
+
+h2. Preparation
+
+First, as root, run:
+
+<pre>
+apt-get install ruby rake rubygems
+</pre>
+
+You'll also want Ruby drivers for you databases, which are in one of these packages:
+
+* libpgsql-ruby for PostgreSQL
+* libmysql-ruby
+* libsqlite3-ruby
+
+h2. Configure your user environment
+
+As an individual user, edit your ~/.bashrc file and add a line such as this:
+
+<pre>
+export GEM_PATH=$HOME/gems
+</pre>
+
+Log out and back on.  Make sure your GEM_PATH is set:
+
+<pre>
+echo $GEM_PATH
+</pre>
+
+And make the directory for the gems:
+
+<pre>
+mkdir ~/gems
+</pre>
+
+Now, install rails:
+
+<pre>
+gem install -i $GEM_PATH rails -y
+</pre>
+
+Then proceed to the [[RedmineInstall]] instructions.
+
+If you will be running this under FastCGI or some other environment, make sure the GEM_PATH gets passed along.
+
+_(It would be highly valuable to the entire user community if someone were so generous & knowledgeable to post (or link to another post) step-by-step how to for enabling fastCGI here)_
+
+Thanks to Eric Davis for help with this procedure.

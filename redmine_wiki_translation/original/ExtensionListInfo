@@ -1,0 +1,56 @@
+h1. Extension list information
+
+h2. Redmine plugin list legend
+
+h3. Plugin list sample entry
+
+A sample of a complete pluginlist entry in Redmine syntax (where @<<@ and @>>@ are used as a replacement for the square brackets to prevent parsing by Redmine) looks like this:
+
+<pre><code>h3. Budget plugin
+
+* <<PluginBudget|Budget>> is a plugin to manage a set of deliverables for each project, automatically calculating key performance indicators.
+** Author: "_Eric Davis_":http://www.redmine.org/account/show/5
+** Latest release: _<code>0.2.0</code>, 2009-04-27_
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://github.com/edavis10/redmine-budget-plugin/tree_
+** Public ITS: _https://projects.littlestreamsoftware.com/projects/redmine-budget/issues_</code></pre>
+
+h3. Plugin list legend
+
+* Every plugin-entry starts with an heading @h3@
+* This previous heading is followed by a bulleted list item containing a short description of the plugin starting with the name of the plugin which links to an annouchement on the Redmine.org forums or a dedicated wiki-page on Redmine.org
+* After the previous list item we now have several bulleted sub-list items containing:
+** the author of the plugin with a link to the Redmine.org profile page if the user is registered at Redmine.org
+** an optional field containing the active maintainer of the plugin, with a link to the Redmine.org profile page if the user is registered at Redmine.org, if the plugin is _mostly_ maintained by another person than the (initial) _author_
+** the latest release of the plugin plus it's release-date, where the release-date is the date of the latest commit if the plugin author does not provide packages or git-tags of releases ánd does not update the plugin-version after every commit
+** the Redmine releases which the plugin is compatible with (currently the only two values filled-in are @0.8.x@ and @Trunk@, this could be insufficient for plugins which require a specific point-release of the @0.8.x@-branch (let's say @0.8.3@ (which brought several mailer-fixes IIRC)))
+** an optional field containing a list of conflicting plugins including a version-number in which the conflict occur (these fields should be added mutually)
+** a link to the public SCM(as in "Source Code Management") system for the plugin (if it exists, otherwise @n/a@)
+** a link to the (dedicated, so no links to forum-threads on Redmine.org) public ITS(as in "Issue Tracking System") for the plugin (if it exists, otherwise @n/a@)
+
+h2. Redmine theme list legend
+
+h3. Theme list sample entry
+
+A sample of a complete themelist entry in Redmine syntax (where @<<@ and @>>@ are used as a replacement for the square brackets to prevent parsing by Redmine) looks like this:
+
+<pre><code>h3. Default theme
+
+* <<ThemeDefault|Default>> the default Redmine theme (included).
+** Author: "_Jean-Philippe Lang_":http://www.redmine.org/account/show/1
+** Latest release: _<code>n/a</code>, 2009-07-10
+** Compatible with: _Redmine 0.8.x & Redmine Trunk_
+** Public SCM: _http://www.redmine.org/projects/redmine/repository/browse/trunk/public/stylesheets_
+** Public ITS: _http://www.redmine.org/projects/redmine/issues_</code></pre>
+
+h3. Theme list legend
+
+* Every theme-entry starts with an heading @h3@
+* This previous heading is followed by a bulleted list item containing a short description of the theme starting with the name of the theme which links to an annouchement on the Redmine.org forums or a dedicated wiki-page on Redmine.org
+* After the previous list item we now have several bulleted sub-list items containing:
+** the author of the theme with a link to the Redmine.org profile page if the user is registered at Redmine.org
+** an optional field containing the active maintainer of the theme, with a link to the Redmine.org profile page if the user is registered at Redmine.org, if the theme is _mostly_ maintained by another person than the (initial) _author_
+** the latest release of the theme plus it's release-date, where the release-date is the date of the latest commit if the theme author does not provide packages or git-tags of releases ánd does not update the theme-version after every commit
+** the Redmine releases which the theme is compatible with (currently the only two values filled-in are @0.8.x@ and @Trunk@)
+** a link to the public SCM(as in "Source Code Management") system for the theme (if it exists, otherwise @n/a@)
+** a link to the (dedicated, so no links to forum-threads on Redmine.org) public ITS(as in "Issue Tracking System") for the theme (if it exists, otherwise @n/a@)

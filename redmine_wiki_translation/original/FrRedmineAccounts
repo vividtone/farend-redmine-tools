@@ -1,0 +1,40 @@
+h1. Comptes
+
+
+h2. Mon compte
+
+Cet écran vous permet de modifier les paramètres de votre compte : prénom, nom, adresse de messagerie, langue.
+
+h3. Notifications par mail
+
+Si *Notifications par mail* est coché, vous recevrez des notifications pour tout événement se produisant sur les projets auxquels vous appartenez (demande ajoutée ou modifiée, nouveaux documents...).
+
+Si la case est décochée, vous recevrez seulement les notifications à propos des demandes vous concernant (auteur ou assigné à) et à propos des éléments que vous avez placés en surveillance (cad. demandes, forums).
+
+h3. Mot de passe
+
+Pour modifier votre mot de passe, tapez votre ancien mot de passe et votre nouveau mot de passe deux fois. La longueur d'un mot de passe doit être comprise entre 4 et 12 caractères.
+
+Si votre compte utilise un moyen d'authentification externe (LDAP), vous ne pouvez pas changer votre mot de passe dans Redmine.
+
+h2. Ma page
+
+Cette page vous permet d'afficher plusieurs informations à propos de vos projets.
+
+Pour personnaliser votre page, cliquez sur Personnaliser cette page. Vous pouvez alors choisir les informations à afficher et l'endroit où elle le sont.
+
+h2. Mot de passe perdu
+
+Si vous oubliez votre mot de passe, une procédure vous permet d'en choisir un nouveau.
+
+Sur l'écran d'authentification, cliquez sur *Mot de passe perdu*. Entrez votre adresse de messagerie et validez le formulaire. Un message vous est alors envoyé. Il contient un lien vous permettant de modifier votre mot de passe.
+
+Veuillez noter que cette fonctionnalité peut être désactivée par l'administrateur. De même, si votre compte utilise un moyen d'authentification externe (LDAP), cette procédure n'est pas disponible.
+
+h2. S'enregistrer.
+
+En vous enregistrant, vous pouvez obtenir un compte sans intervention de l'administrateur.
+
+Si l'écran d'authentification, cliquez sur *S'enregistrer*. Complétez le formulaire et validez-le. Un message vous est envoyé. Pour activer votre compte, suivez le lien contenu dans ce message.
+
+Veuillez noter que cette fonctionnalité peut être désactivée par l'administrateur.

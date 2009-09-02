@@ -1,0 +1,16 @@
+h1. Gérer les utilisateurs
+
+h2. Liste des utilisateurs
+
+Statuts des comptes:
+
+* Cette icône !/images/locked.png! signifie que le compte est verrouillé. Un utilisateur ayant son compte verrouillé ne peut se connecter et accéder à l'application.
+* Cette icône !/images/user_new.png! signifie que l'utilisateur n'a pas encore activé son compte.
+
+Les boutons Verrouiller/Déverrouiller vous permettent de verrouiller/déverrouiller les comptes utilisateurs.
+
+h2. Ajouter ou éditer un utilisateur
+
+Un utilisateur désigné administrateur bénéficie d'un accès illimité à l'application et à tous les projets.
+
+En mode édition, laissez le champ Mot de passe vide pour conserver inchangé le mot de passe de l'utilisateur.

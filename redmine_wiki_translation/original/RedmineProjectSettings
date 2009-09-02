@@ -1,0 +1,98 @@
+h1. Project Settings
+
+{{>toc}}
+
+!project-settings_information-tab.jpg!
+
+h2. Information
+
+In this screen you can configure the basic (though important) settings for the selected project.
+
+h3. General settings
+
+The following general settings are available:
+* *Name*: project display name (must be unique).
+
+* *Subproject of*: lets you define the parent project. The projects hierarchy is limited to 2 levels. A parent project cannot be itself a sub-project.
+Note: starting from unscheduled version version#6 projects can be unlimitedly nested.
+
+* *Description*: description that appears on the project overview.
+
+* *Identifier*: used by the application for various things (eg. in URLs). It must be unique. Once the project is created, this identifier cannot be modified.
+
+* *Homepage*: homepage-link that appears on the project overview.
+
+* *Public*: if checked, the project can be viewed by all the users, including those who are not members of the project. If unchecked, only the project members have access to it, according to their role.
+
+If there are any custom fields of the type "Project" configured by the administrator, they'll show up behind the "Public"-setting noted above.
+
+h3. Trackers
+
+Redmine lets you define which of the configured trackers (thus also their respective workflows) you are able to use within this specific project.
+
+* *Trackers*: select the trackers that you want to use for issues of the project. Only the administrator can define new trackers.
+
+h3. Custom fields
+
+* *Custom fields*: select the custom fields (of the type @issues@) that you want to use for issues of the project. Only the administrator can define new custom fields.
+
+Note that some of these custom fields can be only configured (e.g. unchecked) if the issue custom field is _not_ defined as a _global_ issue custom field (which can be done by the administrator by checking the "For all projects" checkbox in the custom field create/edit view).
+
+h2. Modules
+
+This screen lets you choose the modules you want to use for the project. 
+
+Disabling a module doesn't delete the associated data. It only prevents users from accessing it. After a module was disabled, it can be re-enabled with all its data.
+You can for example disable 'Issue tracking' module for a single project. Existing issues are not deleted, you will be able to access them if you re-enable the module.
+
+Additional modules can be added to the system using [[Plugins|Redmine plugins]]. Plugins can only be installed by the administrator.
+
+h2. Members
+
+This screen lets you define project members and their roles. A user can have only one role in a given project (but different roles on other projects).
+
+Note: starting from unscheduled version version#6 users can have multiple roles for a given project.
+
+h2. Versions
+
+Projects versions allow you to track and plan changes. You can assign issues to versions and then view the list of assigned issues for each version on the [[RedmineRoadmap|roadmap]].
+You can also assign a wikipage to a version which will be added to the [[RedmineRoadmap|roadmap]] and the [[RedmineVersion|version overview]].
+
+The following properties are configurable for (each of the) versions:
+* *Name*: The text you want to be displayed to identify the version. _This field is required._
+
+* *Description*: A short description to describe the version. _This field is optional._
+
+* *Wiki Page*: The name of a wikipage assigned to the version. _This field is optional._
+
+* *Date*: The due date for the version to be completed. _This field is optional._
+
+
+h2. Issue categories
+
+Issue categories let you to organize issues. Categories can for example correspond to the different components of your project.
+
+You are able to configure your own set of issue categories for each individual project. It is also possible to auto-assign new issues to a specific user based on the chosen category for newly created issues.
+
+The following properties are configurable for (each of the) issue categories:
+* *Name*: The text you want to be displayed to identify the issue category. _This field is required._
+
+* *Assigned to*: The project member to who you want to auto-assign newly created issues in this category. _This field is optional._
+
+h2. Wiki
+
+Each project can have its own wiki. To activate it, give a name for the main page and click 'Save'. You are able to edit the chosen name for the main page here also.
+
+Note: starting from unscheduled version version#6 you don't have to activate the main wikipage any longer.
+
+h2. Repository
+
+A SCM repository can be associated with each project. Once the repository is configured, you can browse it and view the changesets. The changesets also appear in the [[RedmineProjectActivity|Activity view]].
+See [[RedmineRepositories|the following page]] for details about how to configure your repository in Redmine.
+
+h2. Forums
+
+Each project can have one or more discussion forums. Each forum has the following properties:
+* *Name*: The text you want to be displayed to identify the discussion forum. _This field is required._
+
+* *Description*: A short description to describe the subject of the specific forum. _This field is required._

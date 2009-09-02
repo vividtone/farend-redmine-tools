@@ -1,0 +1,32 @@
+h1. ezSummary Plugin
+
+ezSummary plugin can send issue status summary mail to people who can't see the issue but want to know things about that issue.
+
+Current version: 0.0.1. ONLY compatible with Redmine last devel. 
+
+h2. Feature
+
+1. Add a 'Send Summary' button to issue's show page.
+2. You can input email-address to send the summary mail.
+3. You can modify the mail subject and add notes before the issue's summary info in the mail content.
+4. Email address and notes will be saved and you can select them next time.
+
+The plugin archive is attached here.
+It can also be downloaded at github: http://github.com/nan1nan1/redmine_ezsummary/tree/master
+
+Screenshot:
+
+!redmine_ezsummary-tn.png!:/attachments/download/2133
+
+h2. Plugin installation
+
+1. Copy the plugin directory(redmine_ezsummary) into the vendor/plugins directory
+NOTE: The plugin directory must be redmine_ezsummary!
+
+2. Migrate plugin:
+   rake db:migrate_plugins
+
+3. Start Redmine
+
+4. In your project in Redmine, go to "Project settings" : On the "Modules" tab, enable the module by checking "EzSummary".
+

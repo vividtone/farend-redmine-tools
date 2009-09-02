@@ -1,0 +1,33 @@
+h1. Plugins
+
+Redmine plugins rely on "Rails engines":http://rails-engines.org/ to add functionalities to the application.
+
+h2. Installing a plugin
+
+1. If you're using a 0.7.x release, you need to install the "Rails engines plugin":http://rails-engines.org/ (make sure to get the Rails 2.0.2 version). As of 0.8.0, Rails engines is included in Redmine, so skip this step unless you're using an older Redmine version.
+
+<pre>
+ruby script/plugin install http://svn.rails-engines.org/engines/tags/rel_2.0.0/
+mv vendor/plugins/rel_2.0.0 vendor/plugins/engines
+</pre>
+
+2. Then, copy your plugin directory into @#{RAILS_ROOT}/vendor/plugins@.
+
+3. If the plugin requires a migration, run the following command to upgrade your database (make a db backup before):
+
+  rake db:migrate_plugins RAILS_ENV=production
+
+4. Restart Redmine
+
+You should now be able to see the plugin list in _Administration -> Plugins_ and configure the newly installed plugin (if the plugin requires to be configured).
+
+h2. Plugin list
+
+A full list of available Redmine plugins can be found at the [[Plugin List|Redmine plugin list]].
+
+More plugins (some in very early development), which are not listed at the [[Plugin List|Redmine plugin list]] but are publicly available on "GitHub":http://www.github.org, can be found using a "search like this":http://github.com/search?type=Repositories&language=&q=redmine&repo=&langOverride=&x=0&y=0&start_value=1.
+
+h2. Writing plugins
+
+There is a step-by-step [[Plugin_Tutorial|tutorial]] about writing a plugin. Some more (detailed) information is collected and stored in the "[[Plugin_Internals|plugin internals]]" page.
+More (general) developer information can be found in the [[Guide#Developer-Guide|Redmine Developer Guide]].

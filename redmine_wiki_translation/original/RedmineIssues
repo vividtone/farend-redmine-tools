@@ -1,0 +1,20 @@
+h1. Issue Tracking 
+
+Issues are the heart of the Redmine business. An issue is bound to a project, owned by a user, can be related to a version, etc.
+
+h2. Adding a new issue
+
+People can create a new issue when they meet the [[RedmineRoles|roles and permissions]] configured by the Redmine Administrator (Role: Issue Tracking > Add Issues).
+When creating a new issue, one of the most important items is the [[RedmineIssueTrackingSetup#Trackers|tracker field]], which defines the nature of the issue. By default, Redmine comes with three different trackers: _bug_, _feature_, and _support_.
+
+h2. Updating an existing issue
+
+(TODO: describe and upload a screen-shot of update panel)
+
+h2. Editing an existing issue's Subject or Description
+
+In order to edit an existing issue, your role has to have the Issue Tracking > Edit Issues right. This right give you a _(More)_ link after the Change Properties section title in the "Update issue" panel.
+
+Clicking on the _(More)_ link will bring-up an editable copy of the Subject and Description of the issue.
+
+p=. !RedmineEditIssue_More_Link.png!

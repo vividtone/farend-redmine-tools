@@ -1,0 +1,23 @@
+h1. Wikis
+
+h2. Creating a new wiki page
+
+As in every wiki, just add a link to a page by putting this kind:
+
+<pre>![[MyNewWikiPage]]</pre>
+
+Then save, and click on that link: you have created a new wiki page with "MyNewWikiPage" as name. Congratulations.
+
+h2. Creating sub-pages (parent/child relationships)
+
+(From the [[FAQ]]).
+
+Looking at http://www.redmine.org/wiki/redmine/Page_index/special it is possible to make use of some sort of sub-paging like:
+> * Guide
+> ** RedmineAccounts
+> ** RedmineCustomFields
+> ** RedmineInstall
+> ** RedmineIssueList
+> ** RedmineIssues
+This can be accomplished by assigning a parent page to a to-be child-page. This assignment can be done via the @rename@ dialog.
+Thus, create both the child- and parent-pages and then open the to-be child-page and click "rename", then enter the name of the parent page.

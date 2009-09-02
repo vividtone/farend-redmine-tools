@@ -1,0 +1,39 @@
+h1. ezFtpSearch Plugin 
+
+This is a ftp search plugin for Redmine, with a ftp spider.
+You must using the ftp_spider rake command first to get your ftp server's entry list, then you can search files in redmine. 
+Multi-servers is supported.
+Current version: 0.1.0. ONLY compatible with Redmine last devel. 
+
+
+h2. Feature
+
+1. Search Ftp server's file by name
+2. Google-like search page.
+3. A ruby ftp spider is included, which is used to get ftp server's entry list.
+
+The plugin archive is attached here.
+It can also be downloaded at github: http://github.com/zouchaoqun/ezftpsearch/tree/master
+
+Screenshot:
+
+!ezftpsearch-index-tn.png!:/attachments/download/2207 
+!ezftpsearch-result-tn.png!:/attachments/download/2209 
+
+h2. Plugin installation
+
+1. Copy the plugin directory(redmine_ezftpsearch) into the vendor/plugins directory
+NOTE: The plugin directory must be redmine_ezftpsearch!
+
+2. Migrate plugin:
+   rake db:migrate_plugins
+
+3. Start Redmine
+
+4. In your project in Redmine, go to "Project settings" : On the "Modules" tab, enable the module by checking "Ezftpsearch".
+
+h2. Using ezFtpsearch
+
+# Add new ftp server in the ftp server management page.
+# Use rake ezftpsearch:run_spider to collect ftp server's directory structure.
+# Search.

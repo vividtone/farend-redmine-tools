@@ -1,0 +1,26 @@
+h1. HowTo translate Redmine in your own language
+
+Redmine can easily be translated in any language.
+
+There are a few things to translate:
+
+# The main lang file, located in @/config/locales@ (or @/lang@ before r2493)
+# The calendar lang file, located in @/public/javascripts/calendar/lang@
+# The wiki toolbar lang file, located in @/public/javascripts/jstoolbar/lang@ (for r1074 and above)
+
+Say you want to translate Redmine in Finnish (@fi@ as defined in the "IANA Language Subtag Registry":http://www.iana.org/assignments/language-subtag-registry):
+
+# Copy @/config/locales/en.yml@ to @fi.yml@ and translate every strings this file contains.
+# Copy @/public/javascripts/calendar/lang/calendar-en.js@ to @calendar-fi.js@ and translate every strings this file contains (mainly day and month names).
+# Copy @/public/javascripts/jstoolbar/lang/jstoolbar-en.js@ to @jstoolbar-fi.js@ and translate the strings.
+# Test your translation with command <pre>rake test</pre> If you get errors related to gloc/locales, you must fix them.
+
+*All these files must be UTF-8 encoded.* Do not use HTML entities in translated strings.
+
+You can submit your translation "here":http://www.redmine.org/projects/redmine/issues/new?tracker_id=3 (login required) if you want it to be added to the next release.
+
+As of 2009-02-21, *only updates based on the new translation files* (found in @/config/locales@) *should be submitted.*
+
+h2. Updates to the language files
+
+File @en.yml@ acts as the main language file. You can check if it has new strings by running <pre>rake locales:update</pre>. This copies the new strings to other translation files (with the English translation as default value). 

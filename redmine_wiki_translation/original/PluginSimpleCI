@@ -1,0 +1,35 @@
+h1. Simple CI Plugin
+
+A generic plugin for integrating per project RSS continuous integration feeds in Redmine.
+
+It can be downloaded from the Redmine Subversion repository:
+
+  svn co svn://rubyforge.org/var/svn/redmine/plugins/simple_ci
+
+Screenshot:
+
+!simple_ci_tn.png!:/attachments/download/3
+
+h2. Plugin setup
+
+1. Install the plugin as described [[Plugins|here]] (this plugin doesn't require migration).
+
+2. Go to "Admin -> Custom fields" and create a *Project* custom field of *string* type, named 'CC feed URL' for example.
+
+3. Go to "Admin -> Information" to configure the Simple CI plugin:
+
+* *Project custom field storing CI feed URL*: select the newly created custom field.
+
+* *Successfull build keyword*: enter a keyword or a regular expression that will be used to determine if a build was successfull. A build is considered successfull if the corresponding feed item title matches the keyword or the regular expression.
+
+* *Show full description of build results*: builds full descriptions can be displayed: always, only for failures or never.
+
+h2. Enabling CI at project level
+
+Go to "Project settings" :
+
+1. On the "Modules" tab, enable the module by checking "Continuous integration".
+
+2. On the "Information" tab, enter the URL for the project CI feed in the custom field you've just created (eg. 'CC feed URL')
+
+After that, a new item named "Integration" should show up in the project menu. Click on this item to see the build results.

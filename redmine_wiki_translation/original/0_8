@@ -1,0 +1,8 @@
+Main features currently planned for the 0.8 release:
+* Ticket submission via email (#1110)
+  See the documentation for the work in progress: [[RedmineReceivingEmails]]
+* Cross-project search engine
+* Wiki page protection
+* Wiki page hierarchy (#528)
+* Diff viewer for attachements
+* Plugin Hook API (#1143, #1677)

@@ -1,0 +1,55 @@
+h1. Kanban Plugin
+
+The Redmine Kanban plugin is used to manage issues according to the Kanban system of project management.
+
+h2. Features
+
+* Global Kanban page showing the status of issues across projects
+* Multiple "Panes" to show the lifecycle of an issue
+** Incoming Pane
+** Unstaffed Backlog pane
+** Quick Tasks pane - issues without a time estimate
+** Selected Tasks - Manager prioritized list
+** Active Staffed Requests - issues in progress
+** Testing Staffed Requests - issues awaiting testing
+** Finished Requests
+* Updates to Kanban view are saved to the issues
+** Issue status
+** Issue assignment
+** Issue start date
+
+h2. Screenshot:
+
+!kanban_mid.png!:http://www.redmine.org/attachments/2346/kanban.png
+
+h2. Getting the plugin
+
+A copy of the plugin can be downloaded from "Little Stream Software":https://projects.littlestreamsoftware.com/projects/redmine-kanban/files or from "GitHub":http://github.com/edavis10/redmine-kanban
+
+h2. Installation and Setup
+
+# Install the aasm gem: @sudo gem install rubyist-aasm --source http://gems.github.com@
+# Follow the Redmine [[Plugins|plugin installation steps]].  Make sure the plugin is installed to +vendor/plugins/redmine_kanban+
+# Run the plugin migrations @rake db:migrate_plugins@
+# Restart your Redmine web servers (e.g. mongrel, thin, mod_rails)
+# Login and configure the plugin (Administration > Plugins > Configure).  See below for the recommend approach.
+# Click the Kanban link in the top left menu
+
+h2. Usage
+
+This plugin requires some configuration so it knows your specific Redmine environment.  The Readme shows a recommended configuration that I used during development.  Future versions will allow more customizations like turning off some of the panes.
+
+Once configured, there will be a Kanban link on the top left menu.  This will bring up Kanban page, which has the entire logic of the plugin.  Make sure you have Javascript enabled and then start drag and dropping the issues.  As issues are dragged to the right panes, their statuses will be updated inside Redmine.
+
+h2. License
+
+This plugin is licensed under the GNU GPL v2.  See COPYRIGHT.txt and GPL.txt for details.
+
+h2. Project help
+
+If you need help you can contact the maintainer on the bug tracker located at  https://projects.littlestreamsoftware.com.
+
+h2. News
+
+"0.1.1 Release announcement":http://theadmin.org/articles/2009/7/22/redmine-kanban-plugin
+

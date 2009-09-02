@@ -1,0 +1,85 @@
+h1. HowTo to handle SVN repositories creation and access control with Redmine (part 2)
+
+{{>TOC}}
+
+If you haven't configured Redmine and Subversion integration, begin with the first part: [[HowTo to handle SVN repositories creation and access control with Redmine]]
+
+Be careful, the following recipes only work with a fairly recent redmine/reposman.rb (you need r860 or later). They won't work with the perl version of reposman.
+
+h2. How to automatically update the url of your new repositories in Redmine with reposman ?
+
+You can do that by using the @--url@ argument.
+
+<pre>
+ruby ./reposman.rb --redmine-host localhost:3000 --svn-dir /var/svn \
+                   --url file:///var/svn/
+</pre>
+
+reposman will send back to Redmine the url of your repository.
+
+Next time you create a project, reposman will informe Redmine that the repository was created and Redmine will save the repository url.
+This way, the administrator won't have to enter the repositories urls manually in Redmine.
+
+h2. What if you want to allow Redmine to browse private repository ?
+
+The previous recipes allow you to create repository on the fly and anonymous browsing. But, if your project is private or if the project isn't on the same server, you won't be able to browse it in Redmine.
+
+h3. Redmine and svn are on the same server
+
+In this case, you just need to use the @--url@ option like in the previous item to register the repository and the @--owner@ argument to set the repository owner to the mongrel/apache user so that it can access the repositories.
+
+<pre>
+ruby ./reposman.rb --redmine-host localhost:3000 --svn-dir /var/svn \
+                   --url file:///var/svn/ --owner MONGREL_USER
+</pre>
+
+BUT, you won't be able to separate svn and Redmine hosts in the future (in fact you will be able to but you would have to manually update the repositories urls in the database and that's bad). A better way to do this, if you think you will need to separate those two servers one day, is to do like you already have two servers. To do this, read the next recipe.
+
+h3. Redmine and svn aren't on the same server
+
+There's more than one way to do this, one could be to use a specific user to browse the repository with svnserve or svn+ssh but I don't like this way (don't ask why). Another way is to add a third access way (we already have svn+ssh for registered users and svnserve for anonymous users).
+
+In the following, the Redmine server is known as redmine.my.domain and the svn as svn.my.domain. You need to have apache/apache2 and mod_dav_svn on the svn server.
+
+1. configure your apache to serve the svn repository just for the Redmine server
+
+Just add something like that in your @apache.conf@ or in a file in the directory @/etc/apache/conf.d@:
+
+<pre>
+   LoadModule dav_svn_module /usr/lib/apache2/modules/mod_dav_svn.so
+   <Location /svn>
+   DAV svn
+   # this must be the path you give to reposman with -s,--svn-dir argument
+   SVNParentPath "/var/svn"
+   Order allow,deny
+   Allow from ip.of.my.redmine.server
+   </Location>
+</pre>
+
+Verify you can access it from your Redmine server.
+
+2. change your reposman cron by adding the @--owner@ argument with the apache user :
+
+<pre>
+ruby ./reposman.rb --redmine-host http://redmine.my.domain/ --svn-dir /var/svn
+                   --url http://svn.my.domain/svn/ --owner APACHE_USER
+</pre>
+
+h2. Web Service and Security
+
+For the moment, the WS is open to everybody once actived and you surely don't want that someone register project for you. You can block access to the WS with apache/mongrel (if you don't use apache, I let you do your homework...) with the Location apache directive like this :
+
+<pre>
+<VirtualHost *:80>
+   ServerName redmine.my.domain
+   ServerAdmin webmaster@localhost
+
+   <Location /sys>
+      Order allow,deny
+      Allow from ip.of.my.svn.server
+   </Location>
+
+   ProxyPass / http://localhost:3000/
+   ProxyPassReverse / http://localhost:3000/
+</VirtualHost>
+</pre>

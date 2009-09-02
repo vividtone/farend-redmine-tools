@@ -1,0 +1,19 @@
+h1. Redmine guide
+
+{{include(Installation_Guide)}}
+
+{{include(Administrator_Guide)}}
+
+{{include(User_Guide)}}
+
+{{include(Developer_Guide)}}
+
+h2. Translations of the Redmine guide
+
+Note that the following translations may not be up to date. Please refer to the original english documentation if needed.
+
+* [[frGuide|French]]
+* "Japanese":http://redmine.jp/guide/
+* "Russian":http://redmine.net.ua/wiki/doku.php/guide/start
+* "Simplified Chinese":http://ezwork.techcon.thtf.com.cn/projects/ezwork/wiki/ZhGuide
+* [[esGuide|Spanish]]

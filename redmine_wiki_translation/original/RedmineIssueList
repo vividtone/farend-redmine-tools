@@ -1,0 +1,59 @@
+{{>toc}}
+
+h1. The issue list
+
+h2. Overview
+
+The issue list provides a way to look at the opened issues for a project.
+
+!issuelist_overview.jpg!
+
+h2. Applying and saving filters
+
+The issue list displays open issues by default.
+Standard and [[RedmineCustomFields|custom fields]] can be used to build a custom query. Once the filters are set, click on !/images/true.png! to refresh the issue list. Click on !/images/reload.png! to clear the filters.
+
+!applied_issuelist_filters.jpg!
+
+Custom queries can be saved by clicking on !/images/save.png!.
+A form lets you give it a name and select the columns that you want to be displayed on the issue list for this query (both standard and [[RedmineCustomFields|custom fields]] can be displayed). Checking the *public* attribute will make the query visible to everyone, otherwise only you will see the query.
+
+!ext_newquery.jpg!
+
+Once saved, the query is listed in the [[RedmineIssueList#Sidebar|sidebar]].
+
+!custom_queries_sidebar.jpg! 
+
+h2. Shortcut menu
+
+A context menu pops up when right clicking (ALT + Left click for Opera users) on an issue of the issue list.
+This menu offers several shortcuts to quickly edit, reprioritize, reassign, copy, move or delete the issue.
+
+!shortcut_menu.png!
+
+Note that you have to *right-click outside of the issue link*, otherwise the browser's default context menu is displayed.
+
+h2. Bulk editing issues
+
+From the issue list, you can bulk edit/move/delete issues by selecting multiple issues and then right-click on the selection.
+Issue can be selected either by using the checkboxes or by clicking on the rows with Control or Shift key pressed.
+You can also use the little tick at the upper-left corner of the list to select/unselect all the issues.
+
+!bulk-edit.png!
+
+h2. Sidebar
+
+!>sidebar.jpg! The contextual sidebar on the right of the issue list provides links to several different things:
+* a quicklink to the default issuelist without any other filters applied (thus only open issues), which is useful when you are looking at a custom query and want to get back to the default issue list
+* a link to the [[RedmineIssueSummary|issue summary]], which is a report of all the issues at a project-level (in contrast to the [[RedmineVersion|version overview]] which provides an overview at version-level)
+* a link to the [[RedmineIssueChangelog|change log]], which provides a project-level overview of all closed *and* targeted issues, sorted per target-versions
+* links to several levels of custom queries:
+** global (cross-project) queries
+*** public queries
+*** private queries
+** current-project's queries
+*** public queries
+*** private queries
+* depending on the [[RedmineProjectSettings|project settings]] it also shows a planning section with links to:
+** the [[RedmineCalendar|calendar]]
+** the [[RedmineGantt|gantt]] chart

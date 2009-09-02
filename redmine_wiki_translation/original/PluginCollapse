@@ -1,0 +1,189 @@
+h1. Redmine Collapse plugin
+
+{{>toc}}
+
+Collapse is a plugin for Redmine which transforms the default, static sidebar into a collapsible sidebar on the left side providing some additional tabs containing project- and menu-links.
+
+h2. Author
+
+* Mischa The Evil
+
+h2. History
+
+The Redmine Collapse plugin is a Redmine plugin-port of the collapsible-sidebar implementation created by Sebastian Kurfürst for the "Typo3-Forge":http://forge.typo3.org. He has implemented the feature in the following revisions in the Redmine-fork they use:
+* revision 1085: "Adding blindLeft and blindRight":http://forge.typo3.org/repositories/diff/team-forge?rev=1085
+* revision 1086: "Adding left menu collapser to SVN":http://forge.typo3.org/repositories/diff/team-forge?rev=1086
+* revision 1087: "Adding missing image":http://forge.typo3.org/repositories/diff/team-forge?rev=1087
+* revision 1088: "Fixing small JS error":http://forge.typo3.org/repositories/diff/team-forge?rev=1088
+
+This implementation depended on core-hacks and some custom Typo3 Redmine plugins. It also didn't do good to the @Default@, @Alternate@ and @Classic@ themes). This made the author decide to implement the feature within a seperate and independed Redmine plugin.
+
+h2. Changelog
+
+For the complete changelog see the @CHANGELOG@-file in the Redmine Collapse plugin directory.
+
+h2. Latest stable release
+
+The currently available, latest stable release of the plugin is version *0.2.2*.
+
+h2. Features
+
+The following features are provided by the plugin:
+* Replaces the Redmine core's sidebar
+** The provided sidebar is made collapsible using JavaScript-helpers
+** The default sidebar-content is made available on the default "Actions"-tab
+* A first, optional tab named "Projects" provides (nested) project-links to projects for which the current user has a role
+** on Redmine 0.8.0 project-links are pointing to project overviews
+** on Redmine 0.8.1 and later project-links are pointing to the currently-watched menu-item in the selected project (if available)
+* Optionally, the core's project-selector drop-down menu can be hidden
+* A second, optional tab named "Menus" provides links to all global (cross-project) views and reports (respecting the current users roles and permissions)
+** optionally, the default project-menu (by default placed horizontally below the header) can be "moved" to the menus tab
+* Used strings can be centrally translated to every language (currently only Czech, Dutch, English, German and Slovak are translated, for others English stubs are provided)
+* 100% compatible with all the core-themes (@Default@, @Alternate@ & @Classic@) and the currently supported and registered community-themes (@Basecamp@ and @Squeejee@)
+
+One note should be made: currently the plugin overrides the Redmine base-layout to implement the features as described.
+
+h2. Screenshots
+
+Note: the following screenshots are taken from version @0.1.0@ of the plugin. They do not reflect the complete feature-set of the latest available release (@0.2.2@) yet.
+
+|=. *Global view; Collapsed sidebar*                    |=. *Global view; Un-collapsed sidebar, Projects-tab*  |
+| !global_collapsed.jpg!                                | !global_un-collapsed_projects-tab.jpg!               |
+
+|=. *Project view; Un-collapsed sidebar, Projects-tab*  |=. *Project view; Un-collapsed sidebar, Actions-tab*  |
+| !project_un-collapsed_projects-tab.jpg!               | !project_un-collapsed_actions-tab.jpg!               |
+
+|=. *Settings view; Project-selector shown*             |=. *Settings view; Project-selector hidden*  |
+| !settings_project-selector-not-hidden.jpg!            | !settings_project-selector-hidden.jpg!      |
+
+h2. Compatibility
+
+The following compatibility information only applies to versions @0.2.x@ of the Redmine Collapse Plugin.
+
+h3. 0.2.x Redmine Compatibility
+
+@0.2.x@ releases of the plugin requires at least Redmine 0.8.0 and are compatible with the Redmine trunk and the 0.8-stable branch as visible in the following table:
+
+|_. Redmine Branch: |_. Revision/Release: ||_. Tested: |_. Compatible: |_.Comments:                       |_. Supported: |
+|                   |                     ||           |               |                                  |              |
+|<._Trunk_          |@CURRENT@            ||Yes        |Yes            |                                  |Yes           |
+|<._0.8-stable_     |@CURRENT@            ||Yes        |Yes            |                                  |Yes           |
+|<._0.8-stable_     |@0.8.4@              ||Yes        |Yes            |                                  |Yes           |
+|<._0.8-stable_     |@0.8.3@              ||Yes        |Yes            |                                  |Yes           |
+|<._0.8-stable_     |@0.8.2@              ||Yes        |Yes            |                                  |Yes           |
+|<._0.8-stable_     |@0.8.1@              ||Yes        |Yes            |                                  |Yes           |
+|<._0.8-stable_     |@0.8.0@              ||Yes        |Yes            |                                  |Yes           |
+|<._0.7-stable_     |@0.7.x@              ||No         |No             |                                  |No            |
+
+h3. 0.2.x Browser Compatibility
+
+@0.2.x@ releases of the plugin are (for about 99%) compatible with the major browser-engines. Though some tiny differences may occur between different browsers. Some known issues are listed in the following table:
+
+|_.Rendering Engine: |_.Browser:                      |_.Version:       ||_.Tested: |_.Compatible: |_.Comments: |_.Supported: |
+|                    |                                |                 ||          |              |            |             |
+|WebKit              |<._Google Chrome_               |@2.0.172.30@     ||Yes       |Yes           |            |Yes          |
+|Gecko               |<._Mozilla Firefox_             |@3.0.10@         ||Yes       |Yes           |            |Yes          |
+|Trident             |<._Microsoft Internet Explorer_ |@7.x@            ||Yes       |No            |IE7 misses full-support for the @inherit@-value (which is defined by CSS 2.1) |Yes, but "workaround":http://www.redmine.org/wiki/redmine/PluginCollapse#Workaround-for-Internet-Explorer-7 is required |
+|Trident             |<._Microsoft Internet Explorer_ |@8.0.6001.18702@ ||Yes       |Yes           |            |Yes          |
+|WebKit              |<._Apple Safari (Win32)_        |@3.2.3@          ||Yes       |Yes           |            |Yes          |
+|Presto              |<._Opera_                       |@9.64@           ||Yes       |Yes           |            |Yes          |
+
+h2. Obtaining
+
+The plugin can be downloaded as a packaged release from:
+* this MediaFire-account: http://www.mediafire.com/evildev
+* the upcoming website: http://www.evil-dev.net
+
+h2. Installing
+
+# Download the plugin from the available sources (see "Obtaining":http://www.redmine.org/wiki/redmine/PluginCollapse#Obtaining)
+# Install the plugin as described at: http://www.redmine.org/wiki/redmine/Plugins (this plugin does not require a plugin database migration)
+# Login to your Redmine as an Administrator
+# Initially configure the plugin settings
+
+h2. Configuration
+
+This plugin can be configured under Administration -> Plugins -> Redmine Collapse plugin -> Configure. It provides the following settings:
+* Show the projects tab (default: checked)
+* Hide the core project selector (default: unchecked)
+* Show the menus tab (default: unchecked)
+** Show the project menu in the menus tab (default: unchecked, only configurable when "Show the menus tab" is checked)
+* Sidebar position (default: Left, though functionality isn't implemented [yet])
+
+h2. Upgrading
+
+# Download the latest archive file from the available sources (see "Obtaining":http://www.redmine.org/wiki/redmine/PluginCollapse#Obtaining)
+# Backup the currently deployed collapse plugin (@mv /vendor/plugins/redmine_collapse /vendor/plugins/redmine_collapse-backup@)
+# Unzip the downloaded file to your Redmine into the plugin-directory _"../vendor/plugins"_
+# Restart your Redmine
+
+h2. Uninstalling
+
+# Remove the directory _"redmine_collapse"_ from the plugin-directory _"../vendor/plugins"_
+# Restart Redmine
+
+Make sure that no plugin-assets remain available in _"../public/plugin_assets/redmine_collapse"_.
+
+h2. Workaround for Internet Explorer 7
+
+Due to the fact that Microsoft Internet Explorer 7 doesn't fully support the @inherit@-value (which is defined by CSS 2.1), a manual modification of a CSS-declaration is required when either using the @Default@ or the @Classic@ theme (or every other theme which sets an incorrect @background-color@ on @#main@). You need to hard-code the wanted enumeration of the @inherit@-value by changing the following snippet in _"../assets/stylesheets/collapse.css"_;
+
+from:
+
+<pre>
+/***** Overloading Redmine Core layout-selectors *****/
+#main {
+    background-color: inherit; /* not in IE7 */
+    padding: 2px 0px 0px 14px;
+}
+</pre>
+
+to:
+
+<pre>
+/***** Overloading Redmine Core layout-selectors *****/
+#main {
+    background-color: #FFFFFF; /* hard-code white (#FFFFFF) for IE7 with either the Default- or the Classic-theme */
+    padding: 2px 0px 0px 14px;
+}</pre>
+
+h2. Todos
+
+Note that these can be a subject of change:
+* Make the position of the collapsible sidebar configurable (left ánd right)
+* Refactor the plugin to remove the requirement of overriding the base-layout
+
+h2. Credits
+
+Thanks goes out to the following people:
+
+h3. Code-credits
+
+* Eric Davis, Little Stream Software (http://www.littlestreamsoftware.com)
+** Provided skeleton for Redmine core patches (see _"../lib/collapse_application_helper_patch.rb"_)
+** Helped a lot making the overall plugin-source more Ruby-ish
+* Sebastian Kurfürst, Typo3 Development Team (http://www.typo3.org)
+** Author of the Redmine core hacks, to implement this feature for Typo3-Forge, used as a base for this plugin
+* Lalit Patel, (http://www.lalit.org)
+** Provided Javascript code to store data as JSON-strings in cookies (initially used by Sebastian)
+
+h3. Translation-credits
+
+* Czech (CS): Stanislav Pach (http://www.redmine.org/account/show/2564)
+* German (DE): Andreas Schnederle-Wagner (http://www.Futureweb.at)
+* Slovak (SK): Stanislav Pach (http://www.redmine.org/account/show/2564)
+
+h2. Licensing
+
+This plugin is open-source and licensed under the "GNU General Public License v2":http://www.gnu.org/licenses/old-licenses/gpl-2.0.html (GPL). See the @COPYRIGHT.txt@ and @GPL.txt@ files for details.
+
+* ©2009, Mischa The Evil (http://www.evil-dev.net)
+
+h2. Support
+
+If you need help, would like to report a bug or request a new feature you can contact the 
+author via mail (mischa_the_evil [AT] hotmail [DOT] com) or at his (upcoming) website: http://www.evil-dev.net.
+
+As an alternative you can also join the @#redmine@-channel on the "freenode":http://freenode.net/irc_servers.shtml IRC network to see if the author is connected (with the nickname @Mischa_The_Evil@).
+
+h2. Attached screenshots

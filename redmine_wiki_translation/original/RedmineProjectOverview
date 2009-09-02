@@ -1,0 +1,13 @@
+h1. Project Overview
+
+The Project overview will give you an overview of the whole project. On left upper side in the *_Issue tracking_* area you will get an overview of how many Defects, Features and Patches are open and which are closed. In the *_Members_* area you can see who are the members of the given project in particular who is the administrator of the project. In the *_Latest news_* area you can see which are the latest news for the particular project.
+
+TODO: Write about Issue trackers and configuration....
+
+
+!redmine-project-overview.jpg!
+
+On the upper right side you see [[RedmineLogin|Sign in]] and [[RedmineRegister|Register]]. The [[RedmineLogin|Sign in]] is used to login for those who have an account for this project. The [[RedmineRegister|Register]] part can be disabled by the administrator.
+
+TODO: Make links to other areas...
+TODO: Screen shot without advertising...

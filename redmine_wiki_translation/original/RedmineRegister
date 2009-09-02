@@ -1,0 +1,9 @@
+h1. Register
+
+The Register page is used to register a new user. A new user has to give the information about his *_Login_*, *_Password_*, *_Firstname_*, *_Lastname_* and *_Email_* address and which language the user would like to use to for the user interface. 
+
+If this are will be displayed can be controlled by the administrator.
+
+(TODO: Describe the registration process)
+
+!redmine-register.jpg!

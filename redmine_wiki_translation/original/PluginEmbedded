@@ -1,0 +1,81 @@
+h1. Embedded Plugin
+
+h2. Description
+
+This plugin lets you embed HTML files (eg. documentation, test reports...) in your projects.
+
+It has builtin templates to display the following files nicely: "Doxygen":http://www.doxygen.org and "Javadoc":http://java.sun.com/j2se/javadoc/ documentation and "Rcov":http://eigenclass.org/hiki.rb?rcov coverage reports. Any other HTML files can be displayed as well unless they contain HTML frames.
+
+It adds a new permission _View embedded doc_ and a new module _Embedded_ that can be enabled/disabled at project level.
+
+p=. !embedded_doxygen.png! !embedded_rcov.png!
+
+h2. Requirements
+
+This plugin requires Redmine r1659 or higher running Rails 2.1. Due to some changes in the plugin API, it *won't* work with 0.7.x releases.
+
+h2. Installation
+
+The plugin can be installed by running the following command from your redmine directory:
+
+<pre>
+ruby script/plugin install http://redmine.rubyforge.org/svn/plugins/embedded
+</pre>
+
+Then restart Redmine.
+
+h2. Configuration
+
+1. Go to _Administration -> Information_ to configure the plugin:
+
+* *HTML directory*: enter the root directory where HTML files can be found for each project. You can use this tag: @{PROJECT}@ in the path to represent the project identifier. The application *need* to have *read access* on this path.
+For example, this setting should be set to @/var/{PROJECT}/doxygen@ if you have a directory structure like below, where foo and bar are 2 projects:
+
+<pre>
+-var
+ |-bar
+ | |-doxygen
+ |  |-doc.html
+ |  |-index.html
+ |   
+ |-foo
+   |-doxygen
+     |-doc.html
+     |-index.html
+     |-subdirectory
+       |-index.html
+       |-misc.html
+</pre>
+
+* *Index files*: a space separated list of file names that are displayed by default.
+
+* *Valid extension*: a space separated list of file extensions that can be displayed. Access to a file with a different extension will be denied.
+
+* *Default template*: Default template (stylesheet and javascript) that will be used when displaying a file.
+If you have more than one kind of document (eg. Doxygen and Rdoc files), the template to use can be detected based on the file's path. For example, a file located in a path that contain @doxygen@ (as in the example above) will be automatically displayed with the Doxygen template.
+
+* *Encoding*: enter the files encoding if they're not UTF-8 encoded. Files are reencoded to UTF-8 to be properly displayed in Redmine.
+
+* *Tab caption*: text that is used for the navigation tab added to the project menu.
+No navigation tab is added if this field is left blank. That way, you can link to the pages from your wiki.
+
+2. Go to _Administration -> Roles and Permissions_ to give the new permission to your roles.
+
+3. Enable the module in the project(s) settings.
+
+h3. Comments
+
+* If you enable the navigation tab, make sure that one of the index files you entered (eg. index.html) is present in the root directory of your project, otherwise clicking this tab will lead to a 404 error.
+
+* The URL pattern for accessing embedded pages is: @/embedded/:project/:path@ where @:project@ is the project identifier and @:path@ is the path of the embedded file relative to the HTML directory entered in the plugin settings.
+Examples based on the above directory structure and _HTML directory_ set to @/var/{PROJECT}/doxygen@:
+
+<pre>
+URL:
+/embedded/foo                           => displays /var/foo/doxygen/index.html
+/embedded/foo/index.html                => same as above
+/embedded/foo/subdirectory              => displays /var/foo/doxygen/subdirectory/index.html
+/embedded/foo/subdirectory/misc.html    => displays /var/foo/doxygen/subdirectory/misc.html
+</pre>
+
+* You can define new templates by adding stylesheets to the @/assets/stylesheets@ directory of the plugin. Needs application restart.

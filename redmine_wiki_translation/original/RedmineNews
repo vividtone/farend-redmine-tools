@@ -1,0 +1,21 @@
+h1. News
+
+In the news area you can publish news items about the project or any subject you like.
+
+You can give the news item a title, a summary and the detailed description. The summary will be displayed in the *_Latest news_* area of the [[RedmineProjectOverview|Overview]] page whereas the description will be displayed if you click on the title (in this case _Release 0.8.0 release candidate_) of the news item.
+
+If you have the permission to create news items than you can edit an existing news entry.
+
+(TODO: Add better Screenshot from Redmine site, cause i don't have the permission to add news).
+!redmine-news-edit.jpg!
+
+
+
+!redmine-news-overview.jpg!
+
+
+If you have the permission to create new news items you have a green plus sign in the upper right of you screen. If you click on that you can add a new news item. There you have to insert the *_Title_*, *_Summary_* and *_Description_* of the news item. 
+(TODO: Describe summary, description what if summary is empty ?)
+
+!redmine-news-add.jpg!
+

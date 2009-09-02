@@ -1,0 +1,24 @@
+h1. HowTos
+
+h2. Installation
+
+[[HowTo configure Apache to run Redmine]]
+[[HowTo Install Redmine in a home directory on Debian]]
+[[HowTo Install Redmine in a sub-URI]]
+[[HowTo run Redmine with a Mongrel cluster]]
+
+h2. Setup
+
+[[HowTo configure Redmine for advanced Subversion integration]]
+[[HowTo configure Redmine to mail to MS Exchange server]]
+[[HowTo keep in sync your git repository for redmine]]
+
+h2. Customizing Redmine
+
+[[HowTo translate Redmine in your own language]]
+[[HowTo create a custom Redmine theme]]
+
+h2. Misc
+
+[[HowTo Mylyn|How to connect a Mylyn repository to Redmine]]
+

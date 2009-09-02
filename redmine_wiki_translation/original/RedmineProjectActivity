@@ -1,0 +1,28 @@
+h1. Project Activity
+
+The *_Project Activity_* page will give an historical log of at least all activities which had happen in the given project. 
+
+This will include changes to
+* Bugs, Features, Patches
+* Checkins into the repository (Changesets)
+* News Area
+
+The above things are shown by default. Never the less you can activate list of changes to the wiki or to the Forums area (Messages).
+
+!projects_redmine_activity.png!
+
+In the following list Issue is an placeholder for Defect, Feature or Patch:
+* !/images/ticket.png! A new Issue has been created.
+* !/images/ticket_edit.png! Issue has been resolved.
+* !/images/ticket_checked.png! The given issue has been closed.
+* !/images/ticket_note.png! A Note to the issue has been added.
+* !/images/changeset.png! This means a changeset has been commited to the repository.
+* !/images/news.png! News items has been added to the news area.
+* !/images/message.png! A message in the forum areas has been changed or added.
+* !/images/comments.png! A Comment to a message in the forum has been added.
+* !/images/wiki_edit.png! A wiki page has been edited or newly created.
+* !/images/attachment.png! A new file has been added or newly created in the *_files_* area.
+* !/images/document.png! A news document has been added or changed.
+* !/images/projects.png! A new project has been added.
+
+(TODO: Check attachment, and projects ?)

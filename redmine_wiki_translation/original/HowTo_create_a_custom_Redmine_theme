@@ -1,0 +1,45 @@
+h1. HowTo create a custom Redmine theme
+
+As of r818, Redmine offers basic support for themes.
+Themes can override stylesheets only (application.css).
+
+h2. Creating a new theme
+
+Create a directory in @public/themes@. The directory name will be used as the theme name.
+
+Example:
+
+  public/themes/my_theme
+
+Create your custom @application.css@ and save it in a subdirectory named @stylesheets@:
+
+  public/themes/my_theme/stylesheets/application.css
+
+Here is an example of a custom stylesheet that only override a few settings:
+
+<pre><code>/* load the default Redmine stylesheet */
+@import url(../../../stylesheets/application.css);
+
+/* add a logo in the header */
+#header {
+    background: #507AAA url(../images/logo.png) no-repeat 2px;
+    padding-left: 86px;
+}
+
+/* move the project menu to the right */
+#main-menu { 
+    left: auto;
+    right: 0px;
+}
+</code></pre>
+
+This example assume you have an image located at @my_theme/images/logo.png@.
+
+You can download this sample theme as a starting point for your own theme. Extract it in the @public/themes@ directory.
+
+h2. Applying the theme
+
+Go to "Administration -> Settings" and select your newly created theme in the "Theme" drop-down list. Save your settings.
+Redmine should now be displayed using your custom theme.
+
+_Note that if you install a new theme, you may need to restart the application so that it shows up in the list of available themes._

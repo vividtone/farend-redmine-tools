@@ -1,0 +1,131 @@
+h1. Migrer depuis d'autres systèmes
+
+{{>TOC}}
+
+h2. Trac
+
+L'importateur Trac fait migrer:
+
+    * Users
+    * Components
+    * Milestones
+    * Tickets
+    * Ticket commentaires et changements (statuts et résolution)
+    * Les champs spécifiques à Trac (eg. Resolution) sont ajoutés en tant que champs personnalisés dans Redmine
+    * fichiers de Ticket et champs personnalisés
+    * Les pages wiki et leur historique
+
+Notes:
+
+# Les mots de passe utilisateurs sont initialisés à @trac@
+# Les identifiants de Tickets sont préservés s'il n'y a pas encore de ticket dans votre base Redmine.
+# Les champs personnalisés sont tous créés en champ personnalisé de type texte dans Redmine
+
+Vous avez besoin de sqlite-ruby gem (gem install sqlite-ruby) pour accéder à la base de données Trac.
+
+Avant de commencer, vous avez besoin d'une base Redmine vierge *avec les données par défaut chargées (requis)*. Voir [[frRedmineInstall|Installation de Redmine]].
+
+Le script a été testé avec une base Trac 0.10 sqlite et devrait fonctionner avec une base 0.11.
+
+1. Lancez la commande suivante, où test est votre environnement cible Redmine:
+
+  rake redmine:migrate_from_trac RAILS_ENV="test"
+
+2. Le script vous demande les paramètres Trac:
+
+<pre>
+Trac directory []: /var/trac/myproject
+Trac database adapter (sqlite, sqlite3, mysql, postgresql) [sqlite]:
+Database encoding [UTF-8]:
+Target project identifier []: myproject
+</pre>
+
+Trac directory est le répertoire racine de votre environnement Trac. Redmine va chercher @db/trac.db@ dans ce répertoire (si vous choisissez une base sqlite/sqlite3) et va chercher le répertoire @attachments@.
+Dans le cas d'une base Trac mysql ou postgresql, le script va vous demander les paramètres de connexion (hôte, nom de base, nom d'utilisateur et mot de passe).
+L'identifiant de projet cible est l'identifiant du projet Redmine dans lequel les données seront chargées (le projet est créé s'il n'est pas trouvé).
+
+4. Le script migre vos données:
+
+<pre>
+Deleting data
+Migrating components..............................
+Migrating milestones..............
+Migrating custom fields.......
+Migrating tickets.................................
+Migrating wiki...........
+
+Components: 29/30
+Milestones: 14/14
+Tickets: 1275/1275
+Ticket files: 106/106
+Custom values: 4409/4409
+Wiki edits: 102/102
+</pre>
+
+Le script vous donne le nombre total de projets migrés.
+Vous devriez voir maintenant un projet appelé Myproject dans Redmine avec vos données Trac chargées dans le projet.
+
+h2. Mantis
+
+L'importateur Mantis migre:
+
+    * utilisateurs
+    * projets
+    * les versions de projet, categories et news
+    * les appartenances aux projets
+    * les bugs
+    * les notes, fichiers, relations et monitors de bugs
+    * les champs personnnalisés
+
+Les mots de passe utilisateurs sont initialisés à "mantis".
+
+La migration des fichiers associés au Bugs ne fonctionne que  s'ils sont stockés dans la base de données Mantis (c'est le comportement par défaut de Mantis).
+
+Le script a été testé avec différentes bases Mantis 1.0.x et devrait fonctionner avec toute version récente.
+
+Avant de commencer, vous avez besoin d'une base Redmine vierge *avec les données par défaut chargées (requis)*. Voir [[frRedmineInstall|Installation de Redmine]].
+
+1. Lancez la commande suivante, où test est votre environnement cible Redmine:
+
+  rake redmine:migrate_from_mantis RAILS_ENV="test"
+
+2. Le script vous demandes vos paramètres de base Mantis:
+
+<pre>
+Please enter settings for your Mantis database
+adapter [mysql]:
+host [localhost]:
+database [bugtracker]: mantis
+username [root]:
+password []:
+encoding [UTF-8]:
+</pre>
+
+Fournissez l'adaptateur, le nom d'hôte, le nom de base, le compte, le mot de passe et l'encodage de vore base Mantis, ou laissez les valeurs par défaut.
+
+L'adaptateur peut être mysql (par défaut) ou postgresql.
+
+3. Le script migre vos données:
+
+<pre>
+Migrating users...............
+Migrating projects.............
+Migrating bugs........................................
+Migrating news...
+Migrating custom fields..
+
+Users: 15/15
+Projects: 13/13
+Memberships: 10/10
+Versions: 33/33
+Categories: 4/4
+Bugs: 180/180
+Bug notes: 336/336
+Bug files: 46/46
+Bug relations: 11/11
+Bug monitors: 8/8
+News: 3/3
+Custom fields: 2/2
+</pre>
+
+Le script vous donne le nombre total d'objets migrés.

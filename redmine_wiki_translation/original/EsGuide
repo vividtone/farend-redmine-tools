@@ -1,0 +1,67 @@
+h1. Documentación de Redmine
+
+h2. Traducciones
+
+* [[Guide|Inglés]].
+* [[frGuide|Francés]].
+
+h2. Guía de instalación
+
+* [[RedmineInstall|Instalar Redmine]]
+* [[RedmineUpgrade|Actualizar una instalación existente]]
+* [[RedmineMigrate|Migrar desde otros sistemas]]
+
+h2. Guía del administrador
+
+* [[RedmineSettings|Configuración de la aplicación]]
+* [[RedmineRoles|Roles y permisos]]
+* [[RedmineIssueTrackingSetup|Sistema de gestión de peticiones]]
+* [[RedmineCustomFields|Campos personalizados]]
+* [[RedmineEnumerations|Lista de valores]]
+* [[RedmineProjects|Gestión de proyectos]]
+* [[RedmineUsers|Gestión de usuarios]]
+* [[RedmineLDAP|Autenticación LDAP]]
+* [[RedmineReceivingEmails|Recibir correos electrónicos]]
+* [[RedmineReminderEmails|Enviar recordatorios por correo]]
+
+h2. Guía del usuario
+
+* [[RedmineAccounts|Cuentas de usuario]]
+* [[RedmineProjectSettings|Configuración del proyecto]]
+** [[RedmineRepositories|Configuración de repositorio]]
+* [[RedmineProjectOverview|Vista del proyecto]]
+* [[RedmineProjectActivity|Actividad del proyecto]]
+* [[RedmineIssues|Gestión de peticiones]]
+** [[RedmineIssueList|Lista de peticiones]]
+*** [[RedmineIssueChangelog|Control de cambios]]
+*** [[RedmineIssueSummary|Resumen de peticiones]]
+** [[RedmineRoadmap|Planificación]]
+*** [[RedmineVersion|Vista de versiones]]
+* Planificación
+** [[RedmineCalendar|Calendario]]
+** [[RedmineGantt|Diagramas de Gantt]]
+* [[Control del tiempo]]
+** [[RedmineTimelogDetails|Spent-time details]]
+** [[RedmineTimelogReport|Spent-time report]]
+* [[RedmineNews|Noticias]]
+* [[RedmineDocuments|Documentos]]
+* [[RedmineFiles|Ficheros]]
+* [[RedmineForums|Foros]]
+* [[RedmineWikis|Wikis]]
+* [[RedmineRepository|Repositorio]]
+
+* [[RedmineLogin|Autenticación]]
+* [[RedmineRegister|Registro]]
+
+h2. Guía del desarrollador
+
+* [[Download|Subversion Instructions]] on the usual download page and checking-out URL's on the [[CheckingoutRedmine|checkout-page]]
+* [[RedmineGitTracking|Using the Git Tracking Branch]] -- an alternative if you use Git
+* [[Plugin_Tutorial|Tutorial]] on writing a Redmine plugin
+* The internal handling of Redmine plugins on the [[Plugin_Internals|plugin-internals]] page
+* Creating and applying [[Patch|patches]]
+* An incomplete list of available [[Hooks|plugin hooks]]
+* An [[ReleaseManagement|explanation]] of how Redmine releases can/may change overtime
+
+See also: [[RedmineWikiFormatting|Wiki formatting]]
+

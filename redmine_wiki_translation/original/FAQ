@@ -1,0 +1,183 @@
+h1. Frequently Asked Questions
+
+{{TOC}}
+
+h2. Installing and Running Redmine
+
+h3. Does Redmine works with Rails 2.x.x?
+
+See compatibility in the [[RedmineInstall|Installation]] guide.
+
+h3. When I start the application, I get this error "in 'gem_original_require': no such file to load -- initializer (LoadError)"
+
+Make sure "Ruby on Rails":http://rubyonrails.org/ is properly installed on your machine.
+
+h3. When I start the application, I get this error message: "cannot connect to mysql: No such file or directory - /tmp/mysql.sock"
+
+You have to specify the socket location in @config/database.yml@.
+See http://dev.rubyonrails.org/ticket/200.
+
+h3. The application freeze after a long time of inactivity.
+
+There's a bug in ruby/mysql adapter < 2.7.3 that leads to lose the database connection. Please update your adapter.
+You can see thread at: http://rubyforge.org/forum/message.php?msg_id=25951.
+
+h3. Why does Redmine use http links when I want it to use https links in Apache? (SSL)
+
+This happens when Apache sending requests to a backend server, like mongrel or thin.  Apache isn't telling the backend server to use https so the links are generated incorrectly.  Add the following configuration to Apache:
+
+    RequestHeader set X_FORWARDED_PROTO 'https'
+
+h2. Issue tracking
+
+h3. I've created a new issue status but I can't use it, it doesn't show up in the status drop-down list.
+
+Once you've created a new issue status, you need to include it in the workflow.
+
+Say you have created a status named 'In progress' and you want the developers to be able to change bugs from 'New' to 'In progress'.
+Go to "Administration -> Issue tracking -> Workflow", select 'Bug' and 'Developer' then click edit.
+You now see all the transitions allowed for developers on bugs. Check the 'New' -> 'In progress' checkbox and save.
+
+See [[RedmineIssueTrackingSetup|Workflow setup]].
+
+h3. I've created a new tracker but I can't use it, it doesn't show up in the trackers drop-down list.
+
+Once you've created a new tracker, you need to "activate" it for a specific project.
+
+Say you have created a tracker named 'Task' and you want the new tracker to be used for your project;
+* go to "(Project-)Settings -> tab 'Information' -> fieldset 'Trackers'",
+* check the checkbox of the new tracker 'Task',
+* and then click save.
+
+You can now start using the new tracker 'Task' in the project for which you've just activated the new tracker.
+
+h3. How does "Related issues" work?
+
+Using Issue #100 as the one you set the relationship and Issue #101 as the "related to"
+
+* Related - Just adds a link to the other issue
+* Duplicates - Links issues so that closing one, will close the other (e.g. closing #100 will close #101)
+* Blocks - Indicates that an issue need to be completed before working on the next.
+* Precedes - Defines an "order", where issue #100 needs to be completed x days before #101 can be started on.
+
+h2. Time tracking
+
+h3. The time calculations in "Spent time Reports" are wrong.
+
+You can enter spent-time values in Redmine using "decimal time format":http://en.wikipedia.org/wiki/Decimal_time. See [[Time_tracking]].
+
+* _Example_: you have 4 tasks with the following spent time values: 1.00, 0.10, 0.15, & 0.40. Now in the Spent-Time reports (Project overview -> Spent time -> [Details | Report]) you see a total of 1.65 hours instead of 2.05 hours...???
+
+* _Explanation_: this "behaviour" is normal and intended since you enter those four spent-time values using decimal time format. This means that: 
+** 1.00 decimal equals 60 minutes (1 hour)
+** 0.10 decimal equals 6 minutes
+** 0.15 decimal equals 9 minutes
+** 0.40 decimal equals 24 minutes
+** 1.65 decimal equals 99 minutes
+** 2.05 hours (125 minutes) equals 2.0833333333333335 (est.) in decimal notation
+
+Offcourse there can possibly be a very tiny difference (as you can see) due to the rounding to two decimals done by Redmine.
+
+Some references:
+* http://en.wikipedia.org/wiki/Decimal_time
+* http://www.springfrog.com/converter/decimal-time.htm
+
+h2. Repositories
+
+h3. Commits don't show up in the activity until I click on 'Repository'
+
+By default, Redmine fetches the new commits from the repository only when you browse it.
+
+If you want the commits to be retrieved periodically by Redmine in the background for all your repositories, uncheck 'Autofetch commits' setting and add a cron that runs (with appropriate environment):
+
+  rake -f /path/to/redmine/Rakefile redmine:fetch_changesets
+
+For SVN repositories you can also add the following command to a post-commit hook:
+
+  ruby /path_to_redmine/redmine/script/runner "Repository.fetch_changesets" -e production
+
+h3. I can't browse my svn repository through redmine
+
+Check the following:
+* Make sure you're using a svn client and server >= 1.3. Redmine parse the -xml output from subversion, which is a svn 1.3 feature.
+* Make sure that the web app is able to run the svn binary
+
+If you're accessing the repository over HTTPS:
+
+The initial import of a subversion repository over https requires that the ssl certificate fingerprint be manually validated and stored in a config-dir accessible by the user running the web server. It is recommended that a directory local to the redmine application root be provided, either as a default (./svn/.subversion) or as a provided parameter in the repository settings for subversion.
+
+The work around for the certificate acceptance issue is to manually checkout anything from the svn server specifying the local config-dir and accepting the certificate +permanently+.
+Example:
+
+<pre>
+$ svn --config-dir ./svn/.subversion co https://svn.mydomain.com/project/trunk delete-me
+
+Error validating server certificate for 'https://svn.mydomain.com:443':
+- The certificate is not issued by a trusted authority. Use the
+fingerprint to validate the certificate manually!
+- The certificate hostname does not match.
+- The certificate has expired.
+Certificate information:
+- Hostname: svn.mydomain.com
+- Valid: from Apr 8 12:00:00 2006 GMT until Sep 24 12:00:00 2010 GMT
+- Issuer: mydomain.com, vrsource.org, Geneva, UN
+- Fingerprint: 01:27:d9:6a:b8:db:63:f3:24:e3:41:c8:15:0a:f8:93:f6:7c:0f:11
+(R)eject, accept (t)emporarily or accept (p)ermanently? p
+</pre>
+
+h3. Repository statistics doesn't show up
+
+* If you are using ruby 1.8.6:
+There's a bug in rexml 3.1.7 provided with ruby 1.8.6. You can fix it yourself:
+In @ruby/1.8/rexml/document.rb@ (line 186), change: @if transitive@ to @if trans@ then restart the app.
+See http://www.germane-software.com/projects/rexml/ticket/115 for details.
+* If you are using Internet Explorer:
+You'll need an SVG plugin like the one "Adobe provides":http://www.adobe.com/svg/viewer/install/beta.html to be able to display SVG-images properly within Internet Explorer.
+
+h2. Wikis
+
+h3. How do I create sub-pages (parent/child relationships) in the wiki
+
+Looking at http://www.redmine.org/wiki/redmine/Page_index/special it is possible to make use of some sort of sub-paging like:
+> * Guide
+> ** RedmineAccounts
+> ** RedmineCustomFields
+> ** RedmineInstall
+> ** RedmineIssueList
+> ** RedmineIssues
+This can be accomplished by assigning a parent page to a to-be child-page. This assignment can be done via the @rename@ dialog.
+Thus, create both the child- and parent-pages and then open the to-be child-page and click "rename", then enter the name of the parent page.
+
+h2. Performance
+
+h3. When I create a new issue, Redmine freeze during one minute.
+
+Make sure your SMTP server is properly configured or desactive *email notifications* (remove @config/email.yml@) and restart redmine.
+
+h2. Miscellaneous
+
+h3. Emails use the incorrect url
+
+The urls used in email is configured with the *Host Name* setting in Administration > Settings > General tab.  It defaults to localhost:3000 (Ruby on Rails default).
+
+h3. All times are off by 1 hour after the daylight savings switched
+
+Rails < 2.1 built-in time zone implementation doesn't handle DST. You have to install "TZInfo":http://tzinfo.rubyforge.org/.
+To do so, run the following from your Redmine directory:
+
+  ruby script/plugin install tzinfo_timezone
+
+Do not install this plugin if you're using Redmine 0.8.
+
+h3. What is the difference between Documents and Files?
+
+The "Documents" section is aimed to publish... documents as specification of the tracked project, or notice, or every other documents that have not it's place in a SCM.
+The "Files" section is aimed to publish... versions of the tracked project, as a bundle (release).
+
+h3. I get a 404-error when I try to view or diff a PHP-file
+
+It's because Apache is seeing the extension @.php@ and tries to run the PHP-interpreter on the file. Since the requested URL isn't a real file, it returns a 404 error.
+The solution is to turn off mod_php for your Redmine virtual host. That will cause Apache to call Redmine to serve up the file.
+To do so, add the following line to your virtual host configuration:
+
+  RemoveHandler .php

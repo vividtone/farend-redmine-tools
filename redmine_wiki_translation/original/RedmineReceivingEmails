@@ -1,0 +1,247 @@
+h1. Receiving emails
+
+{{>toc}}
+
+As of 0.8.0, Redmine can be configured to allow issue creation or comments via email.
+
+h2. Setup
+
+You can configure Redmine to receive emails in one of the following ways:
+
+* Forwarding emails from your email server:
+
+  * Pros: works with a remote mail server, email are processed instantly, fast (no environment reloading)
+  * Cons: needs some configuration on your mail transfer agent (eg. Postfix, Sendmail...)
+
+* Fetching emails from an IMAP server:
+
+  * Pros: easy to setup, no need to configure your MTA, works with a remote mail server
+  * Cons: emails are not processed instantly (a cron job needs to be added to read emails periodically)
+
+* Reading emails from standard input:
+
+  * Pros: fine for testing purpose
+  * Cons: slow (the environment is reloaded each time an email is read), needs some configuration on your MTA
+
+h3. Forwarding emails from your email server
+
+A standalone script can be used to forward incoming emails from your mail server.
+This script reads a raw email from the standard input and forward it to Redmine via a HTTP request.
+It can be found in your redmine directory: @extra/mail_handler/rdm-mailhandler.rb@.
+
+In order to use it, you have to enable the API that receive emails:
+Go to _Application settings_ -> _Incoming emails_, check *Enable WS for incoming emails* and enter or generate a secret key.
+
+Copy @rdm-mailhandler.rb@ to your mail server, make sure its permissions allow execution, and configure your MTA.
+
+Usage:
+
+<pre>
+rdm-mailhandler [options] --url=<Redmine URL> --key=<API key>
+
+Required:
+  -u, --url                      URL of the Redmine server
+  -k, --key                      Redmine API key
+  
+General options:
+  -h, --help                     show this help
+  -v, --verbose                  show extra information
+  -V, --version                  show version information and exit
+
+Issue attributes control options:
+  -p, --project=PROJECT          identifier of the target project
+  -t, --tracker=TRACKER          name of the target tracker
+      --category=CATEGORY        name of the target category
+      --priority=PRIORITY        name of the target priority
+  -o, --allow-override=ATTRS     allow email content to override attributes
+                                 specified by previous options
+                                 ATTRS is a comma separated list of attributes
+</pre>
+
+Examples:
+
+<pre>
+  # No project specified. Emails MUST contain the 'Project' keyword:
+  rdm-mailhandler --url http://redmine.domain.foo --key secret
+  
+  # Fixed project and default tracker specified, but emails can override
+  # both tracker and priority attributes:
+  rdm-mailhandler --url https://domain.foo/redmine --key secret \\
+                  --project foo \\
+                  --tracker bug \\
+                  --allow-override tracker,priority
+</pre>
+
+Here is an example for a Postfix alias:
+
+<pre>
+foo: "|/path/to/rdm-mailhandler.rb --url http://redmine.domain --key secret --project foo"
+</pre> 
+
+h3. Fetching emails from an IMAP server
+
+A rake task (@redmine:email:receive_imap@) can be used to fetch incoming emails from an IMAP server. When you run the rake command from a cron job you can include the switch @-f /path/to/redmine/appdir/Rakefile@ on the rake command, because otherwise the rakefile is not found. This is an example line for a cron file that fetches mails every 30 minutes:
+
+<code>
+*/30 * * * * redmineuser rake -f /path/to/redmine/appdir/Rakefile redmine:email:receive_imap RAILS_ENV="production" host=imap.foo.bar username=redmine@somenet.foo password=xxx 
+</code>
+
+The command has to go on a single line in your cronfile. Also see the other examples below, which only show the rake commands without the @-f@ option and without the cron part. 
+
+For Windows as server "pycron":http://www.kalab.com/freeware/pycron/pycron.htm can be used to schedule a fetch task.
+
+It can be necessary that you open the firewall on the machine for outgoing TCP connections to IMAP port 143.
+
+Available IMAP options:
+<pre>
+  host=HOST                IMAP server host (default: 127.0.0.1)
+  port=PORT                IMAP server port (default: 143)
+  ssl=SSL                  Use SSL? (default: false)
+  username=USERNAME        IMAP account
+  password=PASSWORD        IMAP password
+  folder=FOLDER            IMAP folder to read (default: INBOX)
+</pre>
+Issue attributes control options:
+<pre>
+  project=PROJECT          identifier of the target project
+  tracker=TRACKER          name of the target tracker
+  category=CATEGORY        name of the target category
+  priority=PRIORITY        name of the target priority
+  allow_override=ATTRS     allow email content to override attributes
+                           specified by previous options
+                           ATTRS is a comma separated list of attributes
+  
+</pre>
+
+These options are available on trunk or the upcoming 0.8.1
+
+<pre>
+  move_on_success=MAILBOX  move emails that were successfully received
+                           to MAILBOX instead of deleting them
+  move_on_failure=MAILBOX  move emails that were ignored to MAILBOX
+</pre>
+
+Examples for the rake command:
+
+<pre>
+  # No project specified. Emails MUST contain the 'Project' keyword:
+  
+  rake redmine:email:receive_imap RAILS_ENV="production" \\
+    host=imap.foo.bar username=redmine@somenet.foo password=xxx
+
+
+  # Fixed project and default tracker specified, but emails can override
+  # both tracker and priority attributes:
+  
+  rake redmine:email:receive_imap RAILS_ENV="production" \\
+    host=imap.foo.bar username=redmine@somenet.foo password=xxx ssl=1 \\
+    project=foo \\
+    tracker=bug \\
+    allow_override=tracker,priority
+
+  # Move successful emails to the 'read' mailbox and failed emails to
+  # the 'failed' mailbox
+  
+  rake redmine:email:receive_imap RAILS_ENV="production" \\
+    host=imap.foo.bar username=redmine@somenet.foo password=xxx \\
+    move_on_success=read move_on_failure=failed
+
+</pre>
+
+
+Emails that are ignored (unknown user, unknown project...) are marked as 'Seen' but are not deleted from the IMAP server.
+
+The option _allow_override_ is not only for overriding default values given to rake, but for every attribute in a mail. If you want to override the tracker in your mail you have to add _allow_override=tracker_ as parameter.
+
+h3. Reading emails from standard input
+
+A rake task (@redmine:email:receive@) can be used to read a single raw email from the standard input.
+
+<pre>
+Issue attributes control options:
+  project=PROJECT          identifier of the target project
+  tracker=TRACKER          name of the target tracker
+  category=CATEGORY        name of the target category
+  priority=PRIORITY        name of the target priority
+  allow_override=ATTRS     allow email content to override attributes
+                           specified by previous options
+                           ATTRS is a comma separated list of attributes
+</pre>
+
+Examples:
+
+<pre>
+  # No project specified. Emails MUST contain the 'Project' keyword:
+  rake redmine:email:read RAILS_ENV="production" < raw_email
+
+  # Fixed project and default tracker specified, but emails can override
+  # both tracker and priority attributes:
+  rake redmine:email:read RAILS_ENV="production" \\
+                  project=foo \\
+                  tracker=bug \\
+                  allow_override=tracker,priority < raw_email
+</pre>
+
+The option _allow_override_ is not only for overriding default values given to rake, but for every attribute in a mail. If you want to override the tracker in your mail you have to add _allow_override=tracker_ as parameter.
+
+
+h2. How it works
+
+When receiving an email, Redmine uses the From address of the email to find the corresponding user. Emails received from unknown or locked users are ignored.
+
+If the email subject contains something like "Re: *[xxxxxxx !#123]*", the email is processed as a reply and a note is added to issue !#123. Otherwise, a new issue is created.
+
+h3. Target project
+
+The target project can be specified using the @project@ option when receiving emails.
+
+If you don't use this option, users have to specify in the email body which project the issue should be added to. This can be done by inserting a line in the email body like this: @"Project: foo"@.
+
+Example (email body):
+
+<pre>
+This is a new ticket that will be added to project foo.
+Here we have the ticket description
+[...]
+
+Project: foo
+</pre>
+
+You can set a default project using the @project@ option and let users override this default project by using the @allow-override@ option when receiving emails.
+Example:
+
+<pre>
+  # Create issues on project foo by default
+  rake redmine:email:receive_imap [...] project=foo allow_override=project
+</pre>
+
+Of course, user permissions are checked and this email would be ignored if the user who sent this email is not allowed to add issues to project foo.
+Make sure that the target project doesn't use *required* custom fields with no default value for its issues, otherwise the creation of the issue will fail.
+
+h3. Issue attributes
+
+Based on the options you use when receiving emails (see @allow-override@ option), users may be able to override some attributes when submitting an issue.
+This can be done by using the following keywords in the email body (just like @Project@): @Tracker@, @Category@, @Priority@, @Status@.
+
+Example (email body):
+
+<pre>
+This is a new ticket that overrides a few attributes
+[...]
+
+Project: foo
+Tracker: Bug
+Priority: Urgent
+Status: Resolved
+</pre>
+
+h3. Watchers
+
+If the user who sends the email has the 'Add issue watchers' permission, users that are in To or Cc field of the email are automatically added as watchers of the created issue.
+
+h3. Email format and attachments
+
+Redmine tries to use the plain text part of the email to fill the description of the issue.
+If a HTML-only email is received, HTML tags are removed from its body.
+
+Email attachments are automatically attached to the issue, unless their size exceeds the [[RedmineSettings#Attachment-max-size|maximum attachment size]] defined in the application settings.

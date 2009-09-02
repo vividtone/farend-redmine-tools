@@ -1,0 +1,25 @@
+h1. Système de suivi de demandes
+
+h2. Trackers
+
+Les trackers sont différents types de demandes. Pour chaque tracker, vous pouvez définir un cheminement différent ( _workflow_ ).
+
+Lorsque vous créez un nouveau tracker, vous devez définir son workflow pour l'utiliser correctement. Notez que vous pouvez copier
+le workflow d'un tracker existant lorsque vous en créez un (poru cela, sélectionnez le tracker dans la liste déroulante 'Copier le workflow de' de l'écran 'Nouveau tracker').
+
+h2. Statuts des demandes
+
+* *Fermé*: indique que la demande est considérée comme fermée (plusieurs statuts peuvent être considérés comme fermé)
+* *Defaut*: statut appliqué aux nouvelles demandes (seul un statut peut être le statut par défaut)
+
+h2. Workflow
+
+Le workflow vous permet de définir les changements de statuts que les membres d'un projet ont le droit de faire sur les demandes, selon leur type.
+
+Sur l'écran de paramétrage de workflow, choisissez le rôle et le tracker pour lesquels vous souhaitez éditer le workflow, puis cliquez sur 'Editer'. L'écran vous permet de sélectionner les modifications autorisées pour le rôle et le tracker choisis. Les options de la colonne Statut actuel indiquent le statut initial d'une demande. Les colonnes "Nouveaux statuts autorisés" déterminent les statuts pouvant être appliqués.
+
+Note : pour donner à un rôle l'autorisation de modifier le statut d'une demande existante, vous devez lui donner la permission 'Change issue status' (voir [[frRedmineRoles|Rôles et permissions]]).
+
+p=. !workflow_example.png!
+
+Dans l'exemple ci-dessus, les bogues avec le statut New peuvent se voir attribuer les statuts Assigned ou Resolved par le rôle Developper. Le statut de tous les autres bogues ne peut être modifié par le Developer.

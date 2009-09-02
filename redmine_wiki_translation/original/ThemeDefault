@@ -1,0 +1,46 @@
+h1. Default theme
+
+This is the default Redmine theme integrated within the Redmine core.
+
+h2. Author
+
+Same as the author of Redmine itself: Jean-Philippe Lang.
+
+h2. Description
+
+This is the default Redmine theme which is _integrated as part of the Redmine core_. It is quite a basic, straight-forward theme based on a triangle of colours including blue, dark-blue and white/grey.
+
+It does not include support for issue-colouring in the issuelist based on issue's priority (see the [[ThemeAlternate|Alternate theme]] for a solution to this).
+
+h2. Screenshots
+
+|=. *Project Overview*   |=. *Project Activity*     |
+| !overview-480x360.jpg! | !activity-480x360.jpg!   |
+
+|=. *Project Roadmap*    |=. *Project Issuelist*    |
+| !roadmap-480x360.jpg!  | !issuelist-480x360.jpg!  |
+
+|=. *Project Forums*     |=. *Project Repository*   |
+| !forums-480x360.jpg!   | !repository-480x360.jpg! |
+
+h2. Obtaining the theme
+
+The theme is part of the Redmine Core.
+
+h2. Installation
+
+Due to the fact that this theme is integrated in Redmine as part of the Redmine core this theme does not have to be installed seperately. It is the default selected theme.
+
+h2. Changelog
+
+See the @svn@-log of source:trunk/public/stylesheets.
+
+h2. Licensing
+
+The default theme is open source and released under the terms of the "GNU General Public License v2":http://www.gnu.org/licenses/old-licenses/gpl-2.0.html (GPL).
+
+h2. Support
+
+Support is provided as for Redmine itself. For getting help or discussing about Redmine, you can browse the "Redmine forums":http://www.redmine.org/projects/redmine/boards. Or, join @#redmine@ on the freenode IRC network.
+
+Ultimately, you can raise a bug or feature request by opening a new issue. Before opening an issue here, please read this: [[SubmittingBugs]].

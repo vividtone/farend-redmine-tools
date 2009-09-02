@@ -1,0 +1,277 @@
+h1. Application Settings
+
+{{>TOC}}
+
+h2. General settings
+
+h3. Application title
+
+Title which appears in heading of the application. This is the link just under the little bar with « Home/My page/Projects/Help» when you're logged in.
+
+h3. Welcome text
+
+Text displayed on the home page of Redmine. This text can contain HTML tags.
+
+h3. Theme
+
+This option lets you choose a custom theme.
+Redmine is shipped with two additional themes besides the [[ThemeDefault|default]] theme:
+* [[ThemeAlternate|alternate]], which mainly provides issue list colorization based on issues priority.
+* [[ThemeClassic|classic]], which is derived from the Redmine 0.5.1 design and brings a _classic_ look.
+
+Screenshot of the [[ThemeAlternate|alternate]] theme:
+
+!alternate_theme.png!
+
+Themes are located in @public/themes/@. You can read more about [[Themes]].
+
+_Will move to a new "Display"-tab in Redmine version#6._
+
+h3. Default language
+
+The default language is selected when the application could not determine the user's browser language. The default language is also used when sending email to multiple users. _Default: English_
+
+_Will move to a new "Display"-tab in Redmine version#6._
+
+h3. Date format
+
+Lets you choose how dates are displayed:
+
+  * *Based on user's language*: dates will be displayed specifically for each user, according to the format defined for its language
+  * *Other formats*: dates will always be displayed using the specified format
+
+_Default: Based on user's language_
+
+_Will move to a new "Display"-tab in Redmine version#6._
+
+h3. Time format
+
+Lets you choose how times are displayed:
+
+  * *Based on user's language*: times will be displayed specifically for each user, according to the format defined for its language
+  * *Other formats*: times will always be displayed using the specified format
+
+_Default: Based on user's language_
+
+_Will move to a new "Display"-tab in Redmine version#6._
+
+h3. Users display format
+
+Lets you choose how usernames are displayed. The following combinations are provided:
+
+  * _Firstname_
+  * _Firstname Surname_
+  * _Surname Firstname_
+  * _Surname, Firstname_
+  * _Username_
+
+_Will move to a new "Display"-tab in Redmine version#6._
+
+h3. Attachment max. size
+
+Maximum size of uploaded files (in "kibi-bytes":http://en.wikipedia.org/wiki/Binary_prefix). _Default: 5120 (i.e. 5 "mebi-bytes":http://en.wikipedia.org/wiki/Binary_prefix )_
+
+h3. Objects per page options
+
+Here you can configure the fixed values which users can select for the amount of objects (issues, commits etc.) which are displayed per page.
+
+_Default: 25, 50, 100_
+
+h3. Days displayed on project activity
+
+The initial (and recurring while browsing) amount of days of which the project(s)-activity is shown in the [[RedmineProjectActivity|activity]]-tab.
+
+h3. Host name
+
+Host name of your redmine server. This name is used to write URL in emails sent to users. i.e.: the hostname of this precise redmine is redmine.org.
+
+_Will become "Host name *and path*" in Redmine version#6 which also adds support to "guess" the correct setting_
+
+h3. Protocol
+
+Protocol used to generate links in email notifications. _Default: http_
+
+Links in email are "guessed", but can't determine whether you're using an unsecure web server (http) or a secure one (https -> http over SSL).
+
+h3. Text formatting
+
+Formatting method applied to the "description" fields of the issues, news, documents...
+
+h3. Wiki history compression
+
+Lets you activate compression for wiki history storage (reduces database size). _Default: disabled_
+
+h3. Feed content limit
+
+Maximum number of records contained in RSS feeds. _Default: 15_
+
+h3. Use Gravatar user icons
+
+If enabled, users "Gravatars":http://en.gravatar.com/ (globally recognized avatar) will be displayed in several places.
+
+_Will move to a new "Display"-tab in Redmine version#6._
+
+h3. Max size of text files displayed inline KB
+
+This setting will be added in Redmine version#6. It provides a way to limit the maximum size of text files which are display inline.
+
+h3. Max number of diff lines displayed
+
+This setting will be added in Redmine version#6. It provides a way to limit the maximum number of diff lines which are displayed by Redmine.
+
+h2. Authentication
+
+h3. Authentication required
+
+If this option is checked, no page of the application is accessible to anonymous users. Users must sign to access the application. _Default: No_
+
+h3. Autologin
+
+This option let users use the auto-login feature. _Default: Disabled_
+
+h3. Self-registration
+
+This option lets you enable/disable new users self registration:
+
+* *disabled*: users are not allowed to register
+* *account activation by email*: new users receive an email containing a link used to active their accounts (users must provide a valid email address).
+* *manual account activation* _(default)_: new users' accounts are created but need administrator approval. Administrators receive an email informing them that an account is pending their approval.
+* *automatic account activation*: new users can log in as soon as they have registered.
+
+h3. Minimum password lenght
+
+This setting will be added in Redmine version#6. Let's the admin decide on the minimum lenght of the chosen passwords.
+
+_Default: 4_
+
+h3. Lost password
+
+If this option is checked, lost password functionality is available. _Default: Yes_
+
+h3. Allow OpenID login and registration
+
+This setting will be added in Redmine version#6. Will provide the admin a way to disable OpenID logins and registrations.
+Note that the setting is immutable as long as the dependency for the feature (an installed copy of the @ruby-openid@ gem) is not met. You can simply install it using @gem install ruby-openid@.
+
+h2. Projects
+
+h3. New projects are public by default
+
+The default state of newly created projects. The project can still be made non-public while creating new project or after the creation of the project.
+
+h3. Generate sequential project identifiers
+
+This setting will let Redmine propose sequential project identifiers for you. This can still be manually changed only while creating the project, not afterwards.
+
+h3. Role given to a non-admin user who creates a project
+
+This setting will be added in Redmine version#6. It adds a setting to choose which role is given by default to a non-admin user who creates a project (this only applies when you have configured Redmine permissions in such a way that non-admin users are actually priviledged to create projects).
+
+h2. Issue tracking
+
+h3. Allow cross-project issue relations
+
+If set to true, relations between issues from different projects can be created. _Default: No_
+
+h3. Display subprojects issues on main projects by default
+
+If set to true, subprojects issues will be displayed by default on the issue list, calendar and gantt of the main projects (Since r1198). _Default: Yes_
+
+h3. Issues export limit
+
+Maximum number of issues contained in CSV and PDF exports. _Default: 500_
+
+h3. Default columns displayed on the issue list
+
+This setting lets you define which columns are displayed on the issue lists by default.
+Only custom fields that are marked as 'For all projects' can be selected here.
+
+h2. Email notifications
+
+h3. Emission mail address
+
+Email address used in the "From" field of messages sent to users.
+
+h3. Blind carbon copy recipients (bcc)
+
+If set to true, email notification will be sent as Blind carbon copy. _Default: Yes_
+
+h3. Plain text mail
+
+If set to true, emails are sent in plain text only (no HTML).
+
+h3. Emails footer
+
+Here you can enter some text that will be appended to the emails sent by the application.
+
+h2. Incoming emails
+
+See for detailed instructions about these settings [[RedmineReceivingEmails]].
+
+h3. Enable WS for incoming emails
+
+Redmine can be configured to allow issue creation or comments via email. In order to use that feature, you have to enable the API that receives emails. That is where this setting is for. _Default: Off_
+
+h3. API key
+
+Within this setting you can enter a secret key used for the issue creation or comments via email feature.
+
+h2. Repositories
+
+h3. Autofetch commits
+
+If this option is activated, the application automatically retrieves the new revisions when a user consults the repository.
+
+_Default: Yes_
+
+You can disable this option and automate the call to Repository#fetch_changesets using cron to regularly retrieve the revisions for all of the repositories in the background.
+Example:
+<pre>ruby script/runner "Repository.fetch_changesets" -e production</pre>
+
+You can also call this task from your repository in a post-commit or post-receive hook, so that changesets are fetched after each commit.
+Here is a tutorial for doing so with git: http://finalcog.com/remine-git-post-receive
+
+h3. Enable WS for repository management
+
+This option should be activated only if you installed the script for automatic SVN repository creation. _Default: No_
+
+h3. Enabled SCM
+
+Here you can (de)select the SCM-systems Redmine should "provide" to the individual projects. This setting is usefull if you only support several SCM-systems (e.g. only Git or only SVN).
+
+h3. Repositories encodings
+
+This option lets you specify prefered encodings for repository files (multiple values allowed, comma separated). These encodings are used to convert files content and diff to UTF-8 so that they're properly displayed in the browser.
+When entering multiple encodings, the first valid encoding regarding the file content is used.
+
+For French users, this option can be for example set to:
+
+  UTF-8, ISO 8859-15, CP1252
+
+For Japanese users:
+
+  ISO-2022-JP, EUC-JP, UTF-8, SHIF_JIS, WINDOWS-31J
+
+h3. Maximum number of revisions displayed on file log
+
+This setting will be added in Redmine version#6. It provides a way to limit the amount of revisions which are retrieved from the SCM for a certain, browsed path.
+
+h3. Referencing issues in commit messages
+
+When fetched from the repositories, commit messages are scanned for referenced or fixed issue IDs.
+These options lets you define keywords that can be used in commit message to reference or fix issues automatically, and the status to apply to fixed issues.
+
+Default keywords are:
+
+* for referencing issues: refs, references, IssueID
+* for fixing issues: fixes, closes
+
+There's no default status defined for fixed issue. You'll have to specify it if you want to enable auto closure of issues.
+If you want to reference issues without using keywords, enter a single star: * in the *Referencing keywords* setting. In this case, any issue ID found in the message will be linked to the changeset.
+
+Example of a working commit message using default keywords:
+
+  This commit refs #1, #2 and fixes #3
+
+This message would reference issues 1 and 2 and automatically fix issue 3.
+After a keyword issue IDs can be separated with a space, a comma or &.

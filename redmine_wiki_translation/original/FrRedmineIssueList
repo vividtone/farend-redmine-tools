@@ -1,0 +1,25 @@
+h1. La liste de demandes
+
+h2. Appliquer et sauvegarder des filtres
+
+La liste de demandes présente par défaut les demandes ouvertes.
+Les demandes standardes et [[frRedmineCustomFields|personnalisées]] peuvent être utilisées pour bâtir une requête personnalisée. une fois les filtres configurés, cliquez sur !/images/true.png! pour rafraîchir la liste de demandes. Cliquez sur !/images/reload.png! pour supprimer les filtres.
+
+Les requêtes personnalisées peuvent être sauvegardées en cliquant sur !/images/save.png!.
+Un formulaire vous permet de donner un nom à la requête, et vous permet de sélectionner les colonnes que vous souhaitez voir appraître dans la liste de demandes (les champs standards et [[frRedmineCustomFields|personnalisés]] peuvent être affichés). Cocher l'attribut *public* rend la requête visible pour tout le monde, sinon vous seul pourrez la voir.
+
+Une fois sauvegardées, la requête est répertoriée dans la marge à droite.
+
+h2. Menu rapide
+
+Un menu contextuel apparaît avec un clic droit (Ctrl + droit pour les utilisateurs d'Opera) sur une demande de la liste des demandes. Ce menu offre plusieurs raccourcis pour modifier, prioriser, assigner à, copier, déplacer ou supprimer rapidement la demande.
+
+!shortcut_menu.png!
+
+h2. Editer les demandes 
+
+Dans la liste des demandes, vous pouvez modifier/déplacer/supprimer simultanément plusieurs demandes en les sélectionnant et en faisant ensuite un clic droit sur la sélection. Les demande peuvent être sélectionnées soit en utilisant les cases à cocher, ou en cliquant sur chaque ligne tout en maintenant la touche Ctrl ou Shift enfoncée.
+Vous pouvez également utiliser le symbole coche situé en haut à gauche de la liste pour sélectionner/désélectionner toutes les demandes.
+
+!bulk-edit.png!
+

@@ -1,0 +1,123 @@
+h1. Installer Redmine
+
+{{>TOC}}
+
+h2. Prérequis
+
+* Ruby & Ruby on Rails:
+
+|_. version Redmine|_. version Rails requise|
+|trunk|Rails 2.1.2|
+|0.8.x|Rails 2.1.2|
+|0.7.x|Rails 2.0.2|
+
+Les distributions officielles comprennent la version appropriée de Rails dans leur répertoire @vendor@. Aucune action n'est donc demandée. Si vous faites un checkout des sources depuis le dépôt Redmine, vous pouvez installer une version spécifique de Rails sur votre machine en lançant :
+
+ gem install rails -v=2.1.2 
+
+* Une base de données
+
+* MySQL 4.1 ou plus (recommandé)
+* PostgreSQL 8
+* SQLite 3 (svp lisez ceci: http://weblog.rubyonrails.org/2007/1/29/using-sqlite3-with-rails)
+
+* Optionnel:
+
+    * binaires SVN (>= 1.3), pour la consultation des dépôts (doivent être atteignables dans votre PATH)
+    * RMagick (export Gantt dans une image png)
+
+Notez que Rails a quelques problèmes de compatibilité avec Ruby 1.8.7. *La version de ruby supportée est 1.8.6*.
+
+
+h2. Installation
+
+1. [[Download|Téléchargez]] et extrayez l'archive ou faites un [[CheckingoutRedmine|checkout]] de Redmine.
+
+2. Créez une base de données vide nommée par exemple @redmine@.
+
+Pour MySQL:
+
+  create database redmine character set utf8;
+
+3. Copiez @config/database.yml.example@ dans @config/database.yml@ et éditez ce fichier pour configurer vos paramètres de base dans l'environnement "production".
+
+Exemple pour une base de données MySQL:
+
+  production:
+    adapter: mysql
+    database: redmine
+    host: localhost
+    username: bduser
+    password: bdpasswd
+
+4. Créez la structure de base en lançant la commande suivante depuis le répertoire racine de l'application:
+
+  rake db:migrate RAILS_ENV="production"
+
+Ceci va créer les tables et le compte administrateur.
+
+5. Insérez les données de la configuration par défaut dans la base en lançant la commande suivante:
+
+  rake redmine:load_default_data RAILS_ENV="production"
+
+Cette étape est optionnelle mais *fortement recommandée*, sauf si vous définissez votre propre configuration depuis rien. Elle va charger les rôles par défaut, les trackers, statuts, workflows et énumérations.
+
+6. Paramétrez les permissions
+
+NB: _Les utilisateurs sous Windows doivent sauter cette section._
+
+L'utilisateur faisant tourner Redmine doit avoir la permission d'écriture sur les sous-répertoires suivants: @files@, @log@, @tmp@ (créez ce dernier s'il n'est pas présent).
+
+A supposer que vous fassiez tourner Redmine avec un utilisateur@redmine@:
+
+<pre>
+mkdir tmp
+sudo chown -R redmine:redmine files log tmp
+sudo chmod -R 755 files log tmp
+</pre> 
+
+
+7. Testez l'installation en lançant le serveur web WEBrick:
+
+  ruby script/server -e production
+
+Une fois WEBrick démarré, dirigez votre navigateur sur http://localhost:3000/. Vous devriez voir maintenant la page de bienvenue de l'application.
+
+8. Utilisez le compte administrateur par défaut pour vous connecter:
+
+    * identifiant: admin
+    * mot de passe: admin
+
+Vous pouvez aller sur  @Administration@ pour modifier la configuration de l'application.
+
+h2. Configuration du serveur SMTP
+
+h3. versions 0.8.x
+
+Copiez @config/email.yml.example@ vers @config/email.yml@ et éditez ce fichier pour ajuster vos paramètres SMTP. 
+
+h3. versions 0.7.x
+
+Dans config/environment.rb, vous pouvez configurer les paramètres de votre serveur SMTP:
+
+    * config.action_mailer.smtp_settings: configuration du serveur SMTP
+    * config.action_mailer.perform_deliveries: mettre à false pour désactiver l'envoi de messages
+
+N'oubliez pas de redémarrer l'application après toute modification.
+
+h2. Sauvegarde
+
+Les sauvegardes Redmine devraient inclure:
+* les données (stockées dans votre base de données redmine)
+* pièces jointes (stockées dans le répertoire @files@ de votre installation Redmine)
+
+Voici un simple script shell pouvant être utilisé pour des sauvegardes quotidiennes (à supposer que vous utilisez une base mysql):
+
+<pre>
+# Base
+/usr/bin/mysqldump -u <utilisateur> -p <motdepasse> <base_redmine> | gzip > /chemin/vers/sauvegarde/db/redmine_`date +%y_%m_%d`.gz
+
+# Pièces jointes
+rsync -a /chemin/vers/redmine/files /chemin/vers/sauvegarde/files
+</pre>
+

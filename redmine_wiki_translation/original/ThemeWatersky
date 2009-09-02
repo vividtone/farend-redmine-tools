@@ -1,0 +1,46 @@
+h1. Watersky theme
+
+A Redmine theme based on Redmine Alternate theme.
+
+h2. Author
+
+Konstantin Zaitsev.
+
+h2. Description
+
+It is derivated from the [[ThemeAlternate|alternate theme]]. The theme uses Silk icons (http://www.famfamfam.com/lab/icons/silk/)
+
+h2. Screenshots
+
+|=. *Project Issuelist*  |
+| !issues_list_tn.png!:/attachments/2175/issues_list.png |
+|=. *Issue details* |
+| !issue_details_tn.png!:/attachments/2173/issue_details.png |
+
+h2. Obtaining the theme
+
+The theme can be downloaded from http://kosz-redmine-tools.googlecode.com/files/watersky_1.1.zip.
+
+h2. Installation
+
+Follow the Redmine theme installation steps at: http://www.redmine.org/wiki/redmine/Themes#Installing-a-theme.
+
+h2. Changelog
+
+h3. v1.0.0 - _2009-06-09_ 
+
+* Initial release...
+
+h3. v1.1 - _2009-06-23_ 
+
+* Decorated progress bar and headers
+
+h2. Licensing
+
+The watersky theme is open source and released under the terms of the "New BSD License v2":http://www.opensource.org/licenses/bsd-license.php.
+
+Silk icons (http://www.famfamfam.com/lab/icons/silk/) is licensed under a "Creative Commons Attribution 2.5 License":http://creativecommons.org/licenses/by/2.5/.
+
+h2. Support
+
+Support is provided by the author of the theme itself. For getting help or discussing about the theme, you can browse the dedicated "forum-thread":http://www.redmine.org/boards/1/topics/6716.

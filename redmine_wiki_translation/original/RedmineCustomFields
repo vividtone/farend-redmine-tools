@@ -1,0 +1,40 @@
+h1. Custom fields
+
+Custom fields allow you to add additional information on Projects, Issues or Users. A custom field can be of one the following types:
+
+* *Integer*: positive or negative number
+* *String*: one single line of input
+* *Text*: multiple lines text
+* *Date*: date
+* *Boolean*: checkbox
+* *List*: drop down list
+
+Some validations can be defined for each custom field:
+
+* *Min - max length* : minimum and maximum length for the field (0 means that there is no restriction)
+* *Regular Expression* : a regular expression can be used to validate the field content
+
+Examples:
+
+  ^\[A-Z]{4}\d+$ : 4 capital letters followed by one or several digits
+
+  ^[^0-9]*$ : characters only - no digits
+
+* *Possible values*: possible values for the "List" fields. You can add more values by clicking on this icon: !/images/add.png!
+
+h2. Fields for Issues
+
+* *Required*: field which is required in order to create/save the issue
+* *For all projects*: if checked, this field is used for the issues of all the projects. If unchecked, each project can choose whether or not to use the field for its issues (see [[RedmineProjectSettings|Project settings]]).
+
+h2. Fields for Spent-time entries
+
+* *Required*: field which is required in order to create/save the spent-time entry
+
+h2. Fields for Projects
+
+* *Required*: field which is required in order to create/save the project
+
+h2. Field for Users
+
+* *Required*: field which is required in order to create/save the user

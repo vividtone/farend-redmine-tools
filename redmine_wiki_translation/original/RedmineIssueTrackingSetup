@@ -1,0 +1,30 @@
+h1. Issue tracking system
+
+!>tracker_config.jpg!
+
+h2. Trackers
+
+Trackers are the different types of issues. For each tracker you can define:
+* if the issues bound to the tracker should be displayed on the [[RedmineRoadmap|roadmap]]
+* if the issues bound to the tracker should be displayed on the [[RedmineIssueChangelog|changelog]]
+* a different workflow.
+
+If you create a new tracker, you'll have to define its workflow in order to properly use it. Note that you can copy an existing tracker's workflow when you create a new one (for that, select a tracker in the 'copy workflow from' drop-down list on the 'New tracker' screen).
+
+h2. Issue statuses
+
+Issue statuses can be added and deleted freely. Each status has the following two configurable options:
+* *Closed*: indicates that the issue is considered as closed (more than one status can be declared as closed)
+* *Default*: status applied by default to new issues (only one status can be Default status)
+
+h2. Workflow
+
+The workflow lets you define status transitions that the various project members are allowed to make on the issues, according to their type.
+
+On the workflow setup screen, select the role and the tracker for which you want to edit the workflow, then click 'Edit'. The screen lets you select the authorized transitions, for the chosen role and tracker. The Current Status options indicate the initial status of an issue. The "New Statuses allowed" columns stand for the statuses that can be applied.
+
+Note: In order to allow a role to change the status of existing issues, you have to give him the 'Change issue status' permission (see [[RedmineRoles|Roles and permissions]]).
+
+p=. !workflow_example.png!
+
+In the above example, Bugs with a New status could be given an Assigned or Resolved status by the Developer role. Those with an Assigned status could get a Resolved status. The status of all the other Bugs cannot be modified by the Developer.

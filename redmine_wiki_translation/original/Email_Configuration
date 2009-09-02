@@ -1,0 +1,67 @@
+h1. Email Configuration
+
+h2. Configuration Directives
+
+This page is a work in progress, the following configuration directives is only a partial list.
+
+h3. authentication
+
+The type of authentication method expected by your service provider. 
+
+Valid settings:
+* :login
+* :none
+
+(note: if you set this to @:none@, you must not include the @user_name@ and @password@ settings)
+
+h3. delivery_method
+
+The mail transport method to be used. @:async_smtp@ uses asynchronous send. Redmine does not wait the email to be sent to display the next page.
+
+Valid settings:
+* :smtp
+* :async_smtp
+
+
+h2. Example email.yml Configurations
+
+h3. Simple Login Authentication (default settings)
+
+<pre>
+# Outgoing email settings
+
+production:
+  delivery_method: :smtp
+  smtp_settings:
+    address: smtp.example.net
+    port: 25
+    domain: example.net
+    authentication: :login
+    user_name: redmine@example.net
+    password: redmine
+  
+development:
+  delivery_method: :smtp
+  smtp_settings:
+    address: 127.0.0.1
+    port: 25
+    domain: example.net
+    authentication: :login
+    user_name: redmine@example.net
+    password: redmine
+</pre>
+
+
+h3. No Authentication
+
+Example for an SMTP service provider with no authentication.  Note the colon before none.
+
+<pre>
+production:
+  delivery_method: :smtp
+  smtp_settings:
+    address: smtp.knology.net
+    port: 25
+    domain: cybersprocket.com
+    authentication: :none
+</pre>

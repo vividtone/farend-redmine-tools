@@ -1,0 +1,300 @@
+h1. HowTo to handle SVN repositories creation and access control with Redmine
+
+{{>TOC}}
+
+*This setup is deprecated, you should try [[Repositories_access_control_with_apache_mod_dav_svn_and_mod_perl]]*
+
+h2. Overview
+
+*This setup is not required if you just need to browse your repositories and changesets from Redmine.*
+
+As of version 0.5.0, Redmine is able to handle Subversion repositories creation and access control.
+
+Once you've done this extra setup, Redmine will create the repository for each of your projects. Users will be allowed to access the repositories using ssh+svn, according to their permissions defined in Redmine :
+
+* for public projects : read access to the repository for any user, write access for project members only,
+* for private projects : read/write access allowed to project members only.
+
+User authentication is done using the same login/password as for Redmine access.
+
+h2. Requirements
+
+h3. Software
+
+You need Redmine 0.5.0 or higher, running with MySQL[1].
+
+Your SVN repositories must be hosted on a *nix system with the following packages:
+* nss_mysql
+* pam_mysql 0.7pre2 or higher, compiled with SHA1 support
+
+Scripts used in this HowTo can be found in the /extra/svn directory of Redmine.
+
+In this HowTo, we assume that:
+* the redmine database is called @redmine@ and hosted on @localhost@
+* the Subversion repositories are located in @/var/svn@
+
+h3. Network considerations
+
+The SVN host must be able to access both the Redmine database and HTTP server(s). In many cases, they will all be located on the same host.
+
+h2. Setup
+
+h3. Installing requires packages
+
+Get nss_mysql and other necessary packages:
+
+  apt-get install build-essential libnss-mysql libpam0g-dev libssl-dev libmysqlclient15-dev
+
+Get and build @pam_mysql@:
+
+<pre>
+$ cd /usr/src
+$ wget http://prdownloads.sourceforge.net/pam-mysql/pam_mysql-0.7RC1.tar.gz
+$ tar xzf pam_mysql-0.7RC1.tar.gz
+$ cd pam_mysql-0.7RC1
+$ ./configure --with-openssl
+$ make && make install
+</pre>
+
+h3. Preparing the Redmine database
+
+Some views need to be added to the Redmine database. These views are used to authenticate users and retrieve their permissions.
+
+1. Create the different views in your Redmine database :
+
+  mysql --user=root redmine -p < create_views.sql
+
+2. Create and grant privileges to 2 new mysql users (@redmine_nss@ and @redmine_pam@):
+
+<pre>
+mysql --user=root -p
+mysql> create user redmine_nss@localhost identified by 'averylongpassword';
+mysql> grant SELECT on redmine.nss_groups to redmine_nss@localhost;
+mysql> grant SELECT on redmine.nss_users to redmine_nss@localhost;
+mysql> grant SELECT on redmine.nss_grouplist to redmine_nss@localhost;
+mysql> create user redmine_pam@localhost identified by 'averylongpassword';
+mysql> grant SELECT on redmine.ssh_users to redmine_pam@localhost;
+</pre>
+
+h3. Configuring nss-mysql
+
+3. Create the /etc/nss-mysql.conf as follows:
+
+<pre>
+conf.version = 2;
+users.host = inet:localhost:3306;
+users.database = redmine;
+users.db_user = redmine_nss;
+users.db_password = averylongpassword;
+users.backup_database = nss_mysql_backup;
+users.table = nss_users;
+users.user_column = nss_users.username;
+users.userid_column = nss_users.username;
+users.uid_column = nss_users.uid;
+users.gid_column = 100;
+users.realname_column = nss_users.realname;
+users.homedir_column = "/false/path";
+users.shell_column = "/usr/local/bin/svnserve.wrapper";
+groups.group_info_table = nss_groups;
+groups.group_name_column = nss_groups.name;
+groups.groupid_column = nss_groups.gid;
+groups.gid_column = nss_groups.gid;
+groups.password_column = "x";
+groups.members_table = nss_grouplist;
+groups.member_userid_column = nss_grouplist.username;
+groups.member_groupid_column = nss_grouplist.gid;
+</pre>
+
+4. Install the svnserve wrapper
+
+  sudo install svnserve.wrapper /usr/local/bin
+
+5. Change /etc/nsswitch.conf
+
+Add Ã¢â‚¬Å“mysqlÃ¢â‚¬Â at the end of the two lines passwd and group like that :
+
+<pre>
+passwd:         compat mysql
+group:          compat mysql
+</pre>
+
+6. Test that all this stuff works :
+
+You must have users in some project to verify.
+
+<pre>
+% getent passwd
+[...]
+user1:x:5002:100:user1 user1:/false/path:/usr/local/bin/svnserve.wrapper
+user2:x:5003:100:user2 user2:/false/path:/usr/local/bin/svnserve.wrapper
+
+% getent group
+[...]
+project1:x:5001:
+project2:x:5002:
+</pre>
+
+h3. Authorize ssh pam to use mysql
+
+7. Add these lines in @/etc/pam.d/ssh@ :
+
+<pre>
+auth sufficient pam_mysql.so \
+verbose=1 \
+user=redmine_pam \
+passwd=averylongpassword \
+host=localhost \
+db=redmine \
+table=ssh_users \
+usercolumn=username \
+passwdcolumn=password crypt=4
+
+account sufficient pam_mysql.so \
+verbose=1 \
+user=redmine_pam \
+passwd=averylongpassword \
+host=localhost \
+db=redmine \
+table=ssh_users \
+usercolumn=username \
+passwdcolumn=password crypt=4
+
+password sufficient pam_mysql.so \
+verbose=1 \
+user=redmine_pam \
+passwd=averylongpassword \
+host=localhost \
+db=redmine \
+table=ssh_users \
+usercolumn=username \
+passwdcolumn=password crypt=4
+</pre>
+
+Juste before
+
+  @include common-auth
+
+8. Test this against an existing Redmine user
+
+Try to connect to the SVN host using a Redmine username (eg. jsmith):
+
+<pre>
+$ ssh jsmith@localhost
+jsmith@localhost's password:
+Could not chdir to home directory /false/path: No such file or directory
+( success ( 1 2 ( ANONYMOUS EXTERNAL ) ( edit-pipeline ) ) )
+</pre>
+
+The chdir error is the expected result.
+
+h3. Automating repository creation
+
+Repository creation can be automated by running periodically the reposman script.
+
+It takes 2 arguments:
+
+    * @svn-dir@: path to the directory where your svn repositories are located
+    * @redmine-host@: host name of your Redmine install
+
+Perl and Ruby versions of this script are provided but the perl version is now deprecated.
+
+Example using the Ruby version:
+
+<pre>
+./reposman.rb --svn-dir=/var/svn --redmine-host=localhost
+repository /var/svn/project2 created
+repository /var/svn/project1 created
+mode change on /var/svn/project3
+</pre>
+
+Projects are retrieved from Redmine using a SOAP web service. This web service is disabled by default in Redmine.
+To enable it, go to Ã¢â‚¬Å“Administration -> SettingsÃ¢â‚¬Â and check *Enable WS for repository management*.
+
+Make sure this option is checked if you get this error when running reposman:
+@Service description 'http://localhost/sys/service.wsdl' can't be loaded: 404 Not Found@
+
+With a recent version of redMine/reposman.rb (re. 860 and later), reposman.rb can register the new repository
+in redMine so that you have nothing to do and set the owner of repository to who you want to allow browsing private
+repository in redMine. You can do that by using the @--url@ argument :
+
+<pre>
+ruby ./reposman.rb --redmine-host localhost:3000 --svn-dir /var/svn \
+                   --url file:///var/svn/
+</pre>
+
+reposman will send back to Redmine the url of your repository. *be careful* when testing, one registered, you can't change the url in redmine).
+
+Next time you create a project, reposman will informe Redmine that the repository was created and Redmine will save the repository url.
+This way, the administrator won't have to enter the repositories urls manually in Redmine.
+
+h3. Accessing the repositories
+
+You can now access project1 repository using this url:
+
+  svn+ssh://svnhost/project1
+
+h2. What if you want to allow Redmine to browse private repository ?
+
+The previous recipes allow you to create repository on the fly and anonymous browsing. But, if your project is private or if the project isn't on the same server, you won't be able to browse it in Redmine.
+
+h3. Redmine and svn are on the same server
+
+In this case, you just need to use the @--url@ option like in the previous item to register the repository and the @--owner@ argument to set the repository owner to the mongrel/apache user so that it can access the repositories.
+
+<pre>
+ruby ./reposman.rb --redmine-host localhost:3000 --svn-dir /var/svn \
+                   --url file:///var/svn/ --owner MONGREL_USER
+</pre>
+
+BUT, you won't be able to separate svn and Redmine hosts in the future (in fact you will be able to but you would have to manually update the repositories urls in the database and that's bad). A better way to do this, if you think you will need to separate those two servers one day, is to do like you already have two servers. To do this, read the next recipe.
+
+h3. Redmine and svn aren't on the same server
+
+There's more than one way to do this, one could be to use a specific user to browse the repository with svnserve or svn+ssh but I don't like this way (don't ask why). Another way is to add a third access way (we already have svn+ssh for registered users and svnserve for anonymous users).
+
+In the following, the Redmine server is known as redmine.my.domain and the svn as svn.my.domain. You need to have apache/apache2 and mod_dav_svn on the svn server.
+
+1. configure your apache to serve the svn repository just for the Redmine server
+
+Just add something like that in your @apache.conf@ or in a file in the directory @/etc/apache/conf.d@:
+
+<pre>
+   LoadModule dav_svn_module /usr/lib/apache2/modules/mod_dav_svn.so
+   <Location /svn>
+   DAV svn
+   # this must be the path you give to reposman with -s,--svn-dir argument
+   SVNParentPath "/var/svn"
+   Order allow,deny
+   Allow from ip.of.my.redmine.server
+   </Location>
+</pre>
+
+Verify you can access it from your Redmine server.
+
+2. change your reposman cron by adding the @--owner@ argument with the apache user :
+
+<pre>
+ruby ./reposman.rb --redmine-host http://redmine.my.domain/ --svn-dir /var/svn
+                   --url http://svn.my.domain/svn/ --owner APACHE_USER
+</pre>
+
+h2. Web Service and Security
+
+For the moment, the WS is open to everybody once actived and you surely don't want that someone register project for you. You can block access to the WS with apache/mongrel (if you don't use apache, I let you do your homework...) with the Location apache directive like this :
+
+<pre>
+<VirtualHost *:80>
+   ServerName redmine.my.domain
+   ServerAdmin webmaster@localhost
+
+   <Location /sys>
+      Order allow,deny
+      Allow from ip.of.my.svn.server
+   </Location>
+
+   ProxyPass / http://localhost:3000/
+   ProxyPassReverse / http://localhost:3000/
+</VirtualHost>
+</pre>
+
+fn1. Other databases can not be used because of various problems: no pam module, no sha1 handling,...

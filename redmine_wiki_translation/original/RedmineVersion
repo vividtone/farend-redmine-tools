@@ -1,0 +1,18 @@
+h1. Version overview
+
+The version overview provides a detailed view of the current, overall state of a specific version. This includes:
+* a list of all the issues assigned to the specific version, including a progressbar which indicates overall active/done/closed-ratio based on the %-done and statuses of the issues, visualized by different colour-gradients
+* the content of the wiki-page that has been configured to be attached to the version
+* a block which shows the time-tracking totals of all estimated- and spent-time on the issues assigned to the version
+* a block which shows the issue-statistics using the same active/done/closed-ratio progressbar grouped by:
+** Assigned To Users
+** Authors
+** Categories
+** Priorities
+** Trackers
+
+Both the "grouped by criteria" and the statistics itself (the number of issues) provides drill-down links to the issue-list which preloads the specific filters thus providing quick links to issues of a specific author, category, etc.
+
+!version.jpg!
+
+The version-view can be reached from the [[RedmineRoadmap|roadmap]] by clicking on a specific version.
