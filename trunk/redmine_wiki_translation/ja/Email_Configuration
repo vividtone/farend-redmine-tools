@@ -1,0 +1,67 @@
+h1. メールの設定
+
+h2. 設定ディレクティブ
+
+このページは作業中のため、下記の設定ディレクティブの一覧は完全なものではありません。
+
+h3. 認証
+
+送信に使用するメールサーバが要求する認証法を指定します。
+
+有効な設定:
+* :login
+* :none
+
+(注意: @:none@ に設定する場合、@user_name@ および @password@ は設定してはなりません)
+
+h3. 配送方法
+
+メールの配送方法の指定です。 @:async_smtp@ は非同期送信を行います。Redmineはメールの送信完了を待たずに次画面に遷移します。
+
+有効な設定:
+* :smtp
+* :async_smtp
+
+
+h2. email.ymlの設定例
+
+h3. 認証有り(デフォルト)
+
+<pre>
+# Outgoing email settings
+
+production:
+  delivery_method: :smtp
+  smtp_settings:
+    address: smtp.example.net
+    port: 25
+    domain: example.net
+    authentication: :login
+    user_name: redmine@example.net
+    password: redmine
+  
+development:
+  delivery_method: :smtp
+  smtp_settings:
+    address: 127.0.0.1
+    port: 25
+    domain: example.net
+    authentication: :login
+    user_name: redmine@example.net
+    password: redmine
+</pre>
+
+
+h3. 認証無し
+
+認証を使用しないSMTPサービスプロバイダを利用する場合の例です。"none"の前にはコロンが必要です。注意してください。
+
+<pre>
+production:
+  delivery_method: :smtp
+  smtp_settings:
+    address: smtp.knology.net
+    port: 25
+    domain: cybersprocket.com
+    authentication: :none
+</pre>
