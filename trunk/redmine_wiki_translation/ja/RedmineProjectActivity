@@ -1,0 +1,25 @@
+h1. 活動
+
+*_活動_* 画面は、プロジェクトにおける全ての作業の時系列による記録を表示します。
+次のものが含まれます。
+
+* チケットの登録や更新
+* リポジトリに対するチェックイン (チェンジセット)
+* ニュース
+
+上記はデフォルトで表示されます。Wiki、フォーラムの更新情報を表示するよう設定することもできます。
+
+!projects_redmine_activity.png!
+
+* !/images/redmine/ticket.png! チケットの新規登録
+* !/images/redmine/ticket_edit.png! チケットの編集
+* !/images/redmine/ticket_checked.png! チケットが完了した
+* !/images/redmine/ticket_note.png! チケットに注釈が追加された
+* !/images/redmine/changeset.png! リポジトリへのコミット
+* !/images/redmine/news.png! ニュースに新たな項目が追加された
+* !/images/redmine/message.png! フォーラムへのメッセージの追加または更新
+* !/images/redmine/comments.png! フォーラムのメッセージにコメントを追加
+* !/images/redmine/wiki_edit.png! Wikiへのページの追加または更新
+* !/images/redmine/attachment.png! 「ファイル」に新たにファイルが追加された
+* !/images/redmine/document.png! 「文書」への新たなファイルの追加または更新
+* !/images/redmine/projects.png! プロジェクトの新規作成
