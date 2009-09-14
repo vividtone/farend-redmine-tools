@@ -11,6 +11,16 @@ _No entries._
 
 h2. B
 
+h3. Backlogs plugin
+
+* "Backlogs":http://www.redmine.org/boards/3/topics/8339 is scrum/agile tool.
+** Author: "_Mark Maglana_":http://www.redmine.org/account/show/6882
+** Latest release: _<code>0.0.1</code>, 2009-08-03_
+** Compatible with: _Redmine 0.8.4_
+** Public SCM: _http://github.com/relaxdiego/backlogs/tree_
+** Public ITS: _http://backlogsplugin.morphexchange.com/projects/redmine-backlogs_
+
+
 h3. Blog plugin
 
 * "Blog":http://www.redmine.org/boards/3/topics/5782 is a plugin which provides a blog within Redmine.
@@ -382,6 +392,15 @@ h3. Messenger plugin
 ** Public SCM: _http://github.com/mszczytowski/redmine_messenger/tree_
 ** Public ITS: _http://mszczytowski.lighthouseapp.com/projects/19134-redmine_messenger/tickets_
 
+h3. My Effort plugin
+
+* [[PluginMyEffort|My Effort]] is a plugin that allows to start/stop timers for time spent on an issue from a separate tab.
+** Author: "_Oleg Vivtash / MontgomeryKingston_":http://www.mkresults.com/
+** Latest release: _05 Sep 2009_
+** Compatible with: _Redmine 0.8.4+_
+** Public SCM: _http://github.com/duhast/redmine_my_effort/tree_
+** Public ITS: _http://github.com/duhast/redmine_my_effort/issues_
+
 h3. My Widgets plugin
 
 * [[PluginMyWidgets|My Widgets]] is a plugin that provides additional blocks for "the my page portal":/my/page.
@@ -606,7 +625,7 @@ h3. Wiki Extensions plugin
 
 * "Wiki Extensions":http://www.redmine.org/boards/3/topics/7130 is a plugin which adds several useful wiki macros to Redmine.
 ** Author: "_Haru Iida_":http://www.redmine.org/account/show/5250
-** Latest release: _<code>0.0.8</code>, 2009-08-14_
+** Latest release: _<code>0.0.9</code>, 2009-09-06_
 ** Compatible with: _Redmine 0.8.x & Redmine Trunk_
 ** Conflicts with: _[[Plugin List#Collapse-plugin|Collapse plugin <= 0.2.2]]_
 ** Public SCM: _http://code.google.com/p/redminewikiext/source/browse/#svn/trunk/redmine_wiki_extensions_
@@ -622,6 +641,15 @@ h3. Whining plugin
 ** Public SCM: _http://github.com/chantra/redmine_whining/tree/master_
 ** Public ITS: _http://github.com/chantra/redmine_whining/issues_
 
+
+h3. Workload plugin
+
+* [[PluginWorkload| Workload]] is meant to help PMO activities with regards to workload provisionning and periodic timesheet management.  It works fine and gives you a handle on man-days tied to projects, categories, issues.
+** Author: "_Chris Mann_":http://www.redmine.org/account/show/5999
+** Latest release: _<code>0.0.1</code>, 2009-09-12_
+** Compatible with: _Redmine 0.8.4_
+** Public SCM: _http://github.com/chris2fr/redmine_workload/tree/master_
+** Public ITS: _http://github.com/chris2fr/redmine_workload/issues_
 
 h2. X
 

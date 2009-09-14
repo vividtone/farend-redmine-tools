@@ -3,6 +3,6 @@ h1. 0 9
 Main features:
 * Unlimited subproject nesting (#594)
 * Private tickets (#337)
-* User groups
+* User groups (#1018)
 
-Internationalization support will use Rails 2.2 I18n instead of the GLoc plugin.
+Internationalization support will use Rails 2.3 I18n instead of the GLoc plugin.

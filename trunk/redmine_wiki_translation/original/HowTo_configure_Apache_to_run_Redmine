@@ -26,14 +26,19 @@ bq. I have added sections detailing the installation and configuration of mod_fa
 
 h3. Basic Steps
 
-* Install Redmine per the installation instructions and get it running with webrick.
+* Install Redmine per the [[RedmineInstall| installation instructions]] and get it running with webrick.
 
 * Kill the webrick session
 
 * Copy the public/dispatch.cgi.example to public/dispatch.cgi
 
-* Edit public/dispatch.cgi to fix the shell script invocation to read:
+* Edit public/dispatch.cgi to fix the shell script invocation to point to your ruby install location like:
   @#!/usr/local/bin/ruby@
+  or 
+  @#!/usr/bin/ruby@
+
+* Also in public/dispatch.cgi, you may need to change the require line to an absolute path as stated in the comment to something like
+  @require "/usr/lib/ruby/gems/1.8/gems/rails-2.1.2/lib/dispatcher.rb"@
 
 * Make sure public/dispatch.cgi has execute permissions via:
   @# chmod 755 public/dispatch.cgi@

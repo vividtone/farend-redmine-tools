@@ -1,0 +1,12 @@
+h1. PMO
+
+Project Management Offices need to provision and track workloads between competing projects.  Redmine is a great project collaboration tool for software teams.  
+
+A series of plugins are under development in order to ease the use of Redmine as a PMO tool :
+* "Workload":http://github.com/chris2fr/redmine_workload (weekly timesheet and future assignments per developper with summary information)
+* "Taskjuggler":http://github.com/chris2fr/redmine_taskjuggler (for scheduling future tasks leveredged by a first-class scheduling program)
+
+Redmine 0.9 also takes better into account task dependencies.  The Taskjuggler round-trip extension and plugin is user for controling developper overload.  Workload eases planning of future tasks in man-days.
+
+These plugins are currently under beta development and participation is very much welcome !
+
