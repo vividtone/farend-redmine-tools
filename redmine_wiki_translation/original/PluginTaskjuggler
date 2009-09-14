@@ -1,0 +1,12 @@
+h1. PluginTaskjuggler
+
+Worklod input and review.
+
+http://github.com/chris2fr/redmine_taskjuggler/downloads
+
+http://www.taskjuggler.org/ import and export.
+
+Next steps :
+* implement language file
+* incorporate taskjuggler directly into the plugin optionally
+

@@ -1,0 +1,25 @@
+h1. Issues Group Plugin
+
+h2. Main features
+
+* Issues group (by custom fields too)
+* Custom queries categorization
+* Subissues/subtask feature implementation
+
+h2. Screenshots
+
+* Issues group feature:
+ !redmine_issues_group.png!
+* Custom queries categorization 
+ !redmine_queries_group.png!
+* Subissues/subtask
+ !subissues.png!
+ !subissues_03_2.png!
+
+h2. Forum
+
+http://www.redmine.org/boards/3/topics/4701
+
+h2. Download
+
+* Git: http://github.com/Ubik/redmine_issues_group/tree/origin

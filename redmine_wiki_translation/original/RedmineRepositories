@@ -102,7 +102,9 @@ Where %%GIT_PATH%% is the install directory of Git (eg: _C:/Git_)
 
 h3. Mercurial repository
 
-TBD
+To synchronize with a Mercurial repository, you will have to have a local clone of the repository on the same server you have Redmine installed on. Let's say you put Redmine in /var/www/redmine.example.com/www and have put your mercurial repository in /var/www/sources.example.com/repo/example, you would have to select *Mercurial* as a SCM, then enter */var/www/sources.example.com/repo/example* in the repository text box.
+
+This will start checking out the Mercurial repository, and you won't see the results straight away. Wait for a few seconds (or possibly minutes), and click the *Repository* tab of your project (not of your configuration settings). You should now see the results appear.
 
 h3. Bazaar repository
 

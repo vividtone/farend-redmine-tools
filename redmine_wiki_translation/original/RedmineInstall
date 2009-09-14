@@ -13,7 +13,8 @@ h3. Ruby & Ruby on Rails
 The required Ruby and Ruby on Rails versions for a given Redmine version is:
 
 |_. Redmine version|_. Supported Ruby versions|_. Required Rails version|
-|current trunk|ruby 1.8.6, 1.8.7|Rails 2.2.2|
+|current trunk|ruby 1.8.6, 1.8.7|Rails 2.3.4|
+|trunk from r2493 to r2886|ruby 1.8.6, 1.8.7|Rails 2.2.2|
 |trunk before r2493|ruby 1.8.6, 1.8.7|Rails 2.1.2|
 |0.8.x|ruby 1.8.6, 1.8.7|Rails 2.1.2|
 |0.7.x|ruby 1.8.6|Rails 2.0.2|
@@ -98,7 +99,7 @@ production:
   schema_search_path: <database_schema> (default - public)
 </pre>
 
-4. Generate a session store secret (r2493 and higher only.  0.8.x users can skip this step) ***
+4. Generate a session store secret.  This is only required on the *trunk* version of Redmine at r2493 or above.  Users installing a released version of 0.8.x can skip this step.
 
 Redmine stores session data in cookies by default, which requires a secret to be generated. This can be done by running:
 

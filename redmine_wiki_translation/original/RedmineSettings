@@ -138,9 +138,9 @@ This option lets you enable/disable new users self registration:
 * *manual account activation* _(default)_: new users' accounts are created but need administrator approval. Administrators receive an email informing them that an account is pending their approval.
 * *automatic account activation*: new users can log in as soon as they have registered.
 
-h3. Minimum password lenght
+h3. Minimum password length
 
-This setting will be added in Redmine version#6. Let's the admin decide on the minimum lenght of the chosen passwords.
+This setting will be added in Redmine version#6. Let's the admin decide on the minimum length of the chosen passwords.
 
 _Default: 4_
 
@@ -161,11 +161,11 @@ The default state of newly created projects. The project can still be made non-p
 
 h3. Generate sequential project identifiers
 
-This setting will let Redmine propose sequential project identifiers for you. This can still be manually changed only while creating the project, not afterwards.
+This setting will let Redmine propose sequential project identifiers for you. This can still be manually changed only while creating the project, not afterward.
 
 h3. Role given to a non-admin user who creates a project
 
-This setting will be added in Redmine version#6. It adds a setting to choose which role is given by default to a non-admin user who creates a project (this only applies when you have configured Redmine permissions in such a way that non-admin users are actually priviledged to create projects).
+This setting will be added in Redmine version#6. It adds a setting to choose which role is given by default to a non-admin user who creates a project (this only applies when you have configured Redmine permissions in such a way that non-admin users are actually privileged to create projects).
 
 h2. Issue tracking
 
@@ -237,11 +237,11 @@ This option should be activated only if you installed the script for automatic S
 
 h3. Enabled SCM
 
-Here you can (de)select the SCM-systems Redmine should "provide" to the individual projects. This setting is usefull if you only support several SCM-systems (e.g. only Git or only SVN).
+Here you can (de)select the SCM-systems Redmine should "provide" to the individual projects. This setting is useful if you only support several SCM-systems (e.g. only Git or only SVN).
 
 h3. Repositories encodings
 
-This option lets you specify prefered encodings for repository files (multiple values allowed, comma separated). These encodings are used to convert files content and diff to UTF-8 so that they're properly displayed in the browser.
+This option lets you specify preferred encodings for repository files (multiple values allowed, comma separated). These encodings are used to convert files content and diff to UTF-8 so that they're properly displayed in the browser.
 When entering multiple encodings, the first valid encoding regarding the file content is used.
 
 For French users, this option can be for example set to:

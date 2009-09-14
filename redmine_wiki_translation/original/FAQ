@@ -150,9 +150,9 @@ Thus, create both the child- and parent-pages and then open the to-be child-page
 
 h2. Performance
 
-h3. When I create a new issue, Redmine freeze during one minute.
+h3. When I create a new issue, Redmine freezes for one minute.
 
-Make sure your SMTP server is properly configured or desactive *email notifications* (remove @config/email.yml@) and restart redmine.
+Make sure your SMTP server is properly configured or deactivate *email notifications* (remove @config/email.yml@) and restart Redmine.
 
 h2. Miscellaneous
 
@@ -171,8 +171,8 @@ Do not install this plugin if you're using Redmine 0.8.
 
 h3. What is the difference between Documents and Files?
 
-The "Documents" section is aimed to publish... documents as specification of the tracked project, or notice, or every other documents that have not it's place in a SCM.
-The "Files" section is aimed to publish... versions of the tracked project, as a bundle (release).
+The "Documents" section is for publishing specifications, notices, or other documents that do not belong in a SCM.
+The "Files" section is for publishing versions of the tracked project, as a bundle (release).
 
 h3. I get a 404-error when I try to view or diff a PHP-file
 
