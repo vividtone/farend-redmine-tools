@@ -1,0 +1,26 @@
+<ul>
+	<li>
+		<h2>このblogについて</h2>
+			<p>
+				Redmineに関するニュース、Redmineをより活用するためのtipsなどを掲載します。
+			</p>
+	</li>
+	<li>
+		<h2>分類</h2>
+		<ul>
+			<% @site.tags.sort.each do |tag| %>
+				<li><%= link_to(tag, "/tags/#{tag}/") %> (<%= items_with_tag(tag).size %>) </li>
+			<% end %>
+		</ul>
+	</li>
+	<li>
+		<h2>関連サイト</h2>
+		<ul>
+			<li><a href="http://redmine.jp/">Redmine.JP</a></li>
+			<li><a href="http://hosting.redmine.jp/">Redmineホスティングサービス</a></li>
+			<li><a href="http://hosting.redmine.jp/"><nobr>ファーエンドテクノロジー</nobr><nobr>株式会社</nobr></a></li>
+			<li><a href="http://redmineblog.com/">Redmine Blog - The Official Redmine blog</a></li>
+		</ul>
+	</li>
+</ul>
+	

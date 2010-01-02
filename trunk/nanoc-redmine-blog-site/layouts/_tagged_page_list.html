@@ -1,0 +1,7 @@
+<h1>分類 "<%= @tag %>" に含まれるページ</h2>
+
+<ul>
+<% items_with_tag(@tag).each do |item| %>
+<li><%= link_to(item[:title], item.identifier) %> (<%= item.mtime.strftime("%Y-%m-%d") %>)</li>
+<% end %>
+</ul>

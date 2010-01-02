@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<%= render "_html_head" %>
+</head>
+<body>
+<div id="header"><%= render "_header" %></div>
+<!-- end #header -->
+<div id="menu"><%= render "_menu" %></div>
+<!-- end #menu -->
+<div id="page">
+	<div id="content">
+		<%= yield %>
+	</div>
+	<!-- end #content -->
+	<div id="sidebar"><%= render "_sidebar" %></div>
+	<!-- end #sidebar -->
+	<div style="clear: both;">&nbsp;</div>
+</div>
+<!-- end #page -->
+<div id="footer"><%= render "_footer" %></div>
+<!-- end #footer -->
+</body>
+</html>
