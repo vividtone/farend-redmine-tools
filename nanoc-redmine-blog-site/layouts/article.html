@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<%= render "_html_head" %>
+</head>
+<body>
+<div id="header"><%= render "_header" %></div>
+<!-- end #header -->
+<div id="menu"><%= render "_menu" %></div>
+<!-- end #menu -->
+<%
+  require 'time'
+%>
+<div id="page">
+	<div id="content">
+
+		<div class="post">
+		  <h1 class="title"><%= @item[:title] %></h1>
+		  <p class="meta">
+		    <%= Time.parse(@item[:created_at]).strftime("%Y-%m-%d %H:%M") %> &nbsp;&bull;&nbsp;
+		    分類: <%= tags_for(@item, {:base_url => '/tags/'}) %>
+		  </p>
+
+		  <div class="entry">
+		    <%= yield %>
+		  </div>
+		</div>
+
+	</div>
+	<!-- end #content -->
+	<div id="sidebar"><%= render "_sidebar" %></div>
+	<!-- end #sidebar -->
+	<div style="clear: both;">&nbsp;</div>
+</div>
+<!-- end #page -->
+<div id="footer"><%= render "_footer" %></div>
+<!-- end #footer -->
+</body>
+</html>

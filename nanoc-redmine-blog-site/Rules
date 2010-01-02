@@ -1,0 +1,44 @@
+#!/usr/bin/env ruby
+
+preprocess do
+  # 使用されている全てのタグ用のページを作成。
+  @site.tags.each do |tag|
+    items << Nanoc3::Item.new(
+      "<%= render '_tagged_page_list', :tag => '#{tag}' %>",
+      {:title => tag},
+      "/tags/#{tag}"
+    )
+  end
+
+  # blog記事に対応するitemにBloggingHelperで必要となる属性を追加。
+  articles = items.select {|item| item.identifier =~ /^\/articles\//}
+  articles.each do |item|
+    item.attributes[:kind] ||= "article"
+    item.attributes[:created_at] ||= item.mtime.to_s
+  end
+end
+
+compile '/feed/' do
+  filter :erb
+end
+
+route '/feed/' do
+  '/feed.xml'
+end
+
+compile '/articles/*' do
+  filter :erb
+  filter :redcloth
+  layout 'article'
+end
+
+compile '*' do
+  filter :erb
+  layout 'default'
+end
+
+route '*' do
+  item.identifier + 'index.html'
+end
+
+layout '*', :erb

@@ -1,0 +1,17 @@
+<% sorted_articles[0..2].each do |item| %>
+
+<div class="post">
+  <h1 class="title"><%= link_to(item[:title], item.reps.first) %></h1>
+  <p class="meta">
+    <%= Time.parse(item[:created_at]).strftime("%Y-%m-%d %H:%M") %> &nbsp;&bull;&nbsp;
+    分類: <%= tags_for(item, {:base_url => '/tags/'}) %> &nbsp;&bull;&nbsp;
+    <%= link_to("全文", item.reps.first, {:class => "permalink"}) %>
+  </p>
+
+  <div class="entry">
+	  <p><%= strip_html(item.reps.first.content_at_snapshot(:pre)).split(//u)[0..99].to_s + " …" %></p>
+	  <p><%= link_to("[続きを読む]", item.reps.first, {:class => "permalink"}) %></p>
+  </div>
+</div>
+
+<% end %>
