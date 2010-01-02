@@ -2,6 +2,13 @@
 
 <ul>
 <% items_with_tag(@tag).each do |item| %>
-<li><%= link_to(item[:title], item.identifier) %> (<%= item.mtime.strftime("%Y-%m-%d") %>)</li>
+<% 
+  if item[:created_at] then
+    created_at = Time.parse(item[:created_at])
+  else
+    created_at = item.mtime
+  end
+%>
+<li><%= link_to(item[:title], item.identifier) %> (<%= created_at.strftime("%Y-%m-%d") %>)</li>
 <% end %>
 </ul>
