@@ -48,6 +48,10 @@ a:hover {
 	background: none;
 }
 
+img {
+	border: none;
+}
+
 /* Header */
 
 #header {
