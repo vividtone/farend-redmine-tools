@@ -9,7 +9,7 @@ body {
 	background: url(img01.jpg) repeat-x left top;
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 	font-size: 16px;
-	color: #787878;
+	color: #333333;
 }
 
 h1, h2, h3 {
@@ -39,11 +39,12 @@ ul, ol {
 }
 
 a {
-	text-decoration: none;
-	color: #C0BFBF;
+	color: #336633;
 }
 
 a:hover {
+	color: #339933;
+	text-decoration: none;
 	background: none;
 }
 
@@ -203,7 +204,6 @@ a:hover {
 	float: right;
 	width: 260px;
 	border-bottom: 1px dashed #D2D4C9;
-	color: #787878;
 }
 
 #sidebar ul {
@@ -238,7 +238,7 @@ a:hover {
 }
 
 #sidebar a {
-	color: #787878;
+	color: #333333;
 }
 
 /* Calendar */
