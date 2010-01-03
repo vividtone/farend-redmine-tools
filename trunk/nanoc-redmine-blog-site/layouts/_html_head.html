@@ -4,3 +4,4 @@
 <title><%= @item[:title] %> | Redmine.JP Blog</title>
 <link href="/assets/style.css" rel="stylesheet" type="text/css" media="screen" />
 <link rel="alternate" type="application/atom+xml" title="Atom" href="/feed.xml" />
+<link rel="canonical" href="<%= @site.config[:base_url] + @item_rep.path %>" />
