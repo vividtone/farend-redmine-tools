@@ -32,7 +32,7 @@ h3 {
 
 p, ul, ol {
 	margin-top: 0;
-	line-height: 180%;
+	line-height: 160%;
 }
 
 ul, ol {
@@ -175,6 +175,12 @@ img {
 	width: 630px;
 }
 
+#content img {
+	border: 1px;
+	border-style: solid;
+	border-color: #999999;
+}
+
 .post {
 	background: url(img03.jpg) no-repeat left top;
 }
@@ -209,6 +215,7 @@ img {
 	float: right;
 	width: 260px;
 	border-bottom: 1px dashed #D2D4C9;
+	font-size: 14px;
 }
 
 #sidebar ul {

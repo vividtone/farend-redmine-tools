@@ -1,9 +1,16 @@
 <ul>
 	<li>
 		<h2>このblogについて</h2>
-			<p>
-				Redmineに関するニュース、Redmineをより活用するためのtipsなどを掲載します。
-			</p>
+			<p> Redmineに関するニュース、Redmineをより活用するためのtipsなどを掲載します。</p>
+
+	</li>
+	<li>
+		<h2>最近の記事</h2>
+		<ul>
+			<% sorted_articles[0..4].each do |item| %>
+			<li><%= link_to(item[:title], item.reps.first) %> (<%= Time.parse(item[:created_at]).strftime("%Y/%m/%d") %>)</li>
+			<% end %>
+		</ul>
 	</li>
 	<li>
 		<h2>分類</h2>
