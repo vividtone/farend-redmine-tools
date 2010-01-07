@@ -11,7 +11,7 @@ preprocess do
   end
 
   # blog記事に対応するitemにBloggingHelperで必要となる属性を追加。
-  articles = items.select {|item| item.identifier =~ /^\/articles\//}
+  articles = items.select {|item| item.identifier =~ %r|^/articles/.*/|}
   articles.each do |item|
     item.attributes[:kind] ||= "article"
     item.attributes[:created_at] ||= item.mtime.to_s
@@ -26,7 +26,7 @@ route '/feed/' do
   '/feed.xml'
 end
 
-compile '/articles/*' do
+compile '/articles/*/' do
   filter :erb
   filter :redcloth
   layout 'article'
