@@ -23,6 +23,9 @@
 
 		  <div class="entry">
 		    <%= yield %>
+
+		    <p style="text-align: right;">作成: <%= Time.parse(@item[:created_at]).strftime("%Y-%m-%d %H:%M") %> &nbsp;&bull;&nbsp; 分類: <%= tags_for(@item, {:base_url => '/tags/'}) %></p>
+		    <a href="http://hosting.redmine.jp/"><img src="/assets/my_redmine_banner.png"></a></div>
 		  </div>
 		</div>
 
