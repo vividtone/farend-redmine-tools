@@ -1,7 +1,7 @@
 <h1>分類 "<%= @tag %>" に含まれるページ</h2>
 
 <ul>
-<% items_with_tag(@tag).each do |item| %>
+<% items_with_tag(@tag).sort_by {|item| Time.parse(item[:created_at]).to_i * -1}.each do |item| %>
 <% 
   if item[:created_at] then
     created_at = Time.parse(item[:created_at])
