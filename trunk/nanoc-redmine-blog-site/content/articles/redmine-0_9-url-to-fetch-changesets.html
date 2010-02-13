@@ -1,0 +1,96 @@
+Redmine 0.9から、Redmine上の特定URLにアクセスすることによりSubversion等のリポジトリの情報を読み込ませることができるようになります。例えば、Subversionへのコミット後に実行されるpost-commitスクリプトからそのURLへGETリクエストを行うことにより、コミットと同時にRedmineに最新のリポジトリの情報を読み込ませることができます。
+
+
+h2. コミット情報の同期の問題
+
+Redmineでは、「リポジトリ」画面を開くまではリポジトリへの最新のコミット情報が取り込まれません。これにより、活動画面に最新のコミット情報が表示されない、チケット表示画面で関係するリビジョンが表示されないなどの問題が発生することがありました。
+
+h2. Redmine0.8までの対策と問題点
+
+0.8ではこの問題を緩和あるいは回避するために、Redmineを実行しているサーバ上で @ruby script/runner "Repository.fetch_changesets" -e production@ を実行してリポジトリの情報を読み込む方法が提供されています。これをcronで一定間隔ごとに自動実行する、もしくはSubversionのpost-commitスクリプトでコミットごとに実行する、などの方法をとっていました。
+
+[参考] "「リポジトリ」を開くまでSubversion等のリポジトリへのコミットが「活動」に表示されません":http://redmine.jp/faq/repository/subversion/ (Redmine.JP)
+
+ただ、それらの設定も完璧な対策ではありません。cronで一定時間ごとに取得する方法はタイムラグが発生しますし、 post-commitスクリプトを設定する方法はコミットと同時にRedmineにリポジトリの情報が取り込まれるので理想的ですが、RedmineとSubversionを同じサーバで使っている場合しか利用できません。
+
+h2. Redmine 0.9における対策
+
+0.9では、Redmineにリポジトリの情報を読み込ませる方法として、これまでのコマンドラインによる方法に加えて、特定のURL /sys/fetch_changesets にアクセスする方法が追加されました。
+
+これにより、RedmineとSubversion等のバージョン管理システム(SCM)を実行しているサーバが同一でなくても、post-commitスクリプトでリポジトリの情報を読み込ませることができるようになります。
+
+h2. 設定方法(Redmine 0.9 + Subversionの例)
+
+h3. Redmineの設定
+
+
+* 「管理」→「設定」→「リポジトリ」を開き、「リポジトリ管理用のWebサービスを有効にする」をONにします。
+* 「APIキー」に、APIキーとして使用する文字列を設定します。右側の「キーの生成」をクリックすると、Redmineにランダムな文字列を生成させることもできます。
+* 画面下の保存ボタンをクリックし、設定を保存します。
+
+!/assets/2010/01/15/admin-settings-repository.png!
+
+以上の設定を行うことでリポジトリ取得用のURLが有効になり、以下の形式のURLでアクセス(GETリクエスト)を行うとRedmineがリポジトリの情報取得を開始します。
+
+<command>http://<i>Redmineサーバ名</i>/sys/fetch_changesets?key=<i>APIキー</i>&id=<i>プロジェクト識別子</i></command>
+
+※「<command>id=<i>プロジェクト識別子</i></command>」を省略すると全プロジェクトでリポジトリの読み込みを実行。
+
+
+h3. Subversionの設定
+
+Subversionリポジトリでpost-commitスクリプトを設定し、コミットが行われるごとにリポジトリ情報取得へのアクセスが行われるようにします。
+
+1. post-commitスクリプトの作成
+
+サーバ上のSubversionリポジトリのディレクトリに移動します。その中のhooksディレクトリに下記内容のファイルを post-commit という名称で作成します。
+
+<notextile><pre>
+#!/bin/sh
+REPOS="$1"
+REV="$2"
+
+# 以下は実際には改行無しで1行で記述
+/usr/local/bin/ruby -ropen-uri -e 'open("http://<b>Redmineサーバ</b>/sys/fetch_changesets?key=<b>APIキー</b>")'
+
+# wgetがインストールされていれば以下のようにしてもよいです
+# /usr/bin/wget -q -O /dev/null http://<b>Redmineサーバ</b>/sys/fetch_changesets?key=<b>APIキー</b>
+</pre></notextile>
+
+* Redmineサーバ、APIキーの箇所は適宜書き換えてください。
+* rubyはフルパスで記述してください。post-commitスクリプト内ではPATH環境変数は設定されない場合があります。
+
+2. パーミッションの設定
+
+下記コマンドを実行し実行権限を付与します。post-commitスクリプトはRedmineを実行しているユーザーで読み取り・実行が可能でなければなりません。
+
+@# chmod +x post-commit@
+
+3. 動作確認
+
+リポジトリに対してcommitを行い、Redmine上で情報が取り込まれているか活動画面などで確認します。
+
+post-commitスクリプトの実行が失敗した場合は、コミット直後に以下のようなエラーが表示されます。
+
+エラー例1: rubyが見つからない → 対策:post-commitスクリプトでrubyをフルパスで記述
+
+<notextile><pre>
+$ svn commit -m "test commit"
+Adding         test
+Transmitting file data .
+Committed revision 7.
+
+<b>Warning: post-commit hook failed (exit code 127) with output:
+/some/where/repos/hooks/post-commit: line 5: ruby: command not found</b>
+</pre></notextile>
+
+エラー例2: post-commitスクリプトに実行権限がない → 対策:<command>chmod +x post-commit</command>
+
+<notextile><pre>
+$ svn commit -m "test commit"
+Adding         test
+Transmitting file data .
+Committed revision 7.
+
+<b>Warning: post-commit hook failed (exit code 255) with no output.</b>
+</pre></notextile>

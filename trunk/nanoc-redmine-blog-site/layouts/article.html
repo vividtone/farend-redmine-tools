@@ -13,6 +13,9 @@
 %>
 <div id="page">
 	<div id="content">
+		<div class="text_ad">
+			<a href="http://hosting.redmine.jp/">Redmine + Subversionホスティングサービス「<strong>My Redmine</strong>」</a><br/>複数拠点から使えるプロジェクト管理SaaS。1ヶ月無料試用受付中。</a>
+		</div>
 
 		<div class="post">
 		  <h1 class="title"><%= @item[:title] %></h1>
@@ -25,9 +28,12 @@
 		    <%= yield %>
 
 		    <p style="text-align: right;">作成: <%= Time.parse(@item[:created_at]).strftime("%Y-%m-%d %H:%M") %> &nbsp;&bull;&nbsp; 分類: <%= tags_for(@item, {:base_url => '/tags/'}) %></p>
-		    <a href="http://hosting.redmine.jp/"><img src="/assets/my_redmine_banner.png"></a></div>
 		  </div>
-		</div>
+		    <div class="text_ad">
+		      <p><a href="http://hosting.redmine.jp/">Redmine + Subversionホスティングサービス「<strong>My Redmine</strong>」</a><br/>他社との協業、オフショア開発など複数拠点にまたがるプロジェクトの運営・情報共有に。SaaSなのでサーバの調達・管理も不要です。1ヶ月無料試用受付中。</a></p>
+		    <a href="http://hosting.redmine.jp/"><img src="/assets/my_redmine_banner.png"></a>
+		    </div>
+	  	</div>
 
 	</div>
 	<!-- end #content -->

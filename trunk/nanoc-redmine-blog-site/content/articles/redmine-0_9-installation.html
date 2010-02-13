@@ -1,0 +1,331 @@
+正式リリースが近づいているRedmine 0.9のインストール手順を、Redmine 0.9.0 release candidateを例に説明します。
+
+h2. 想定環境
+
+|Redmineバージョン|0.9.0 release candidate|
+|OS|CentOS 5.4|
+|データベース|MySQL|
+|webサーバ|Apache (Railsの実行には<a href="">Passenger</a>を使用)|
+
+
+h2. 必要なパッケージのインストール
+
+開発ツール(Cコンパイラ等):
+@# yum groupinstall "Development Tools"@
+
+Rubyのビルドに必要なライブラリのヘッダファイル:
+@# yum install openssl-devel readline-devel zlib-devel@
+
+MySQLとヘッダファイル:
+@# yum install mysql-server mysql-devel@
+
+Apacheとヘッダファイル:
+@# yum install httpd httpd-devel@
+
+h2. RubyとPassengerのインストール
+
+Passengerの開発元であるPhusionが開発しているRuby Enterprise Editionをインストールします。
+
+Ruby Enterprise EditionはRuby 1.8.7をベースに変更を加えたもので、オリジナルのRubyと比較すると、Passenger上でRuby on Railsアプリケーションを実行する際にメモリ使用量を減らせるというメリットがあります。また、インストール時にPassengerやRuby用MySQLデータベースドライバなど関係するパッケージも同時にインストールされて便利です。
+
+1. Ruby Enterprise Editionのダウンロード
+
+"http://www.rubyenterpriseedition.com/download.html":http://www.rubyenterpriseedition.com/download.html
+
+2. インストーラ実行
+
+ダウンロードしたtarballを展開して installer を実行します。以下のコマンド例においてinstallerが格納されているディレクトリはRuby Enterprise Editionのバージョンによって変わります。適宜読み替えて実行してください。
+
+<pre>
+# ./ruby-enterprise-1.8.7-2010.01/installer --no-dev-docs
+</pre>
+
+インストーラを実行すると、Ruby Enterprise Editionをビルドするのに必要なソフトウェアがOSにインストールされているか確認が行われます。不足しているものがあるとエラーが表示され先に進めません。前述の「必要なパッケージのインストール」を実行していれば、エラーが発生することなく先に進めるはずです。
+
+<pre>
+Checking for required software...
+
+ * C compiler... found at /usr/bin/gcc
+ * C++ compiler... found at /usr/bin/g++
+ * The 'make' tool... found at /usr/bin/make
+ * The 'patch' tool... found at /usr/bin/patch
+ * Zlib development headers... found
+ * OpenSSL development headers... found
+ * GNU Readline development headers... found
+</pre>
+
+
+必須ソフトウェアのチェックが終わると、インストール先(Target Directory)の入力を求められます。デフォルトのインストール先は"/opt/ruby-enterprise-1.8.7-2009.10/"などですが、"/usr/local/"と入力すれば、オリジナルのRubyをビルドしたときと同様に/usr/local以下にインストールされます。
+
+<notextile><pre>
+Target directory
+
+Where would you like to install Ruby Enterprise Edition to?
+(All Ruby Enterprise Edition files will be put inside that directory.)
+
+[/opt/ruby-enterprise-1.8.7-2010.01] : <b>/usr/local</b>
+</pre></notextile>
+
+本手順ではCentOSにSQLiteやPostgreSQL関係のパッケージを導入していないので途中gemパッケージ"sqlite3-ruby"と"pg"のインストールに失敗して次のようなエラーが表示されます。本手順では、MySQLを使う予定なので無視しても問題ありません。
+
+
+<pre>
+The following gems could not be installed, probably because of an Internet
+connection error:
+
+ * sqlite3-ruby
+ * pg
+</pre>
+
+h2. PassengerのApache用モジュールのインストール
+
+インストーラを実行し画面の指示に従って操作します。
+
+@# passenger-install-apache2-module@
+
+途中でApacheに設定すべき内容が表示されますので控えておきます。
+
+
+h2. Apacheの設定
+
+1. worker MPMに切り替える
+
+高速化とメモリの節約のために、ApacheのMPMをデフォルトのprefork MPMからworker MPMに変更します。
+
+*/etc/sysconfig/httpd:*
+
+<pre>
+HTTPD=/usr/sbin/httpd.worker
+</pre>
+
+2. Passengerの設定を追加
+
+/etc/httpd/conf/httpd.confに直接追加してもよいですが、管理しやすいようPassenger関係の設定は別ファイルにまとめます。
+
+*/etc/httpd/conf.d/passenger.conf:*
+
+<pre>
+# Passengerの基本設定。
+# passenger-install-apache2-moduleインストール中に表示された内容を使用する。
+#
+LoadModule passenger_module /usr/local/lib/ruby/gems/1.8/gems/passenger-2.2.9/ext/apache2/mod_passenger.so
+PassengerRoot /usr/local/lib/ruby/gems/1.8/gems/passenger-2.2.9
+PassengerRuby /usr/local/bin/ruby
+
+# Passengerが追加するHTTPヘッダを削除するための設定。
+#
+Header always unset "X-Powered-By"
+Header always unset "X-Rack-Cache"
+Header always unset "X-Content-Digest"
+Header always unset "X-Runtime"
+
+# 必要に応じてPassengerのチューニングのための設定を追加。
+#
+PassengerMaxPoolSize 20
+PassengerMaxInstancesPerApp 4
+PassengerPoolIdleTime 3600
+PassengerUseGlobalQueue on
+PassengerHighPerformance on
+PassengerStatThrottleRate 10
+RailsSpawnMethod smart
+RailsAppSpawnerIdleTime 86400
+RailsFrameworkSpawnerIdleTime 0
+</pre>
+
+3. Apacheの起動および自動起動の設定
+
+<pre>
+# /etc/init.d/httpd start
+# /sbin/chkconfig httpd on
+</pre>
+
+h2. MySQLの設定
+
+1. デフォルトキャラクタセットをutf8に設定
+
+/etc/my.cnfの @[mysqld]@ セクション、 @[mysqld_safe]@ セクション、 @[mysql]@セクション にそれぞれ /etc/my.cnfの @[mysqld]@ セクション、 @[mysqld_safe]@ セクション、 @[mysql]@セクション にそれぞれ @default-character-set=utf8@ を追加してください。
+
+<pre>
+[mysqld]
+datadir=/var/lib/mysql
+socket=/var/lib/mysql/mysql.sock
+user=mysql
+# Default to using old password format for compatibility with mysql 3.x
+# clients (those using the mysqlclient10 compatibility package).
+old_passwords=1
+innodb_file_per_table
+default-character-set=utf8
+
+[mysqld_safe]
+log-error=/var/log/mysqld.log
+pid-file=/var/run/mysqld/mysqld.pid
+default-character-set=utf8
+
+[mysql]
+default-character-set=utf8
+</pre>
+
+2. MySQLの起動および自動起動の設定
+
+<pre>
+# /etc/init.d/mysqld start
+# /sbin/chkconfig mysqld on
+</pre>
+
+3. rootユーザーのパスワード変更・匿名ユーザー削除
+
+<pre>
+# mysql -uroot
+mysql> update user set password=password('********') where user = 'root';
+mysql> use mysql;
+mysql> delete from user where user = '';
+mysql> flush privileges;
+mysql> exit;
+</pre>
+
+4. Redmine用データベースとユーザーの作成
+
+<pre>
+# mysql -uroot -p
+mysql> create database db_redmine default character set utf8;
+mysql> grant all on db_redmine.* to user_redmine identified by '********';
+mysql> flush privileges;
+mysql> exit;
+</pre>
+
+※ ******** の部分は任意のパスワードを設定してください。このパスワードは後述のdatabase.ymlの設定で使用します。
+
+
+h2. Redmineのインストール
+
+1. Redmine 0.9.0 release candidateのダウンロード
+
+下記URLからRedmine 0.9.0 release candidateのtarball(.tar.gz)をダウンロードします。
+
+"http://rubyforge.org/frs/?group_id=1850":http://rubyforge.org/frs/?group_id=1850
+
+2. ダウンロードしたRedmineの展開と配置
+
+ダウンロードしたRedmineのtarballを展開します。redmine-0.9.0というディレクトリが作成され、その下にRedmineを構成するファイル群が作成されます。
+
+<pre>
+# tar zxvf redmine-0.9.0.tar.gz
+</pre>
+
+Redmineの配置先のディレクトリを決定し、そこへ展開したファイルを移動します。例えば、/var/lib/redmine を配置先とする場合、以下のようにします。
+
+<pre>
+# mv redmine-0.9.0 /var/lib/redmine@
+</pre>
+
+3. database.ymlの設定
+
+Redmineを配置したディレクトリに移動します。
+
+<pre>
+# cd /var/lib/redmine
+</pre>
+
+以下の内容でconfig/database.ymlファイルを作成します。
+
+<pre>
+production:
+  adapter: mysql
+  database: db_redmine
+  username: user_redmine
+  password: ********
+  host: localhost
+  encoding: utf8
+</pre>
+
+※ ******** 部分は、MySQL上に作成したRedmineユーザーのパスワードです。
+
+4. email.yamlの設定
+
+以下の内容でconfig/email.ymlファイルを作成します。
+
+<pre>
+production:
+  delivery_method: :smtp
+  smtp_settings:
+    address: localhost
+    port: 25
+    domain: host.example.jp
+</pre>
+
+※host.example.jpの部分は、Redmineを実行するサーバのFQDNとしてください。
+
+5. Redmineの初期設定とデータベースのテーブル作成
+
+セッションデータ暗号化用鍵の生成とテーブル作成を行います。
+
+<pre>
+# rake config/initializers/session_store.rb
+# rake db:migrate RAILS_ENV=production
+</pre>
+
+
+h2. Apache上のPassengerでRedmineを実行するための設定
+
+まず、Redmineを配置したディレクト以下のファイルを、Apacheを実行するユーザー・グループ(CentOSの場合はいずれも"apache")で読み書きできるよう、オーナーを変更します。
+
+<pre>
+# chown -R apache:apache /var/lib/redmine
+</pre>
+
+以降、どのような形態(URL)でRedmineを利用するかによって設定が異なります。三つのパターンを例に挙げます。
+
+h3. パターン1: webサーバをRedmine専用として使用
+
+webサーバのルートディレクトリでRedmineを実行するための設定です。「http://サーバIPアドレスまたはホスト名/」でRedmineにアクセスできます。
+
+ApacheのDocumentRootをRedmineのpublicディレクトリ(例: /var/lib/redmine/public)に変更してください。
+
+*/etc/httpd/conf.d/httpd.conf:*
+
+<pre>
+DocumentRoot "/var/lib/redmine/public"
+</pre>
+
+設定変更後、Apacheを再起動します。
+
+h3. パターン2: サブディレクトリでRedmineを実行
+
+URLのサブディレクトリでURLにアクセスできるように設定します。「http://サーバIPアドレスまたはホスト名/ディレクトリ名/」でRedmineにアクセスできます。同じサーバでRedmine以外のアプリケーションを実行する場合や、複数のRedmineを実行する場合に便利な設定です。
+
+以下は、「http://サーバIPアドレスまたはホスト名/redmine/」でアクセスできるようにする場合の設定例です。
+
+1. シンボリックリンクの作成
+
+ApacheのDocumentRootに指定されているディレクトリ(通常は/var/www/html)に、Redmineのpublicディレクトリ(例: /var/lib/redmine/public)に対するシンボリックリンクを作成します。シンボリックリンクの名称は、URLのディレクトリ名部分で使いたい名前(例:redmine)にします。
+
+<pre>
+# ln -s /var/lib/redmine/public /var/www/html/redmine
+</pre>
+
+2. Apacheへの設定追加
+
+Apacheの設定ファイル(/etc/httpd/conf/httpd.conf)もしくは前述の手順で作成したPassengerの設定ファイル(/etc/httpd/conf.d/passenger.conf)などに以下の設定を追加します。
+
+<pre>
+RailsBaseURI /redmine
+</pre>
+
+設定後、Apacheを再起動してください。
+
+h3. パターン3: バーチャルホストでRedmineを実行
+
+特定のバーチャルホストでRedmineを実行する設定です。Apacheに以下の設定を追加します。
+
+<pre>
+NameVirtualHosts *:80
+
+...
+
+<VirtualHost *:80>
+    ServerName www.example.jp
+    DocumentRoot /var/lib/redmine/public
+</VirtualHost>
+</pre>
+
+設定後、Apacheを再起動してください。

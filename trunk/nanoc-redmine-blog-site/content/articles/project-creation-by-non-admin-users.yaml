@@ -2,5 +2,5 @@
 kind: article
 created_at: Wed Jan 06 14:48:42 +0900 2010
 title: "Redmine 0.9 新機能紹介(5): 管理者で無いユーザーによるプロジェクト作成"
-tags: ["0.9"]
+tags: ["0.9", "project"]
 
