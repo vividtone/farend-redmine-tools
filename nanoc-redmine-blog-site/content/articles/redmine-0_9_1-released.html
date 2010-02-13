@@ -1,0 +1,28 @@
+1月30日、Redmine 0.9.1がリリースされました。
+
+1月上旬にリリースされた0.9.0はrelease candidate(リリース候補版)という位置づけでした。今回の0.9.1が0.9系最初の正式リリースとなります。
+
+h2. Redmine 0.9の新機能
+ 
+* "Redmine 0.9の主な変更点":/articles/redmine-0_9-improvements/
+** "無制限のプロジェクト階層":/articles/redmine-0_9-project-nesting/
+** "バージョンの継承":/articles/redmine-0_9-version-inheritance/
+** "ユーザーグループ":/articles/redmine-0_9-user-group/
+** "ユーザーは複数のロールに所属可能":/articles/redmine-0_9-user-permissions/
+** "管理者で無いユーザーによるプロジェクト作成":/articles/project-creation-by-non-admin-users/
+** "プロジェクトのコピー":/articles/redmine-0_9-copy-project/
+** "チケット一覧画面の改善":/articles/redmine-0_9-issue-list-improvement.html
+* "Redmine 0.9のCHANGELOG (日本語訳付き)":/articles/redmine-0_9-changelog
+* "そのほかの本サイト内の0.9関連記事":/tags/0.9/
+
+h2. Redmine 0.9の導入手順
+
+h3. 新規インストール
+
+* "Redmine 0.9のインストール手順":/articles/redmine-0_9-installation/
+
+h3. 既存バージョンからのアップグレード
+
+* "アップグレード":http://redmine.jp/guide/RedmineUpgrade (Redmine Guide日本語訳)
+
+※Remdine 0.8.7より古いバージョンからアップグレードする場合、 @rake db:migrate@ の前に @rake config/initializers/session_store.rb@ を実行する必要があります。

@@ -1,0 +1,5 @@
+--- 
+kind: article
+created_at: Wed Jan 13 11:04:44 +0900 2010
+title: "小技(0.9): チケットのステータスで進捗率を更新する"
+tags: ["tips", "0.9", "issue"]

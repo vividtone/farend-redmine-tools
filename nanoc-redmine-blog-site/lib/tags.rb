@@ -6,7 +6,7 @@ class Nanoc3::Site
     else
       @tagging_helper_tags = []
       self.items.each do |item|
-        @tagging_helper_tags |= item[:tags] if item[:tags] 
+        @tagging_helper_tags |= item[:tags].to_a
       end
       return @tagging_helper_tags
     end

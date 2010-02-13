@@ -1,0 +1,5 @@
+--- 
+kind: article
+created_at: Thu Jan 14 16:06:46 +0900 2010
+title: "小技(0.9): バージョンのロックと終了"
+tags: ["tips", "0.9", "version"]

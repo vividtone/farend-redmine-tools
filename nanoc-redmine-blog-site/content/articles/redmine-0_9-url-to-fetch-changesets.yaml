@@ -1,0 +1,5 @@
+--- 
+kind: article
+created_at: Fri Jan 15 11:59:40 +0900 2010
+title: "小技(0.9): コミットと同時にリポジトリの情報を取得する"
+tags: ["0.9", "tips", "repository"]

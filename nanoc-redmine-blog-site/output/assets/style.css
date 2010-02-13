@@ -14,7 +14,7 @@ body {
 
 h1, h2, h3 {
 	margin: 0;
-	letter-spacing: .10em;
+	/* letter-spacing: .10em; */
 	font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -56,6 +56,29 @@ dt {
 	font-weight: bold;
 	margin-top: 8px;
 }
+
+table {
+    border-collapse: collapse;
+}
+th {
+    border: 1px solid #999999;
+    padding: 4px;
+    background: #ccffcc;
+}
+td {
+    border: 1px solid #999999;
+    padding: 4px;
+}
+
+pre {
+    white-space: -moz-pre-wrap; /* Mozilla */
+    white-space: -pre-wrap;     /* Opera 4-6 */
+    white-space: -o-pre-wrap;   /* Opera 7 */
+    white-space: pre-wrap;      /* CSS3 */
+    word-wrap: break-word;      /* IE 5.5+ */
+}
+
+
 
 /* Header */
 
@@ -175,12 +198,26 @@ dt {
 
 /* Content */
 
+
 #content {
 	float: left;
 	width: 630px;
 }
 
+#content h2 {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
 #content img {
+	border: 1px;
+	border-style: solid;
+	border-color: #999999;
+}
+
+#content pre {
+	font-size: 14px;
+	padding: 4px;
 	border: 1px;
 	border-style: solid;
 	border-color: #999999;
@@ -299,4 +336,12 @@ dt {
 
 #footer a {
 	color: #FFFFFF;
+}
+
+
+/* ad */
+.text_ad {
+	background: #ffff99;
+	padding: 5px 15px;
+	margin-bottom: 10px;
 }
